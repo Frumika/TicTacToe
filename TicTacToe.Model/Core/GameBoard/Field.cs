@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Model.Core.Board;
+﻿namespace TicTacToe.Model.Core.GameBoard;
 
 public class Field
 {
@@ -21,13 +21,19 @@ public class Field
     public int Row
     {
         get => _row ?? 0;
-        set => _row = value;
+        set
+        {
+            if (_row is null) _row = value;
+        }
     }
 
     public int Column
     {
         get => _column ?? 0;
-        set => _column = value;
+        set
+        {
+            if (_column is null) _column = value;
+        }
     }
 
     public FieldItem Item { get; set; } = Empty;

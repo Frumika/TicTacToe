@@ -1,1 +1,1 @@
-﻿global using static TicTacToe.Model.Core.Board.FieldItem;
+﻿global using static TicTacToe.Model.Core.GameBoard.FieldItem;

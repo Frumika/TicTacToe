@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Model.Core.Board;
+﻿namespace TicTacToe.Model.Core.GameBoard;
 
 public class Board
 {
@@ -10,6 +10,7 @@ public class Board
 
     private int BoardSize { get; init; }
 
+    // Todo: Добавить проверку вводимого размера 
     public Board(int size = 3)
     {
         Rows = size;
@@ -66,7 +67,6 @@ public class Board
     private bool IsWinningField(Field field)
     {
         if (field.Item == Empty) return false;
-
 
         bool rowWin = true, colWin = true, mainDiagWin = true, antiDiagWin = true;
         for (int i = 0; i < BoardSize; i++)

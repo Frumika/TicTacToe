@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Model.Core.Board;
+﻿namespace TicTacToe.Model.Core.GameBoard;
 
 public enum FieldItem
 {
