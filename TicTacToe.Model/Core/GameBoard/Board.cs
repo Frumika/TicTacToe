@@ -1,4 +1,6 @@
-﻿namespace TicTacToe.Model.Core.GameBoard;
+﻿using TicTacToe.Model.Core.GameBoard.BoardExceptions;
+
+namespace TicTacToe.Model.Core.GameBoard;
 
 public class Board
 {
@@ -10,9 +12,10 @@ public class Board
 
     private int BoardSize { get; init; }
 
-    // Todo: Добавить проверку вводимого размера 
     public Board(int size = 3)
     {
+        if (size <= 0) throw new BoardExceptionNotNatural("Введено не натуральное число.");
+
         Rows = size;
         Columns = size;
         BoardSize = size;
@@ -23,9 +26,7 @@ public class Board
         {
             for (int j = 0; j < Columns; j++)
             {
-                _board[i, j] = new Field();
-                _board[i, j].Row = i;
-                _board[i, j].Column = j;
+                _board[i, j] = new Field() { Row = i, Column = j };
             }
         }
     }
@@ -44,6 +45,7 @@ public class Board
 
     public bool IsTheFieldEmpty(int row, int column) => _board[row, column].IsEmpty();
 
+
     public FieldItem FindWinner()
     {
         FieldItem item = Empty;
@@ -52,10 +54,9 @@ public class Board
         {
             for (int j = 0; j < Columns; j++)
             {
-                Field field = new Field(_board[i, j]);
-                if (IsWinningField(field))
+                if (IsWinningField(i, j))
                 {
-                    item = field.Item;
+                    item = _board[i, j].Item;
                     break;
                 }
             }
@@ -64,8 +65,10 @@ public class Board
         return item;
     }
 
-    private bool IsWinningField(Field field)
+    private bool IsWinningField(int row, int column)
     {
+        Field field = new(_board[row, column]);
+
         if (field.Item == Empty) return false;
 
         bool rowWin = true, colWin = true, mainDiagWin = true, antiDiagWin = true;

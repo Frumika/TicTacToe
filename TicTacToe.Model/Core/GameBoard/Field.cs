@@ -5,17 +5,7 @@ public class Field
     /*  Private Fields  */
     private int? _row = null;
     private int? _column = null;
-
-    public Field()
-    {
-    }
-
-    public Field(Field other)
-    {
-        Row = other.Row;
-        Column = other.Column;
-        Item = other.Item;
-    }
+    
 
     /*  Properties  */
     public int Row
@@ -34,6 +24,17 @@ public class Field
         {
             if (_column is null) _column = value;
         }
+    }
+    
+    public Field()
+    {
+    }
+
+    public Field(Field other)
+    {
+        Row = other.Row;
+        Column = other.Column;
+        Item = other.Item;
     }
 
     public FieldItem Item { get; set; } = Empty;
