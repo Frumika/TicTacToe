@@ -1,0 +1,1 @@
+﻿global using static TicTacToe.Model.Core.Board.FieldItem;

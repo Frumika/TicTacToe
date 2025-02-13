@@ -3,35 +3,80 @@
 public class Board
 {
     /*------> Fields <------*/
-    private Field[,] _gameBoard;
+    private Field[,] _board;
 
     public int Rows { get; init; }
     public int Columns { get; init; }
 
-    public Board(int rows = 3, int columns = 3)
-    {
-        Rows = rows;
-        Columns = columns;
+    private int BoardSize { get; init; }
 
-        _gameBoard = new Field[Rows, Columns];
+    public Board(int size = 3)
+    {
+        Rows = size;
+        Columns = size;
+        BoardSize = size;
+
+        _board = new Field[Rows, Columns];
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                _board[i, j] = new Field();
+                _board[i, j].Row = i;
+                _board[i, j].Column = j;
+            }
+        }
     }
 
 
-    public int SetField(int row, int column, FieldStatus status)
+    public int SetField(int row, int column, FieldItem item)
     {
-        if (_gameBoard[row, column].IsEmpty())
+        if (_board[row, column].IsEmpty())
         {
-            _gameBoard[row, column].Status = status;
+            _board[row, column].Item = item;
             return 1;
         }
 
         return 0;
     }
 
-    public bool IsTheFieldEmpty(int row, int column) => _gameBoard[row, column].IsEmpty();
+    public bool IsTheFieldEmpty(int row, int column) => _board[row, column].IsEmpty();
 
-    public bool FindWinner()
+    public FieldItem FindWinner()
     {
-        return true;
+        FieldItem item = Empty;
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                Field field = new Field(_board[i, j]);
+                if (IsWinningField(field))
+                {
+                    item = field.Item;
+                    break;
+                }
+            }
+        }
+
+        return item;
+    }
+
+    private bool IsWinningField(Field field)
+    {
+        if (field.Item == Empty) return false;
+
+
+        bool rowWin = true, colWin = true, mainDiagWin = true, antiDiagWin = true;
+        for (int i = 0; i < BoardSize; i++)
+        {
+            if (_board[field.Row, i].Item != field.Item) rowWin = false;
+            if (_board[i, field.Column].Item != field.Item) colWin = false;
+            if (_board[i, i].Item != field.Item) mainDiagWin = false;
+            if (_board[i, BoardSize - 1 - i].Item != field.Item) antiDiagWin = false;
+        }
+
+        return rowWin || colWin || mainDiagWin || antiDiagWin;
     }
 }

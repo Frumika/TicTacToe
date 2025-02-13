@@ -1,6 +1,6 @@
 ﻿namespace TicTacToe.Model.Core.Board;
 
-public enum FieldStatus
+public enum FieldItem
 {
     Cross,
     Zero,
