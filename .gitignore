@@ -11,6 +11,8 @@
 .settings/
 .metadata/
 
+TicTacToe.Test
+
 # Build artifacts
 bin/
 obj/
