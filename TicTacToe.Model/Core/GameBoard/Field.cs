@@ -1,13 +1,17 @@
 ﻿namespace TicTacToe.Model.Core.GameBoard;
 
+
 public class Field
 {
-    /*  Private Fields  */
+    /*----------------------------------------------------*/
+    /*---------------| < Private Fields > |---------------*/
     private int? _row = null;
     private int? _column = null;
+    /*----------------------------------------------------*/
     
-
-    /*  Properties  */
+    
+    /*----------------------------------------------*/
+    /*--------------| < Properties > |--------------*/
     public int Row
     {
         get => _row ?? 0;
@@ -26,6 +30,12 @@ public class Field
         }
     }
     
+    public FieldItem Item { get; set; } = Empty;
+    /*----------------------------------------------*/
+    
+    
+    /*----------------------------------------------*/
+    /*--------------| < Constructors > |------------*/
     public Field()
     {
     }
@@ -36,10 +46,14 @@ public class Field
         Column = other.Column;
         Item = other.Item;
     }
+    /*----------------------------------------------*/
 
-    public FieldItem Item { get; set; } = Empty;
-
+    
+    /*----------------------------------------------*/
+    /*------------| < Public Methods > |------------*/
     public bool IsEmpty() => Item == Empty;
     public bool IsCross() => Item == Cross;
     public bool IsZero() => Item == Zero;
+    /*----------------------------------------------*/
+
 }

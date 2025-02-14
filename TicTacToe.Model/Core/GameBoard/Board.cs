@@ -43,7 +43,7 @@ public class Board
         return 0;
     }
 
-    public bool IsTheFieldEmpty(int row, int column) => _board[row, column].IsEmpty();
+    public bool IsFieldEmpty(int row, int column) => _board[row, column].IsEmpty();
 
 
     public FieldItem FindWinner()
