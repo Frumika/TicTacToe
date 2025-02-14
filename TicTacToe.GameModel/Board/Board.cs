@@ -4,16 +4,20 @@ namespace TicTacToe.GameModel.GameBoard;
 
 public class Board
 {
-    /*------> Fields <------*/
+    /*------------| < Private Fields > |------------*/
     private Field[,] _board;
+    /*----------------------------------------------*/
 
     
+    /*--------------| < Properties > |--------------*/
     public int Rows { get; init; }
     public int Columns { get; init; }
 
     private int BoardSize { get; init; }
+    /*----------------------------------------------*/
 
-    
+
+    /*--------------| < Constructors > |------------*/
     public Board(int size = 3)
     {
         if (size <= 0) throw new BoardExceptionNotNatural("Введено не натуральное число.");
@@ -32,8 +36,10 @@ public class Board
             }
         }
     }
+    /*----------------------------------------------*/
 
 
+    /*------------| < Public Methods > |------------*/
     public int SetField(int row, int column, FieldItem item)
     {
         if (_board[row, column].IsEmpty())
@@ -44,6 +50,7 @@ public class Board
 
         return 0;
     }
+
 
     public bool IsFieldEmpty(int row, int column) => _board[row, column].IsEmpty();
 
@@ -106,4 +113,5 @@ public class Board
 
         return coordinates;
     }
+    /*----------------------------------------------*/
 }

@@ -6,7 +6,7 @@ public interface IEntity
 {
     string? Name { get; init; }
     
-    FieldItem? Item { get; init; }
+    FieldItem Item { get; init; }
 
-    void Move(ref Board board);
+    void Move(Board board);
 }

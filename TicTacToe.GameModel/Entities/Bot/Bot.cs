@@ -2,6 +2,7 @@
 
 namespace TicTacToe.GameModel.Entity;
 
+
 public class Bot : Entity
 {
     private IBotStrategy? _strategy = new MediumBotStrategy(Empty);
@@ -10,7 +11,8 @@ public class Bot : Entity
     {
     }
 
-    public override void Move(ref Board board)
+    public override void Move(Board board)
     {
+        _strategy.FindField(board);
     }
 }

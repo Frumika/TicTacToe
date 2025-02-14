@@ -4,7 +4,7 @@ namespace TicTacToe.GameModel.Entity;
 
 public abstract class Entity : IEntity
 {
-    public FieldItem? Item { get; init; }
+    public FieldItem Item { get; init; }
 
     public string? Name { get; init; }
 
@@ -15,6 +15,6 @@ public abstract class Entity : IEntity
         Item = item;
     }
 
-    public abstract void Move(ref Board board);
+    public abstract void Move(Board board);
 
 }

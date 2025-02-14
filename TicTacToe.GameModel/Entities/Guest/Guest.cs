@@ -9,7 +9,7 @@ public class Guest : Entity
     }
 
     
-    public override void Move(ref Board board)
+    public override void Move(Board board)
     {
         
     }

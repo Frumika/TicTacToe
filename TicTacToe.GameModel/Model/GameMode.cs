@@ -3,8 +3,7 @@
 
 public enum GameMode
 {
-    NoMode,
-    FaceToFace,
-    Online,
-    WithBot
+    FtF, // Face To Face (Ofline)
+    PvE, // Player vs Environment (Ofline)
+    PvP // Player vs Player (Online)
 }
