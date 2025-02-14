@@ -17,7 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TicTacToe.Models\TicTacToe.Models.csproj" />
+      <ProjectReference Include="..\TicTacToe.GameModel\TicTacToe.GameModel.csproj" />
     </ItemGroup>
 
 </Project>

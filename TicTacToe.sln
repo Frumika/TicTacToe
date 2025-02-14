@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.Models", "TicTacToe.Models\TicTacToe.Models.csproj", "{0D4F093D-0F07-440C-B32D-42C47EDFF8DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.GameModel", "TicTacToe.GameModel\TicTacToe.GameModel.csproj", "{0D4F093D-0F07-440C-B32D-42C47EDFF8DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.API", "TicTacToe.API\TicTacToe.API.csproj", "{93859960-BC9A-4B64-B510-CE075CCC9240}"
 EndProject

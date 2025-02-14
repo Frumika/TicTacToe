@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Model.Core.GameBoard.BoardExceptions;
+﻿namespace TicTacToe.GameModel.GameBoard.BoardException;
 
 public class BoardExceptionNotNatural : Exception
 {

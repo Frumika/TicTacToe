@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Model.Core.Entity;
+﻿namespace TicTacToe.GameModel.Entity;
 
 public interface IEntity
 {

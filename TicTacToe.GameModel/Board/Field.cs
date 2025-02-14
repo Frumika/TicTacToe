@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Model.Core.GameBoard;
+﻿namespace TicTacToe.GameModel.GameBoard;
 
 
 public class Field

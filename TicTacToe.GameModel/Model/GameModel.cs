@@ -1,13 +1,14 @@
-﻿using TicTacToe.Model.Core.Entity;
-using TicTacToe.Model.Core.GameBoard;
+﻿using TicTacToe.GameModel.Entity;
+using TicTacToe.GameModel.GameBoard;
 
-namespace TicTacToe.Model.Core.Complete;
+namespace TicTacToe.GameModel.Model;
+
 
 public class GameModel
 {
-    private Board _board;
+    private GameBoard.Board _board;
     private GameMode _gameMode;
-    
+
     private IEntity?[] _entities = null;
 
     public GameModel(int size, GameMode gameMode)
@@ -23,7 +24,7 @@ public class GameModel
                 new Player("p3")
             };
         }
-        
+
         if (_gameMode == GameMode.Online)
         {
             _entities = new[]
@@ -32,5 +33,4 @@ public class GameModel
             };
         }
     }
-    
 }

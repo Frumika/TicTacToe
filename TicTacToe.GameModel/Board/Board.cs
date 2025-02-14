@@ -1,6 +1,7 @@
-﻿using TicTacToe.Model.Core.GameBoard.BoardExceptions;
+﻿using TicTacToe.GameModel.GameBoard.BoardException;
 
-namespace TicTacToe.Model.Core.GameBoard;
+namespace TicTacToe.GameModel.GameBoard;
+
 
 public class Board
 {

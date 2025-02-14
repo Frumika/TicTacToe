@@ -1,4 +1,5 @@
-﻿namespace TicTacToe.Model.Core.Complete;
+﻿namespace TicTacToe.GameModel.Model;
+
 
 public enum GameMode
 {
