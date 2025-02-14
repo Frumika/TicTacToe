@@ -1,6 +1,12 @@
-﻿namespace TicTacToe.GameModel.Entity;
+﻿using TicTacToe.GameModel.GameBoard;
+
+namespace TicTacToe.GameModel.Entity;
 
 public interface IEntity
 {
-    string? Name { get; set; }
+    string? Name { get; init; }
+    
+    FieldItem? Item { get; init; }
+
+    void Move(ref Board board);
 }

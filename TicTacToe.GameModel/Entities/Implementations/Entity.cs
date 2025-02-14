@@ -1,13 +1,20 @@
-﻿namespace TicTacToe.GameModel.Entity;
+﻿using TicTacToe.GameModel.GameBoard;
 
+namespace TicTacToe.GameModel.Entity;
 
-public class Entity : IEntity
+public abstract class Entity : IEntity
 {
-    public virtual string? Name { get; set; }
+    public FieldItem? Item { get; init; }
 
-    
-    public Entity(string name)
+    public string? Name { get; init; }
+
+
+    public Entity(string name, FieldItem item = Empty)
     {
         Name = name;
+        Item = item;
     }
+
+    public abstract void Move(ref Board board);
+
 }

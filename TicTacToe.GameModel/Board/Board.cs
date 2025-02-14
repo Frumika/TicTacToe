@@ -2,7 +2,6 @@
 
 namespace TicTacToe.GameModel.GameBoard;
 
-
 public class Board
 {
     /*------> Fields <------*/
@@ -66,7 +65,7 @@ public class Board
         return item;
     }
 
-    private bool IsWinningField(int row, int column)
+    public bool IsWinningField(int row, int column)
     {
         Field field = new(_board[row, column]);
 
@@ -82,5 +81,19 @@ public class Board
         }
 
         return rowWin || colWin || mainDiagWin || antiDiagWin;
+    }
+
+
+    public List<(int row, int column)> GetFieldsCoordinates(FieldItem item)
+    {
+        List<(int row, int column)> coordinates = new();
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                if (_board[i, j].Item == item) coordinates.Add((i, j));
+            }
+        }
+        return coordinates;
     }
 }

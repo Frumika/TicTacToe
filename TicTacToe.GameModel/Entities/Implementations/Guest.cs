@@ -1,11 +1,16 @@
-﻿namespace TicTacToe.GameModel.Entity;
+﻿using TicTacToe.GameModel.GameBoard;
 
+namespace TicTacToe.GameModel.Entity;
 
 public class Guest : Entity
 {
-    public override string? Name { get; set; }
-
-    public Guest(string name) : base(name)
+    public Guest(string name, FieldItem item = Empty) : base(name, item)
     {
+    }
+
+    
+    public override void Move(ref Board board)
+    {
+        
     }
 }
