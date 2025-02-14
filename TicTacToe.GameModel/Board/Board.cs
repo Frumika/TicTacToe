@@ -7,11 +7,13 @@ public class Board
     /*------> Fields <------*/
     private Field[,] _board;
 
+    
     public int Rows { get; init; }
     public int Columns { get; init; }
 
     private int BoardSize { get; init; }
 
+    
     public Board(int size = 3)
     {
         if (size <= 0) throw new BoardExceptionNotNatural("Введено не натуральное число.");
@@ -65,22 +67,29 @@ public class Board
         return item;
     }
 
-    public bool IsWinningField(int row, int column)
+    // Используется для проверки - Если поставить этот Item в это поле то мы победим?
+    public bool CheckFieldForWin(int row, int column, FieldItem item)
     {
-        Field field = new(_board[row, column]);
-
-        if (field.Item == Empty) return false;
+        if (item == Empty) return false;
 
         bool rowWin = true, colWin = true, mainDiagWin = true, antiDiagWin = true;
+
         for (int i = 0; i < BoardSize; i++)
         {
-            if (_board[field.Row, i].Item != field.Item) rowWin = false;
-            if (_board[i, field.Column].Item != field.Item) colWin = false;
-            if (_board[i, i].Item != field.Item) mainDiagWin = false;
-            if (_board[i, BoardSize - 1 - i].Item != field.Item) antiDiagWin = false;
+            if (_board[row, i].Item != item) rowWin = false;
+            if (_board[i, column].Item != item) colWin = false;
+            if (_board[i, i].Item != item) mainDiagWin = false;
+            if (_board[i, BoardSize - 1 - i].Item != item) antiDiagWin = false;
         }
 
         return rowWin || colWin || mainDiagWin || antiDiagWin;
+    }
+
+    // Используется для проверки - Это поле уже является победным
+    public bool IsWinningField(int row, int column)
+    {
+        Field field = new(_board[row, column]);
+        return field.Item == Empty ? false : CheckFieldForWin(row, column, field.Item);
     }
 
 
@@ -94,6 +103,7 @@ public class Board
                 if (_board[i, j].Item == item) coordinates.Add((i, j));
             }
         }
+
         return coordinates;
     }
 }
