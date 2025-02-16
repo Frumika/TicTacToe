@@ -41,6 +41,7 @@ public class Board
             }
         }
     }
+
     /*----------------------------------------------*/
 
 
@@ -82,6 +83,42 @@ public class Board
         }
 
         return item;
+    }
+
+    public bool CanItBeWinningField(int row, int column, FieldItem item)
+    {
+        if (item == Empty) return false;
+
+        bool rowWin = true, colWin = true, mainDiagWin = true, antiDiagWin = true;
+
+        for (int i = 0; i < Size; i++)
+        {
+            if (i == column)
+            {
+                if (item != _board[row, column].Item) rowWin = false;
+            }
+            else if (_board[row, i].Item != item) rowWin = false;
+
+            if (i == row)
+            {
+                if (item != _board[row, column].Item) colWin = false;
+            }
+            else if (_board[i, column].Item != item) colWin = false;
+
+            if (row == column && i == row)
+            {
+                if (item != _board[row, column].Item) mainDiagWin = false;
+            }
+            else if (i != row && _board[i, i].Item != item) mainDiagWin = false;
+
+            if (row + column == Size - 1 && i == row)
+            {
+                if (item != _board[row, column].Item) antiDiagWin = false;
+            }
+            else if (i != row && _board[i, Size - 1 - i].Item != item) antiDiagWin = false;
+        }
+
+        return rowWin || colWin || mainDiagWin || antiDiagWin;
     }
 
     public bool IsWinningField(int row, int column)

@@ -7,8 +7,13 @@ public class GameModel
 {
     /*------------| < Private Fields > |------------*/
     private Board _board;
+
     private FieldItem _currentItem = Cross;
     private FieldItem _winner = Empty;
+
+    private GameMode _mode;
+
+    private Bot? _bot;
     /*----------------------------------------------*/
 
 
@@ -20,9 +25,10 @@ public class GameModel
 
 
     /*--------------| < Constructors > |------------*/
-    public GameModel(int size)
+    public GameModel(int size, GameMode mode)
     {
         _board = new Board(size);
+        _mode = mode;
     }
     /*----------------------------------------------*/
 
