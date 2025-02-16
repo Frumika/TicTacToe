@@ -89,36 +89,20 @@ public class Board
     {
         if (item == Empty) return false;
 
-        bool rowWin = true, colWin = true, mainDiagWin = true, antiDiagWin = true;
+        int rowWin = 0, colWin = 0, mainDiagWin = 0, antiDiagWin = 0;
 
         for (int i = 0; i < Size; i++)
         {
-            if (i == column)
-            {
-                if (item != _board[row, column].Item) rowWin = false;
-            }
-            else if (_board[row, i].Item != item) rowWin = false;
+            if (_board[row, i].Item == item || i == column) rowWin += 1;
+            if (_board[i, column].Item == item || i == row) colWin += 1;
 
-            if (i == row)
-            {
-                if (item != _board[row, column].Item) colWin = false;
-            }
-            else if (_board[i, column].Item != item) colWin = false;
-
-            if (row == column && i == row)
-            {
-                if (item != _board[row, column].Item) mainDiagWin = false;
-            }
-            else if (i != row && _board[i, i].Item != item) mainDiagWin = false;
-
-            if (row + column == Size - 1 && i == row)
-            {
-                if (item != _board[row, column].Item) antiDiagWin = false;
-            }
-            else if (i != row && _board[i, Size - 1 - i].Item != item) antiDiagWin = false;
+            if (row == column &&
+                (_board[i, i].Item == item || i == row)) mainDiagWin += 1;
+            if (row + column == Rows - 1 &&
+                (_board[i, Size - 1 - i].Item == item || (i == row && Size - 1 - i == column))) antiDiagWin += 1;
         }
 
-        return rowWin || colWin || mainDiagWin || antiDiagWin;
+        return rowWin == Size || colWin == Size || mainDiagWin == Size || antiDiagWin == Size;
     }
 
     public bool IsWinningField(int row, int column)

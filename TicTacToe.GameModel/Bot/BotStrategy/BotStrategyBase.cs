@@ -11,7 +11,7 @@ public class NoEmptyFields : Exception
 
 public abstract class BotStrategy : IBotStrategy
 {
-    protected FieldItem Item;
+    protected FieldItem Item { get; }
 
     public BotStrategy(FieldItem item)
     {
@@ -20,4 +20,3 @@ public abstract class BotStrategy : IBotStrategy
 
     public abstract (int row, int column) FindField(Board board);
 }
-

@@ -11,9 +11,9 @@ public class GameModel
     private FieldItem _currentItem = Cross;
     private FieldItem _winner = Empty;
 
-    private GameMode _mode;
+    private GameMode _gameMode;
 
-    private Bot? _bot;
+    private Bot? _bot = null;
     /*----------------------------------------------*/
 
 
@@ -25,10 +25,12 @@ public class GameModel
 
 
     /*--------------| < Constructors > |------------*/
-    public GameModel(int size, GameMode mode)
+    public GameModel(int size, GameMode gameMode, BotMode botMode)
     {
         _board = new Board(size);
-        _mode = mode;
+        _gameMode = gameMode;
+
+        if (_gameMode == GameMode.PvE) _bot = new Bot(Zero, botMode);
     }
     /*----------------------------------------------*/
 
@@ -38,8 +40,26 @@ public class GameModel
     {
         if (_board.SetField(row, column, _currentItem))
         {
-            if (_board.IsWinningField(row, column)) _winner = _currentItem;
-            SwitchTurn();
+            if (_board.IsWinningField(row, column))
+            {
+                _winner = _currentItem;
+                return true;
+            }
+            if (_gameMode == GameMode.PvP) SwitchTurn();
+
+            
+            else if (_gameMode == GameMode.PvE && HasEmptyFields)
+            {
+                var position = _bot!.Move(_board);
+
+                _board.SetField(position.row, position.column, _bot.Item);
+                if (_board.IsWinningField(position.row, position.column))
+                {
+                    _winner = _bot.Item;
+                    return true;
+                }
+            }
+
             return true;
         }
 

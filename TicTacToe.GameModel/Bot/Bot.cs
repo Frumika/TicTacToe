@@ -2,17 +2,38 @@
 
 namespace TicTacToe.GameModel.Entity;
 
-
-public class Bot  
+public enum BotMode
 {
-    public FieldItem Item { get; init; }
-    
-    private IBotStrategy? _strategy = new MediumBotStrategy(Empty);
+    NoMode,
+    Easy,
+    Medium,
+    Hard
+}
 
-    public Bot(FieldItem item = Empty)
+public class Bot
+{
+    private FieldItem _item;
+    private IBotStrategy _strategy;
+
+
+    public FieldItem Item
+    {
+        get => _item;
+        init => _item = value;
+    }
+
+
+    public Bot(FieldItem item, BotMode botMode)
     {
         Item = item;
-        
+
+        _strategy = botMode switch
+        {
+            BotMode.Easy => new EasyBotStrategy(Item),
+            BotMode.Medium => new MediumBotStrategy(Item),
+            BotMode.Hard => new HardBotStrategy(Item),
+            _ => new MediumBotStrategy(Item)
+        };
     }
 
     public (int row, int column) Move(Board board)
