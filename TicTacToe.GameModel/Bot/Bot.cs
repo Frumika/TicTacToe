@@ -2,6 +2,7 @@
 
 namespace TicTacToe.GameModel.Entity;
 
+
 public enum BotMode
 {
     NoMode,
@@ -9,6 +10,7 @@ public enum BotMode
     Medium,
     Hard
 }
+
 
 public class Bot
 {
@@ -29,9 +31,9 @@ public class Bot
 
         _strategy = botMode switch
         {
-            BotMode.Easy => new EasyBotStrategy(Item),
-            BotMode.Medium => new MediumBotStrategy(Item),
-            BotMode.Hard => new HardBotStrategy(Item),
+            Easy => new EasyBotStrategy(Item),
+            Medium => new MediumBotStrategy(Item),
+            Hard => new HardBotStrategy(Item),
             _ => new MediumBotStrategy(Item)
         };
     }
