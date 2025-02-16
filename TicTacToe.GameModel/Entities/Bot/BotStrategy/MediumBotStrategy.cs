@@ -2,7 +2,6 @@
 
 namespace TicTacToe.GameModel.Entity;
 
-
 public class MediumBotStrategy : BotStrategy
 {
     private Random _random = new();
@@ -19,11 +18,9 @@ public class MediumBotStrategy : BotStrategy
 
         foreach (var field in coordinates)
         {
-            if (board.CheckFieldForWin(field.row, field.column, Item)) return field;
+            if (board.IsWinningField(field.row, field.column)) return field;
         }
 
         return coordinates[_random.Next(coordinates.Count)];
     }
 }
-
-

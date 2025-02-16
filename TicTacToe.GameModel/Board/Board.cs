@@ -6,14 +6,18 @@ public class Board
 {
     /*------------| < Private Fields > |------------*/
     private Field[,] _board;
+    private int _emptyFields;
     /*----------------------------------------------*/
 
-    
+
     /*--------------| < Properties > |--------------*/
     public int Rows { get; init; }
     public int Columns { get; init; }
 
-    private int BoardSize { get; init; }
+    public bool HasEmptyFields => _emptyFields > 0;
+
+    private int Size { get; init; }
+
     /*----------------------------------------------*/
 
 
@@ -24,9 +28,10 @@ public class Board
 
         Rows = size;
         Columns = size;
-        BoardSize = size;
+        Size = size;
 
         _board = new Field[Rows, Columns];
+        _emptyFields = Rows * Columns;
 
         for (int i = 0; i < Rows; i++)
         {
@@ -40,19 +45,24 @@ public class Board
 
 
     /*------------| < Public Methods > |------------*/
-    public int SetField(int row, int column, FieldItem item)
+    public bool SetField(int row, int column, FieldItem item)
     {
-        if (_board[row, column].IsEmpty())
+        if (IsFieldEmpty(row, column))
         {
             _board[row, column].Item = item;
-            return 1;
+            _emptyFields -= 1;
+            return true;
         }
 
-        return 0;
+        return false;
     }
 
 
-    public bool IsFieldEmpty(int row, int column) => _board[row, column].IsEmpty();
+    public bool IsFieldEmpty(int row, int column)
+    {
+        if (row >= Rows || column >= Columns) return false;
+        return _board[row, column].IsEmpty();
+    }
 
 
     public FieldItem FindWinner()
@@ -74,29 +84,23 @@ public class Board
         return item;
     }
 
-    // Используется для проверки - Если поставить этот Item в это поле то мы победим?
-    public bool CheckFieldForWin(int row, int column, FieldItem item)
-    {
-        if (item == Empty) return false;
-
-        bool rowWin = true, colWin = true, mainDiagWin = true, antiDiagWin = true;
-
-        for (int i = 0; i < BoardSize; i++)
-        {
-            if (_board[row, i].Item != item) rowWin = false;
-            if (_board[i, column].Item != item) colWin = false;
-            if (_board[i, i].Item != item) mainDiagWin = false;
-            if (_board[i, BoardSize - 1 - i].Item != item) antiDiagWin = false;
-        }
-
-        return rowWin || colWin || mainDiagWin || antiDiagWin;
-    }
-
-    // Используется для проверки - Это поле уже является победным
     public bool IsWinningField(int row, int column)
     {
         Field field = new(_board[row, column]);
-        return field.Item == Empty ? false : CheckFieldForWin(row, column, field.Item);
+
+        if (field.Item == Empty) return false;
+
+        bool rowWin = true, colWin = true, mainDiagWin = true, antiDiagWin = true;
+
+        for (int i = 0; i < Size; i++)
+        {
+            if (_board[row, i].Item != field.Item) rowWin = false;
+            if (_board[i, column].Item != field.Item) colWin = false;
+            if (_board[i, i].Item != field.Item) mainDiagWin = false;
+            if (_board[i, Size - 1 - i].Item != field.Item) antiDiagWin = false;
+        }
+
+        return rowWin || colWin || mainDiagWin || antiDiagWin;
     }
 
 
@@ -112,6 +116,23 @@ public class Board
         }
 
         return coordinates;
+    }
+
+
+    public void PrintBoard()
+    {
+        Console.WriteLine("|---------|---------|---------|");
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                Console.Write($"| {_board[i, j].Item,-7} ");
+            }
+
+            Console.WriteLine("|");
+            Console.WriteLine("|---------|---------|---------|");
+        }
     }
     /*----------------------------------------------*/
 }
