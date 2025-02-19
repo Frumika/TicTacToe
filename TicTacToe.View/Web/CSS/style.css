@@ -1,3 +1,7 @@
+:root {
+    --pages-link: #22AA99;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,45 +10,146 @@
 
 body {
     font-family: "Play", "Work Sans", "Arial", sans-serif;
+
+    background: black;
 }
 
-.game-container {
+
+/* Header */
+.header-container {
+    border-bottom: 2px solid white;
+
     display: flex;
-    
+
+    justify-content: space-around;
+
+    align-items: center;
+
+}
+
+.header-container__logo {
+    color: white;
+
+    font-weight: bold;
+    font-size: 40px;
+
+    padding: 30px 0 30px 20px;
+}
+
+.header-container__navbar {
+    display: flex;
+
+    justify-content: space-evenly;
+
+    flex: 1;
+}
+
+.navbar__item {
+    color: white;
+
+    font-weight: 600;
+    font-size: 32px;
+
+    text-decoration: none;
+
+}
+
+.navbar__item[aria-current="page"] {
+    color: transparent;
+    background: linear-gradient(120deg, white 20%, var(--pages-link) 80%);
+    background-clip: text;
+}
+
+.navbar__item::selection{
+    background: white;
+    color: black;
+
+}
+
+.header-container__menu {
+    margin-right: 20px;
+}
+
+
+/* Main */
+.main-container {
+    display: flex;
     flex-direction: column;
 
     justify-content: center;
+    align-items: center;
+
+    margin-top: 50px;
 }
 
-.board {
+.main-container__board {
     display: grid;
 
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
 
-    gap: 5px;
+    width: clamp(300px, 50vw, 500px);
+    aspect-ratio: 1 / 1;
 
-    width: 320px;
+    margin-top: 15px
 }
 
-.cell {
-    display: flex;
+.board__field {
 
-    width: 100px;
-    height: 100px;
+    /*border: 2px solid blue;*/
+}
 
-    align-items: center;
-    justify-content: center;
+#board__field-01 {
+    border-right: 5px solid white;
+    border-bottom: 5px solid white;
+}
 
-    font-size: 36px;
-    font-weight: bold;
+#board__field-02 {
+    border-bottom: 5px solid white;
+}
 
-    background-color: #f0f0f0;
+#board__field-03 {
+    border-left: 5px solid white;
+    border-bottom: 5px solid white;
+}
 
-    border: 2px solid black;
+#board__field-04 {
+    border-right: 5px solid white;
+    border-bottom: 5px solid white;
+}
+
+#board__field-05 {
+    border-bottom: 5px solid white;
+}
+
+#board__field-06 {
+    border-left: 5px solid white;
+    border-bottom: 5px solid white;
+}
+
+#board__field-07 {
+    border-right: 5px solid white;
+}
+
+#board__field-09 {
+    border-left: 5px solid white;
+}
+
+.main-container__button {
+    color: white;
+
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+
+    background: none;
+
+    border: 2px solid white;
+    border-radius: 10px;
+
     cursor: pointer;
-}
 
-.cell:hover {
-    background-color: #e0e0e0;
+    margin: 30px 0 15px 0;
+
+    padding: 5px 20px 5px 20px;
 }
