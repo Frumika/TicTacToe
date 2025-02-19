@@ -5,12 +5,12 @@
 }
 
 body {
-    font-family: "Roboto Light", sans-serif;
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
 }
 
 .game-container {
     display: flex;
-
+    
     flex-direction: column;
 
     justify-content: center;
