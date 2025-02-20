@@ -56,7 +56,7 @@ body {
 
 .navbar__item[aria-current="page"] {
     color: transparent;
-    background: linear-gradient(120deg, white 20%, var(--pages-link) 80%);
+    background:var(--pages-link);
     background-clip: text;
 }
 
@@ -68,6 +68,10 @@ body {
 
 .header-container__menu {
     margin-right: 20px;
+}
+
+.header-container__menu{
+    cursor: pointer;
 }
 
 
@@ -96,7 +100,6 @@ body {
 
 .board__field {
 
-    /*border: 2px solid blue;*/
 }
 
 #board__field-01 {
