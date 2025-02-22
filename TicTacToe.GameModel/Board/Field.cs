@@ -12,7 +12,7 @@ public class Field
     /*--------------| < Properties > |--------------*/
     public int Row
     {
-        get => _row ?? 0;
+        get => _row ?? -1;
         set
         {
             if (_row is null) _row = value;
@@ -21,7 +21,7 @@ public class Field
 
     public int Column
     {
-        get => _column ?? 0;
+        get => _column ?? -1;
         set
         {
             if (_column is null) _column = value;

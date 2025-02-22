@@ -30,7 +30,7 @@ public class GameModel
         _board = new Board(size);
         _gameMode = gameMode;
 
-        if (_gameMode == GameMode.PvE) _bot = new Bot(Zero, botMode);
+        if (_gameMode == PvE) _bot = new Bot(_currentItem == Cross ? Zero : Cross, botMode);
     }
     /*----------------------------------------------*/
 
@@ -38,27 +38,32 @@ public class GameModel
     /*------------| < Public Methods > |------------*/
     public bool MakeMove(int row, int column)
     {
+        bool? playerMove = null;
+        bool? botMove = null;
+
+        // ХОД ИГРОКА: Игрок ходит и в PvP и в PvE режиме
+        if (HasEmptyFields) playerMove = IsSuccessfulMove(row, column);
+
+        if (_gameMode == PvE && HasEmptyFields && playerMove != false && Winner == Empty)
+        {
+            var position = _bot!.Move(_board);
+            botMove = IsSuccessfulMove(position.row, position.column);
+        }
+
+        return (playerMove ?? false) && (botMove ?? true);
+    }
+
+    public void PrintBoard() => _board.PrintBoard();
+    /*----------------------------------------------*/
+
+
+    /*------------| < Private Methods > |-----------*/
+    private bool IsSuccessfulMove(int row, int column)
+    {
         if (_board.SetField(row, column, _currentItem))
         {
-            if (_board.IsWinningField(row, column))
-            {
-                _winner = _currentItem;
-                return true;
-            }
-            if (_gameMode == GameMode.PvP) SwitchTurn();
-
-            
-            else if (_gameMode == GameMode.PvE && HasEmptyFields)
-            {
-                var position = _bot!.Move(_board);
-
-                _board.SetField(position.row, position.column, _bot.Item);
-                if (_board.IsWinningField(position.row, position.column))
-                {
-                    _winner = _bot.Item;
-                    return true;
-                }
-            }
+            if (_board.IsWinningField(row, column)) _winner = _currentItem;
+            SwitchTurn();
 
             return true;
         }
@@ -66,11 +71,7 @@ public class GameModel
         return false;
     }
 
-    private void SwitchTurn()
-    {
-        _currentItem = _currentItem == Cross ? Zero : Cross;
-    }
 
-    public void PrintBoard() => _board.PrintBoard();
+    private void SwitchTurn() => _currentItem = _currentItem == Cross ? Zero : Cross;
     /*----------------------------------------------*/
 }

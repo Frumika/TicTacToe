@@ -61,7 +61,7 @@ public class Board
 
     public bool IsFieldEmpty(int row, int column)
     {
-        if (row >= Rows || column >= Columns) return false;
+        if (row >= Rows || column >= Columns || row < 0 || column < 0) return false;
         return _board[row, column].IsEmpty();
     }
 
@@ -142,17 +142,23 @@ public class Board
 
     public void PrintBoard()
     {
-        Console.WriteLine("|---------|---------|---------|");
+        for (int i = 0; i < Rows; i++) Console.Write("|-----");
+        Console.WriteLine("|");
 
         for (int i = 0; i < Rows; i++)
         {
             for (int j = 0; j < Columns; j++)
             {
-                Console.Write($"| {_board[i, j].Item,-7} ");
+                Field field = new Field(_board[i, j]);
+                if (field.IsCross()) Console.Write($"|  X  ");
+                else if (field.IsZero()) Console.Write($"|  O  ");
+                else Console.Write($"|     ");
             }
 
+
             Console.WriteLine("|");
-            Console.WriteLine("|---------|---------|---------|");
+            for (int k = 0; k < Rows; k++) Console.Write("|-----");
+            Console.WriteLine("|");
         }
     }
     /*----------------------------------------------*/
