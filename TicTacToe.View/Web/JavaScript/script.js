@@ -7,25 +7,17 @@ document.addEventListener("DOMContentLoaded", () => {
     fields.forEach((field) => {
         field.addEventListener("click", async () => {
             const row = parseInt(field.dataset.row);
-            const col = parseInt(field.dataset.column);
+            const column = parseInt(field.dataset.column);
 
-            console.log(`Response: ${row} : ${col}`)
+            console.log(`Response: ${row} : ${column}`)
 
             const API_BASE_URL = "http://localhost:5026";
             const response = await fetch(`${API_BASE_URL}/api/game/move`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({row, col})
+                body: JSON.stringify({row, column})
             });
 
-            if (response.ok) {
-                /*const gameState = await response.json();
-
-                // Если сервер подтвердил ход, обновляем доску
-                if (gameState.moveMade) {
-                    updateBoard(gameState.board);
-                }*/
-            }
         });
     });
 
