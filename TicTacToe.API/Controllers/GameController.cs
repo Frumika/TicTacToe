@@ -18,11 +18,12 @@ public class GameController : ControllerBase
     {
         Console.WriteLine($"Request: id = {request.SessionId} ({request.Row} : {request.Column})");
 
-        var game = _gameSessionsService.GetOrCreateSession(request.SessionId);
+        var session = _gameSessionsService.GetOrCreateSession(request.SessionId);
+        bool moveSuccess = session.SendRequest(request.Row, request.Column);
         
-        game.SendRequest(request.Row, request.Column);
-
-        return Ok(new { success = true });
+        if (!moveSuccess) return BadRequest("Invalid move");
+        
+        return Ok(session.AcceptResponse());
     }
 }
 
