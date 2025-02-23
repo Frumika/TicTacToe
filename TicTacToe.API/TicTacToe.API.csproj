@@ -13,7 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TicTacToe.GameModel\TicTacToe.GameModel.csproj" />
+      <ProjectReference Include="..\TicTacToe.Services\TicTacToe.Services.csproj" />
     </ItemGroup>
-
+    
+    
 </Project>

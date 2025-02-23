@@ -1,4 +1,8 @@
+using TicTacToe.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<GameSessionsService>();
 
 builder.Services.AddCors(options =>
 {
@@ -9,13 +13,10 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
+
 
 var app = builder.Build();
 
-
 app.UseCors("AllowAllOrigins");
-app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
