@@ -7,13 +7,6 @@ using TicTacToe.GameModel.Entity;
 public class Session
 {
     private GameModel _gameModel;
-
-    private FieldItem _winner;
-    private FieldItem _currentItem;
-
-    private bool _hasEmptyFields;
-    
-    
     
     public Session()
     {
@@ -22,10 +15,16 @@ public class Session
 
     public bool SendRequest(int row, int column)
     {
-        bool condition = _gameModel.MakeMove(row, column);
-        _gameModel.PrintBoard();
+        if (_gameModel.Winner == FieldItem.Empty && _gameModel.HasEmptyFields)
+        {
+            
+            bool condition = _gameModel.MakeMove(row, column);
+            _gameModel.PrintBoard();
 
-        return condition;
+            return condition;
+        }
+
+        return false;
     }
 
     public bool AcceptResponse()
