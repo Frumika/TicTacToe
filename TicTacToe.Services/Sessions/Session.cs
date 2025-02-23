@@ -15,7 +15,7 @@ public class Session
 
     public bool SendRequest(int row, int column)
     {
-        if (_gameModel.Winner == FieldItem.Empty && _gameModel.HasEmptyFields)
+        if (_gameModel.Winner == Winner.Undefined)
         {
             
             bool condition = _gameModel.MakeMove(row, column);

@@ -9,7 +9,7 @@ public class GameModel
     private Board _board;
 
     private FieldItem _currentItem = Cross;
-    private FieldItem _winner = Empty;
+    private Winner _winner = Winner.Undefined;
 
     private GameMode _gameMode;
 
@@ -19,8 +19,7 @@ public class GameModel
 
     /*--------------| < Properties > |--------------*/
     public FieldItem CurrentItem => _currentItem;
-    public bool HasEmptyFields => _board.HasEmptyFields;
-    public FieldItem Winner => _winner;
+    public Winner Winner => _winner;
     /*----------------------------------------------*/
 
 
@@ -42,9 +41,10 @@ public class GameModel
         bool? botMove = null;
 
         // ХОД ИГРОКА: Игрок ходит и в PvP и в PvE режиме
-        if (HasEmptyFields) playerMove = IsSuccessfulMove(row, column);
+        playerMove = IsSuccessfulMove(row, column);
 
-        if (_gameMode == PvE && HasEmptyFields && playerMove != false && Winner == Empty)
+        // ХОД БОТА
+        if (_gameMode == PvE && playerMove != false && Winner == Winner.Undefined)
         {
             var position = _bot!.Move(_board);
             botMove = IsSuccessfulMove(position.row, position.column);
@@ -62,7 +62,16 @@ public class GameModel
     {
         if (_board.SetField(row, column, _currentItem))
         {
-            if (_board.IsWinningField(row, column)) _winner = _currentItem;
+            if (_board.IsWinningField(row, column))
+            {
+                _winner = _currentItem switch
+                {
+                    Cross => Winner.Cross,
+                    _ => Winner.Zero,
+                };
+            }
+            else if (!_board.HasEmptyFields) _winner = Winner.Draw;
+
             SwitchTurn();
 
             return true;
