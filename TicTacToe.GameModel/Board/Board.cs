@@ -16,8 +16,9 @@ public class Board
 
     public bool HasEmptyFields => _emptyFields > 0;
 
-    private int Size { get; init; }
+    public Field[][] BoardState => ToJaggedArray();
 
+    private int Size { get; init; }
     /*----------------------------------------------*/
 
 
@@ -41,7 +42,6 @@ public class Board
             }
         }
     }
-
     /*----------------------------------------------*/
 
 
@@ -160,6 +160,25 @@ public class Board
             for (int k = 0; k < Rows; k++) Console.Write("|-----");
             Console.WriteLine("|");
         }
+    }
+    /*----------------------------------------------*/
+    
+    
+    /*------------| < Private Methods > |-----------*/
+    private Field[][] ToJaggedArray()
+    {
+        Field[][] result = new Field[Rows][];
+
+        for (int i = 0; i < Rows; i++)
+        {
+            result[i] = new Field[Columns];
+            for (int j = 0; j < Columns; j++)
+            {
+                result[i][j] = _board[i, j];
+            }
+        }
+
+        return result;
     }
     /*----------------------------------------------*/
 }

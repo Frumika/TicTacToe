@@ -4,10 +4,16 @@ using TicTacToe.GameModel.GameBoard;
 using TicTacToe.GameModel.Model;
 using TicTacToe.GameModel.Entity;
 
+public class GameStateDto
+{
+    public Field[][] Board { get; set; }
+    public Winner Winner { get; set; }
+}
+
 public class Session
 {
     private GameModel _gameModel;
-    
+
     public Session()
     {
         _gameModel = new GameModel(3, GameMode.PvE, BotMode.Medium);
@@ -17,7 +23,6 @@ public class Session
     {
         if (_gameModel.Winner == Winner.Undefined)
         {
-            
             bool condition = _gameModel.MakeMove(row, column);
             _gameModel.PrintBoard();
 
@@ -27,8 +32,12 @@ public class Session
         return false;
     }
 
-    public bool AcceptResponse()
+    public GameStateDto AcceptResponse()
     {
-        return false;
+        return new GameStateDto()
+        {
+            Board = _gameModel.Board,
+            Winner = _gameModel.Winner
+        };
     }
 }

@@ -19,7 +19,10 @@ public class GameModel
 
     /*--------------| < Properties > |--------------*/
     public FieldItem CurrentItem => _currentItem;
+    
     public Winner Winner => _winner;
+
+    public Field[][] Board => _board.BoardState;
     /*----------------------------------------------*/
 
 
