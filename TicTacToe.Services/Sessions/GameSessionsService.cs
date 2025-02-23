@@ -6,6 +6,10 @@ public class GameSessionsService
 {
     private ConcurrentDictionary<string, Session> _gameServices;
 
-    public Session GetOrCreateSession(string sessionId) => 
-        _gameServices.GetOrAdd(sessionId, _ => new Session());
+    public GameSessionsService()
+    {
+        _gameServices = new ConcurrentDictionary<string, Session>();
+    }
+    
+    public Session GetOrCreateSession(string sessionId) => _gameServices.GetOrAdd(sessionId, _ => new Session());
 }

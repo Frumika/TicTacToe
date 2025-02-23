@@ -1,7 +1,9 @@
 "use strict"
 
 document.addEventListener("DOMContentLoaded", () => {
-    const board = document.getElementsByClassName("board");
+    const sessionId = sessionStorage.getItem("sessionId") || crypto.randomUUID();
+    sessionStorage.setItem("sessionId", sessionId);
+
     const fields = document.querySelectorAll(".board__field");
 
     fields.forEach((field) => {
@@ -15,9 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch(`${API_BASE_URL}/api/game/move`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({row, column})
+                body: JSON.stringify({sessionId, row, column})
             });
 
+            const data = await response.json();
+            console.log(data);
         });
     });
 

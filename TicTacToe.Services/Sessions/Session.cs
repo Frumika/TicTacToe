@@ -22,8 +22,6 @@ public class Session
 
     public bool SendRequest(int row, int column)
     {
-        _hasEmptyFields = _gameModel.HasEmptyFields;
-        
         bool condition = _gameModel.MakeMove(row, column);
         _gameModel.PrintBoard();
 

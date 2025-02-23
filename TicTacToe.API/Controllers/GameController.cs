@@ -16,15 +16,13 @@ public class GameController : ControllerBase
     [HttpPost("move")]
     public IActionResult MakeMove([FromBody] MoveRequest request)
     {
-        Console.WriteLine($"Request: {request.Row} : {request.Column}");
+        Console.WriteLine($"Request: id = {request.SessionId} ({request.Row} : {request.Column})");
 
         var game = _gameSessionsService.GetOrCreateSession(request.SessionId);
-
+        
         game.SendRequest(request.Row, request.Column);
-        game.AcceptResponse();
 
         return Ok(new { success = true });
-        return BadRequest(new { success = false });
     }
 }
 
