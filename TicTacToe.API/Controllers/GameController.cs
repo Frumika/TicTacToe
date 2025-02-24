@@ -13,6 +13,14 @@ public class GameController : ControllerBase
         _gameSessionsService = gameSessionsService;
     }
 
+    [HttpPost("start")]
+    public IActionResult StartSession([FromQuery] string sessionId)
+    {
+        var session = _gameSessionsService.GetOrCreateSession(sessionId);
+        return Ok(session.AcceptResponse());
+    }
+    
+    
     [HttpPost("move")]
     public IActionResult MakeMove([FromBody] MoveRequest request)
     {
@@ -20,9 +28,20 @@ public class GameController : ControllerBase
 
         var session = _gameSessionsService.GetOrCreateSession(request.SessionId);
         bool moveSuccess = session.SendRequest(request.Row, request.Column);
-        
+
         if (!moveSuccess) return BadRequest("Invalid move");
-        
+
+        return Ok(session.AcceptResponse());
+    }
+
+
+    [HttpGet("state")]
+    public IActionResult GetBoardState([FromQuery] string sessionId)
+    {
+        var session = _gameSessionsService.GetSession(sessionId);
+
+        if (session is null) return NotFound();
+
         return Ok(session.AcceptResponse());
     }
 }

@@ -12,4 +12,6 @@ public class GameSessionsService
     }
     
     public Session GetOrCreateSession(string sessionId) => _gameServices.GetOrAdd(sessionId, _ => new Session());
+
+    public Session? GetSession(string sessionId) => _gameServices.TryGetValue(sessionId, out var session) ? session : null;
 }

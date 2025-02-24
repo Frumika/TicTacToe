@@ -1,10 +1,16 @@
 "use strict"
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    const API_BASE_URL = "http://localhost:5026";
+
+
     const sessionId = sessionStorage.getItem("sessionId") || crypto.randomUUID();
     sessionStorage.setItem("sessionId", sessionId);
 
     const fields = document.querySelectorAll(".board__field");
+
+    await startSession();
+    await loadBoardState();
 
     fields.forEach((field) => {
         field.addEventListener("click", async () => {
@@ -13,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             console.log(`Response: ${row} : ${column}`)
 
-            const API_BASE_URL = "http://localhost:5026";
             const response = await fetch(`${API_BASE_URL}/api/game/move`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -22,22 +27,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const data = await response.json();
             console.log(data);
+
+            // Обновляем доску
+            updateBoard(data.board);
+
+            // Отображаем победителя, если он есть
+            setTimeout(() => {
+                if (data.winner !== "Undefined") alert(`Winner: ${data.winner}`);
+            }, 100);
+
         });
     });
 
+    async function startSession() {
+        await fetch(`${API_BASE_URL}/api/game/start?sessionId=${sessionId}`, {
+            method: "POST"
+        });
+    }
 
-    /*function updateBoard(boardState) {
-        boardState.forEach((row, rowIndex) => {
-            row.forEach((cellValue, colIndex) => {
-                const cell = document.querySelector(
-                    `.cell[data-row="${rowIndex}"][data-col="${colIndex}"]`
-                );
+    // Функция для загрузки состояния доски с сервера
+    async function loadBoardState() {
+        const API_BASE_URL = "http://localhost:5026";
+        const response = await fetch(`${API_BASE_URL}/api/game/state?sessionId=${sessionId}`);
+        const data = await response.json();
+        console.log("Loaded board state:", data);
 
-                if (cellValue === 1) cell.textContent = "X";
-                else if (cellValue === 2) cell.textContent = "O";
-                else cell.textContent = "";
+        // Обновляем доску
+        updateBoard(data.board);
+    }
 
+
+    function updateBoard(board) {
+        board.forEach((row, rowIndex) => {
+            row.forEach((field, colIndex) => {
+                const fieldElement = document.querySelector(`[data-row="${rowIndex}"][data-column="${colIndex}"]`);
+
+                if (fieldElement) {
+                    fieldElement.textContent = field.item === "Cross" ? "X" : field.item === "Zero" ? "O" : "";
+                    fieldElement.style.fontSize = "100px";
+                    fieldElement.style.color = "white";
+                }
             });
         });
-    }*/
+    }
+
 });

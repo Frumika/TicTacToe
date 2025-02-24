@@ -56,11 +56,11 @@ body {
 
 .navbar__item[aria-current="page"] {
     color: transparent;
-    background:var(--pages-link);
+    background: var(--pages-link);
     background-clip: text;
 }
 
-.navbar__item::selection{
+.navbar__item::selection {
     background: white;
     color: black;
 
@@ -70,7 +70,7 @@ body {
     margin-right: 20px;
 }
 
-.header-container__menu{
+.header-container__menu {
     cursor: pointer;
 }
 
@@ -99,7 +99,10 @@ body {
 }
 
 .board__field {
+    display: flex;
 
+    justify-content: center;
+    align-items: center;
 }
 
 #board__field-01 {
