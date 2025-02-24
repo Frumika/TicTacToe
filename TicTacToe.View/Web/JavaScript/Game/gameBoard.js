@@ -1,5 +1,6 @@
 "use strict"
 
+
 document.addEventListener("DOMContentLoaded", async () => {
     const API_BASE_URL = "http://localhost:5026";
 
@@ -35,7 +36,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             setTimeout(() => {
                 if (data.winner !== "Undefined") alert(`Winner: ${data.winner}`);
             }, 100);
-
         });
     });
 
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-    // Функция для загрузки состояния доски с сервера
+// Функция для загрузки состояния доски с сервера
     async function loadBoardState() {
         const API_BASE_URL = "http://localhost:5026";
         const response = await fetch(`${API_BASE_URL}/api/game/state?sessionId=${sessionId}`);
@@ -72,3 +72,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 });
+
+
+

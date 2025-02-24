@@ -56,6 +56,13 @@ public class GameModel
         return (playerMove ?? false) && (botMove ?? true);
     }
 
+    public void ResetGame()
+    {
+        _board.ResetBoard();
+        _currentItem = Cross;
+        _winner = Winner.Undefined;
+    }
+
     public void PrintBoard() => _board.PrintBoard();
     /*----------------------------------------------*/
 

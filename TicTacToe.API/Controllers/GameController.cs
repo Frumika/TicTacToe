@@ -19,8 +19,8 @@ public class GameController : ControllerBase
         var session = _gameSessionsService.GetOrCreateSession(sessionId);
         return Ok(session.AcceptResponse());
     }
-    
-    
+
+
     [HttpPost("move")]
     public IActionResult MakeMove([FromBody] MoveRequest request)
     {
@@ -44,6 +44,28 @@ public class GameController : ControllerBase
 
         return Ok(session.AcceptResponse());
     }
+
+    [HttpPost("reset")]
+    public IActionResult ResetSession([FromBody] string sessionId)
+    {
+        bool success = _gameSessionsService.ResetSession(sessionId);
+
+        if (!success) return NotFound("Session not found.");
+
+        return Ok("Session reset successfully.");
+    }
+
+    
+    [HttpDelete("end")]
+    public IActionResult EndSession([FromQuery] string sessionId)
+    {
+        bool success = _gameSessionsService.RemoveSession(sessionId);
+
+        if (!success) return NotFound("Session not found.");
+
+        return NoContent(); // Удалено успешно
+    }
+    
 }
 
 public class MoveRequest

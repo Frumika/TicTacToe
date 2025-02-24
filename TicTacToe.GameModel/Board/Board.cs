@@ -161,9 +161,22 @@ public class Board
             Console.WriteLine("|");
         }
     }
+
+    public void ResetBoard()
+    {
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                _board[i, j].Item = Empty;
+            }
+        }
+
+        _emptyFields = Rows * Columns;
+    }
     /*----------------------------------------------*/
-    
-    
+
+
     /*------------| < Private Methods > |-----------*/
     private Field[][] ToJaggedArray()
     {

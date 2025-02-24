@@ -40,4 +40,7 @@ public class Session
             Winner = _gameModel.Winner
         };
     }
+
+
+    public void Reset() => _gameModel.ResetGame();
 }
