@@ -14,7 +14,7 @@ public class GameController : ControllerBase
     }
 
     [HttpPost("start")]
-    public IActionResult StartSession([FromQuery] string sessionId)
+    public IActionResult StartSession([FromBody] string sessionId)
     {
         var session = _gameSessionsService.GetOrCreateSession(sessionId);
         return Ok(session.AcceptResponse());
@@ -35,8 +35,8 @@ public class GameController : ControllerBase
     }
 
 
-    [HttpGet("state")]
-    public IActionResult GetBoardState([FromQuery] string sessionId)
+    [HttpPost("state")]
+    public IActionResult GetBoardState([FromBody] string sessionId)
     {
         var session = _gameSessionsService.GetSession(sessionId);
 

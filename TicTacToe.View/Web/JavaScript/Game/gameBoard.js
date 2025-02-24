@@ -40,15 +40,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     async function startSession() {
-        await fetch(`${API_BASE_URL}/api/game/start?sessionId=${sessionId}`, {
-            method: "POST"
+        await fetch(`${API_BASE_URL}/api/game/start`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(sessionId)
         });
     }
 
 // Функция для загрузки состояния доски с сервера
     async function loadBoardState() {
-        const API_BASE_URL = "http://localhost:5026";
-        const response = await fetch(`${API_BASE_URL}/api/game/state?sessionId=${sessionId}`);
+        const response = await fetch(`${API_BASE_URL}/api/game/state`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(sessionId)
+        });
         const data = await response.json();
         console.log("Loaded board state:", data);
 
