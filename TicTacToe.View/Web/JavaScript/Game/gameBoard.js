@@ -26,13 +26,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 body: JSON.stringify({sessionId, row, column})
             });
 
+            if (!await isResponseCorrect(response)) return;
+
             const data = await response.json();
             console.log(data);
 
-            // Обновляем доску
             updateBoard(data.board);
 
-            // Отображаем победителя, если он есть
             setTimeout(() => {
                 if (data.winner !== "Undefined") alert(`Winner: ${data.winner}`);
             }, 100);
@@ -47,20 +47,28 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     }
 
-// Функция для загрузки состояния доски с сервера
     async function loadBoardState() {
         const response = await fetch(`${API_BASE_URL}/api/game/state`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(sessionId)
         });
-        const data = await response.json();
-        console.log("Loaded board state:", data);
 
-        // Обновляем доску
+        if (!await isResponseCorrect(response)) return;
+
+        const data = await response.json();
+
         updateBoard(data.board);
     }
 
+    async function isResponseCorrect(response) {
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error(`|>> Error: ${errorData.error}`);
+            return false;
+        }
+        return true;
+    }
 
     function updateBoard(board) {
         board.forEach((row, rowIndex) => {
@@ -75,6 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             });
         });
     }
+
 
 });
 

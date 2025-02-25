@@ -24,12 +24,14 @@ public class GameController : ControllerBase
     [HttpPost("move")]
     public IActionResult MakeMove([FromBody] MoveRequest request)
     {
+        if (string.IsNullOrEmpty(request.SessionId)) return BadRequest(new { error = "Empty sessionId" });
+
         Console.WriteLine($"Request: id = {request.SessionId} ({request.Row} : {request.Column})");
 
         var session = _gameSessionsService.GetOrCreateSession(request.SessionId);
         bool moveSuccess = session.SendRequest(request.Row, request.Column);
 
-        if (!moveSuccess) return BadRequest("Invalid move");
+        if (!moveSuccess) return BadRequest(new { error = "Invalid move" });
 
         return Ok(session.AcceptResponse());
     }
@@ -40,7 +42,7 @@ public class GameController : ControllerBase
     {
         var session = _gameSessionsService.GetSession(sessionId);
 
-        if (session is null) return NotFound();
+        if (session is null) return NotFound(new { error = "Session not found" });
 
         return Ok(session.AcceptResponse());
     }
@@ -50,27 +52,26 @@ public class GameController : ControllerBase
     {
         bool success = _gameSessionsService.ResetSession(sessionId);
 
-        if (!success) return NotFound("Session not found.");
+        if (!success) return NotFound(new { error = "Session not found." });
 
-        return Ok("Session reset successfully.");
+        return Ok(new { success = "Session reset successfully." });
     }
 
-    
+
     [HttpDelete("end")]
     public IActionResult EndSession([FromQuery] string sessionId)
     {
         bool success = _gameSessionsService.RemoveSession(sessionId);
 
-        if (!success) return NotFound("Session not found.");
+        if (!success) return NotFound(new { error = "Session not found." });
 
         return NoContent(); // Удалено успешно
     }
-    
 }
 
 public class MoveRequest
 {
-    public string SessionId { get; set; }
+    public string? SessionId { get; set; }
 
     public int Row { get; set; }
     public int Column { get; set; }
