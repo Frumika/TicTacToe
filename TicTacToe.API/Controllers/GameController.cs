@@ -25,9 +25,7 @@ public class GameController : ControllerBase
     public IActionResult MakeMove([FromBody] MoveRequest request)
     {
         if (string.IsNullOrEmpty(request.SessionId)) return BadRequest(new { error = "Empty sessionId" });
-
-        Console.WriteLine($"Request: id = {request.SessionId} ({request.Row} : {request.Column})");
-
+        
         var session = _gameSessionsService.GetOrCreateSession(request.SessionId);
         bool moveSuccess = session.SendRequest(request.Row, request.Column);
 
@@ -58,7 +56,7 @@ public class GameController : ControllerBase
     }
 
 
-    [HttpDelete("end")]
+    [HttpPost("end")]
     public IActionResult EndSession([FromQuery] string sessionId)
     {
         bool success = _gameSessionsService.RemoveSession(sessionId);

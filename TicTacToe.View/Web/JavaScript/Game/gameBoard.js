@@ -1,9 +1,10 @@
 "use strict"
 
 
-document.addEventListener("DOMContentLoaded", async () => {
-    const API_BASE_URL = "http://localhost:5026";
+const API_BASE_URL = "http://localhost:5026";
 
+
+document.addEventListener("DOMContentLoaded", async () => {
 
     const sessionId = sessionStorage.getItem("sessionId") || crypto.randomUUID();
     sessionStorage.setItem("sessionId", sessionId);
