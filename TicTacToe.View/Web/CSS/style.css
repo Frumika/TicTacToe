@@ -17,70 +17,105 @@ body {
 
 /* Header */
 .header-container {
-    border-bottom: 2px solid white;
+    border-bottom: 3px solid white;
 
     display: flex;
 
-    justify-content: space-around;
+    justify-content: space-between;
 
     align-items: center;
+
+    height: 110px;
 
 }
 
 .header-container__logo {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+    margin-left: 60px;
+}
+
+.logo__icon::selection {
+    background: transparent;
+}
+
+.logo__icon:hover {
+    cursor: pointer;
+}
+
+.logo__text {
     color: white;
 
     font-weight: bold;
     font-size: 40px;
 
-    padding: 30px 0 30px 20px;
+    text-decoration: none;
 }
 
-.header-container__navbar {
+.logo__text::selection {
+    background: white;
+    color: black;
+}
+
+.logo__text:hover {
+    cursor: pointer;
+}
+
+.header-container__authorization {
     display: flex;
 
-    justify-content: space-evenly;
+    gap: 25px;
 
-    flex: 1;
-}
-
-@media (max-width: 810px) {
-    .header-container__navbar {
-        display: none;
-    }
-
-    .header-container{
-        justify-content: space-between;
-    }
-}
-
-.navbar__item {
-    color: white;
-
-    font-weight: 600;
-    font-size: 32px;
-
-    text-decoration: none;
+    margin-right: 60px;
 
 }
 
-.navbar__item[aria-current="page"] {
-    color: transparent;
-    background: var(--pages-link);
-    background-clip: text;
+.authorization-button {
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+
+    border-radius: 25px;
+    border: none;
+
+    padding: 8px 30px 8px 30px;
+
+    transition: all ease 0.3s;
 }
 
-.navbar__item::selection {
+.authorization-button:hover {
+    cursor: pointer;
+}
+
+#sign-in {
     background: white;
     color: black;
 
+    border: 4px solid white;
 }
 
-.header-container__menu {
-    margin-right: 30px;
-    cursor: pointer;
+#sign-in:hover {
+    background: black;
+    color: white;
 
-    margin-left: 30px;
+    border: 4px solid white;
+}
+
+#sign-in:hover ~ #sign-up{
+    background: white;
+    color: black;
+
+    border: 4px solid white;
+}
+
+#sign-up {
+    background: black;
+    color: white;
+
+    border: 4px solid white;
 }
 
 
