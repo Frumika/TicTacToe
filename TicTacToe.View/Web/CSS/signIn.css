@@ -1,0 +1,146 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+
+    background: black;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+}
+
+.sign_in-container {
+    border: 4px solid white;
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.sign_in-container__link {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 45px;
+    font-weight: bold;
+
+    border-bottom: 3px solid white;
+
+    padding: 0 50px 0 50px;
+
+    margin: 20px 40px 40px 40px;
+
+    letter-spacing: 3px;
+}
+
+.sign_in-container__form {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 15px;
+    margin: 20px 20px 80px 20px;
+
+}
+
+.form__input-field {
+    border: 3px solid white;
+    border-radius: 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    width: 380px;
+    height: 40px;
+
+}
+
+.input-field {
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+
+    border: none;
+    outline: none;
+
+    border-radius: 25px;
+
+    flex: 1;
+
+    background: none;
+    color: white;
+
+    font-size: 24px;
+
+    padding: 14px;
+}
+
+.input-field::selection {
+    background: white;
+    color: black;
+}
+
+#toggle-password {
+    display: flex;
+
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    width: auto;
+    height: auto;
+
+    margin-right: 14px;
+}
+
+#image-eye-closed {
+    height: 20px;
+    width: 20px;
+}
+
+.submit-button{
+    margin-top: 40px;
+
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+
+    border: 3px solid white;
+    border-radius: 25px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    width: 380px;
+    height: 40px;
+}
+
+
+.sign_in-container__to-sign_up{
+    color: white;
+
+    margin-bottom: 30px;
+}
+
+.to-sign_up__link{
+    border-bottom: 2px solid white;
+    padding-bottom: 2px;
+    text-decoration: none;
+
+    color: white;
+}
