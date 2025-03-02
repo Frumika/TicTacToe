@@ -1,5 +1,7 @@
 "use strict"
 
+const API_BASE_URL = "http://localhost:5026";
+
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector(".sign_up-container__form");
     const loginInput = document.getElementById("login");
@@ -19,8 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const confirmPassword = confirmPasswordInput.value;
 
             if (password !== confirmPassword) {
-                console.log("Password not confirm")
-
                 passwordInput.value = "";
                 confirmPasswordInput.value = "";
 
@@ -36,16 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
             passwordInput.placeholder = "Password";
             confirmPasswordInput.placeholder = "Password confirmation";
 
-            const userData = {
-                login: login,
-                password: password
-            }
 
             try {
-                const response = await fetch(`${API_BASE_URL}/api/register`, {
+                const response = await fetch(`${API_BASE_URL}/api/signup/register`, {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify(userData)
+                    body: JSON.stringify({login, password})
                 });
 
                 if (response.ok) {
@@ -55,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
             } catch (error) {
-
+                console.log(error.message);
             }
         });
     }
