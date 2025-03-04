@@ -262,7 +262,7 @@ body {
 
 
 /*------------------> Board <------------------*/
-.main-container__before-board {
+.main-container__board-container {
     display: flex;
 
     flex-direction: column;
