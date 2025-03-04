@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using TicTacToe.Services;
+using TicTacToe.Data.Context;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<GameSessionsService>();
+
+builder.Services.AddDbContext<UsersDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddCors(options =>
 {
