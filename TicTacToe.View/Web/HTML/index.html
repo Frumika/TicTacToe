@@ -49,35 +49,30 @@
 
                 <header class="settings__header">Game Setting</header>
                 <main class="settings__main">
-                    <div class="settings__main__game-mode">
 
+                    <div class="settings__main__game-mode">
                         <p class="game-mode__heading">Mode</p>
 
-                        <div class="game-mode__label-container">
+                        <div class="game-mode__variants">
 
                             <!-- PvP -->
-                            <div class="label-container__input-label">
-                                <label for="input-pvp" ></label>
-                                <input id="input-pvp" class="input-label__radio-input"
-                                       type="radio" name="radio-input" value="pvp">
-                                <p id="input-pvp-text" class="input-label__text">PvP</p>
+                            <div id="mode-pvp" class="variants__elem">
+                                <div class="elem__circle"></div>
+                                <p class="elem__text">PvP</p>
                             </div>
 
                             <!-- PvE -->
-                            <div class="label-container__input-label">
-                                <label for="input-pve"></label>
-                                <input id="input-pve" class="input-label__radio-input"
-                                       type="radio" name="radio-input" value="pvе" checked>
-                                <p class="input-label__text">PvE</p>
+                            <div id="mode-pve" class="variants__elem">
+                                <div class="elem__circle"></div>
+                                <p class="elem__text">PvE</p>
                             </div>
                         </div>
                     </div>
                 </main>
-                <footer class="settings__footer">
-                    <button class="settings__confirm" type="button">Confirm</button>
-                </footer>
-            </div>
 
+                <button class="settings__confirm" type="button">Confirm</button>
+
+            </div>
         </section>
 
         <section class="main-container__board-container">
@@ -100,10 +95,13 @@
 <!-- Footer -->
 <footer></footer>
 
-<!-- Скрипты -->
-<script src="../JavaScript/Game/gameBoard.js"></script>
-<script src="../JavaScript/Game/resetGame.js"></script>
-<script src="../JavaScript/Game/endSession.js"></script>
+<!-- Скрипты для игровой доски-->
+<script src="../JavaScript/Game/Board/gameBoard.js"></script>
+<script src="../JavaScript/Game/Board/resetGame.js"></script>
+<script src="../JavaScript/Game/Board/endSession.js"></script>
+
+<!-- Скрипты для настроек игры -->
+<script src="../JavaScript/Game/Settings/chooseMode.js"></script>
 
 </body>
 </html>

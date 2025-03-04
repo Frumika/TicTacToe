@@ -196,8 +196,9 @@ body {
     border-radius: 30px;
 
     display: flex;
+
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
 }
 
 .game-mode__heading {
@@ -213,23 +214,35 @@ body {
 
 }
 
-.game-mode__label-container {
+.game-mode__variants{
     display: flex;
+
     justify-content: space-around;
+}
+
+.variants__elem{
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
 
     margin: 5px 0 5px 0;
-
-    width: 200px;
 }
 
-.label-container__input-label{
-    display: flex;
+.elem__circle{
+    border: 3px solid white;
+    border-radius: 50px;
 
-    gap: 8px;
+    width: 14px;
+    height: 14px;
+
+    cursor: pointer;
+
+    background: transparent;
 }
 
-
-.input-label__text{
+.elem__text{
     font-family: "Play", "Work Sans", "Arial", sans-serif;
     font-size: 24px;
     font-weight: normal;
@@ -239,10 +252,6 @@ body {
     cursor: pointer;
 }
 
-
-.settings__footer{
-    display: flex;
-}
 
 .settings__confirm{
     font-family: "Play", "Work Sans", "Arial", sans-serif;
