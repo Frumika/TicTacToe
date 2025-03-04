@@ -15,7 +15,7 @@ body {
 }
 
 
-/* Header */
+/*------------------> Header <------------------*/
 .header-container {
     border-bottom: 3px solid white;
 
@@ -78,7 +78,7 @@ body {
     font-size: 26px;
     font-weight: bold;
 
-    text-decoration: none;  
+    text-decoration: none;
 
     border-radius: 25px;
     border: none;
@@ -106,7 +106,7 @@ body {
     border: 4px solid white;
 }
 
-#sign-in:hover ~ #sign-up{
+#sign-in:hover ~ #sign-up {
     background: white;
     color: black;
 
@@ -121,15 +121,156 @@ body {
 }
 
 
-/* Main */
+/*------------------> Main <------------------*/
 .main-container {
+    position: relative;
+
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     justify-content: center;
     align-items: center;
 
     margin-top: 50px;
+
+}
+
+/*------------------> Game Settings <------------------*/
+.main-container__settings-container {
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+
+
+    justify-content: center;
+    align-items: center;
+
+    top: 0;
+    left: 0;
+
+    height: 100%;
+
+    margin-left: 35px;
+
+}
+
+.settings-container__settings {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    border: 4px solid white;
+    border-radius: 25px;
+
+    background: black;
+
+}
+
+.settings__header {
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+
+    border-bottom: 3px solid white;
+    color: white;
+
+    margin: 10px 40px 25px 40px;
+    padding: 0 50px 5px 50px;
+}
+
+
+.settings__main {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 40px;
+}
+
+.settings__main__game-mode {
+    border: 3px solid white;
+    border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-mode__heading {
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+
+    color: white;
+
+    border-bottom: 3px solid white;
+
+    padding: 5px 140px 5px 140px;
+
+}
+
+.game-mode__label-container {
+    display: flex;
+    justify-content: space-around;
+
+    margin: 5px 0 5px 0;
+
+    width: 200px;
+}
+
+.label-container__input-label{
+    display: flex;
+
+    gap: 8px;
+}
+
+
+.input-label__text{
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-size: 24px;
+    font-weight: normal;
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+.settings__footer{
+    display: flex;
+}
+
+.settings__confirm{
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+
+    background: white;
+    color: black;
+
+    border: 2px solid white;
+    border-radius: 15px;
+
+    padding: 5px 10px 5px 10px;
+    margin: 0 0 20px 0;
+}
+
+
+
+/*------------------> Board <------------------*/
+.main-container__before-board {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+
 }
 
 .main-container__board {

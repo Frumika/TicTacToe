@@ -41,22 +41,59 @@
         </div>
     </div>
 </header>
-
 <main>
     <div class="main-container">
-        <div class="main-container__board">
-            <div id="board__field-01" class="board__field" data-row="0" data-column="0"></div>
-            <div id="board__field-02" class="board__field" data-row="0" data-column="1"></div>
-            <div id="board__field-03" class="board__field" data-row="0" data-column="2"></div>
-            <div id="board__field-04" class="board__field" data-row="1" data-column="0"></div>
-            <div id="board__field-05" class="board__field" data-row="1" data-column="1"></div>
-            <div id="board__field-06" class="board__field" data-row="1" data-column="2"></div>
-            <div id="board__field-07" class="board__field" data-row="2" data-column="0"></div>
-            <div id="board__field-08" class="board__field" data-row="2" data-column="1"></div>
-            <div id="board__field-09" class="board__field" data-row="2" data-column="2"></div>
-        </div>
 
-        <button class="main-container__button" type="reset">Reset</button>
+        <section class="main-container__settings-container">
+            <div class="settings-container__settings">
+
+                <header class="settings__header">Game Setting</header>
+                <main class="settings__main">
+                    <div class="settings__main__game-mode">
+
+                        <p class="game-mode__heading">Mode</p>
+
+                        <div class="game-mode__label-container">
+
+                            <!-- PvP -->
+                            <div class="label-container__input-label">
+                                <label for="input-pvp" ></label>
+                                <input id="input-pvp" class="input-label__radio-input"
+                                       type="radio" name="radio-input" value="pvp">
+                                <p id="input-pvp-text" class="input-label__text">PvP</p>
+                            </div>
+
+                            <!-- PvE -->
+                            <div class="label-container__input-label">
+                                <label for="input-pve"></label>
+                                <input id="input-pve" class="input-label__radio-input"
+                                       type="radio" name="radio-input" value="pvе" checked>
+                                <p class="input-label__text">PvE</p>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <footer class="settings__footer">
+                    <button class="settings__confirm" type="button">Confirm</button>
+                </footer>
+            </div>
+
+        </section>
+
+        <section class="main-container__before-board">
+            <div class="main-container__board">
+                <div id="board__field-01" class="board__field" data-row="0" data-column="0"></div>
+                <div id="board__field-02" class="board__field" data-row="0" data-column="1"></div>
+                <div id="board__field-03" class="board__field" data-row="0" data-column="2"></div>
+                <div id="board__field-04" class="board__field" data-row="1" data-column="0"></div>
+                <div id="board__field-05" class="board__field" data-row="1" data-column="1"></div>
+                <div id="board__field-06" class="board__field" data-row="1" data-column="2"></div>
+                <div id="board__field-07" class="board__field" data-row="2" data-column="0"></div>
+                <div id="board__field-08" class="board__field" data-row="2" data-column="1"></div>
+                <div id="board__field-09" class="board__field" data-row="2" data-column="2"></div>
+            </div>
+            <button class="main-container__button" type="reset">Reset</button>
+        </section>
     </div>
 </main>
 
