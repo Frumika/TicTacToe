@@ -214,13 +214,13 @@ body {
 
 }
 
-.game-mode__variants{
+.game-mode__variants {
     display: flex;
 
     justify-content: space-around;
 }
 
-.variants__elem{
+.variants__elem {
     display: flex;
 
     align-items: center;
@@ -230,7 +230,7 @@ body {
     margin: 5px 0 5px 0;
 }
 
-.elem__circle{
+.elem__circle {
     border: 3px solid white;
     border-radius: 50px;
 
@@ -242,7 +242,7 @@ body {
     background: transparent;
 }
 
-.elem__text{
+.elem__text {
     font-family: "Play", "Work Sans", "Arial", sans-serif;
     font-size: 24px;
     font-weight: normal;
@@ -253,7 +253,7 @@ body {
 }
 
 
-.settings__confirm{
+.settings__confirm {
     font-family: "Play", "Work Sans", "Arial", sans-serif;
     font-size: 32px;
     font-weight: bold;
@@ -266,8 +266,9 @@ body {
 
     padding: 5px 10px 5px 10px;
     margin: 0 0 20px 0;
-}
 
+    cursor: pointer;
+}
 
 
 /*------------------> Board <------------------*/
