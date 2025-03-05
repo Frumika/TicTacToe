@@ -1,9 +1,9 @@
 "use strict"
 
-const API_BASE_URL = "http://localhost:5026";
-
 
 document.addEventListener("DOMContentLoaded", async () => {
+    const API_BASE_URL = "http://localhost:5026";
+
     const modePvp = document.getElementById("mode-pvp");
 
     function getSelectedMode() {
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!response.ok) {
             console.log("Settings not confirmed")
         } else {
-            location.reload();
+
         }
     }
 
