@@ -14,7 +14,7 @@
     <link rel="icon" href="../Sources/Svg/icon.svg">
 
     <!-- Стили -->
-    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../2-CSS/index.css">
 
     <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap"
@@ -28,11 +28,11 @@
 <header>
     <div class="header-container">
         <div class="header-container__logo">
-            <a href="../HTML/index.html">
+            <a href="../1-HTML/index.html">
                 <img class="logo__icon" src="../Sources/Svg/logo.svg" alt="Logo">
             </a>
 
-            <a href="../HTML/index.html" class="logo__text">Tic-Tac-Toe</a>
+            <a href="../1-HTML/index.html" class="logo__text">Tic-Tac-Toe</a>
         </div>
 
         <div class="header-container__authorization">
@@ -76,7 +76,7 @@
         </section>
 
         <section class="main-container__board-container">
-            <div class="main-container__board">
+            <div class="board-container__board">
                 <div id="board__field-01" class="board__field" data-row="0" data-column="0"></div>
                 <div id="board__field-02" class="board__field" data-row="0" data-column="1"></div>
                 <div id="board__field-03" class="board__field" data-row="0" data-column="2"></div>
@@ -87,7 +87,7 @@
                 <div id="board__field-08" class="board__field" data-row="2" data-column="1"></div>
                 <div id="board__field-09" class="board__field" data-row="2" data-column="2"></div>
             </div>
-            <button class="main-container__button" type="reset">Reset</button>
+            <button class="board-container__game-board-button" type="reset">Reset</button>
         </section>
     </div>
 </main>
@@ -96,13 +96,8 @@
 <footer></footer>
 
 <!-- Скрипты для игровой доски-->
-<script src="../JavaScript/Game/Board/gameBoard.js"></script>
-<script src="../JavaScript/Game/Board/resetGame.js"></script>
-<script src="../JavaScript/Game/Board/endSession.js"></script>
+<script type="module" src="../3-JavaScript/1-MainPage/main.js"></script>
 
-<!-- Скрипты для настроек игры -->
-<script src="../JavaScript/Game/Settings/chooseMode.js"></script>
-<script src="../JavaScript/Game/Settings/sendToServer.js"></script>
 
 </body>
 </html>

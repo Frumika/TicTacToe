@@ -121,7 +121,7 @@ body {
 }
 
 
-/*------------------> Main <------------------*/
+/*------------------> 1-Main <------------------*/
 .main-container {
     position: relative;
 
@@ -135,11 +135,11 @@ body {
 
 }
 
-/*------------------> Game Settings <------------------*/
+/*------------------> 1-Main Settings <------------------*/
 .main-container__settings-container {
     position: absolute;
 
-    display: flex;
+    display: none;
     flex-direction: column;
 
 
@@ -283,7 +283,7 @@ body {
 
 }
 
-.main-container__board {
+.board-container__board {
     display: grid;
 
     grid-template-columns: repeat(3, 1fr);
@@ -338,7 +338,7 @@ body {
     border-left: 5px solid white;
 }
 
-.main-container__button {
+.board-container__game-board-button {
     color: white;
 
     font-family: "Play", "Work Sans", "Arial", sans-serif;

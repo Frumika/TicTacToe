@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
                 if (response.ok) {
-                    window.location.href = "../HTML/index.html"
+                    window.location.href = "../../1-HTML/index.html"
                 } else {
                     alert("Registration failed!");
                 }
