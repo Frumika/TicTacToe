@@ -16,7 +16,6 @@ public class Session
 
     public Session()
     {
-        Console.WriteLine("|>> Empty Constructor was called");
         _gameModel = new GameModel(3, GameMode.PvE, BotMode.Medium);
     }
 
@@ -56,8 +55,6 @@ public class Session
             "PvP" => GameMode.PvP,
             _ => GameMode.PvE
         };
-
-        Console.WriteLine($"|>> Appy: {mode}");
 
         _gameModel = new GameModel(3, mode, BotMode.Medium);
     }

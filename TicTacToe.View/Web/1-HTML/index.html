@@ -36,23 +36,21 @@
         </div>
 
         <div class="header-container__authorization">
-            <a id="sign-in" class="authorization-button" href="signIn.html">Sign In</a>
-            <a id="sign-up" class="authorization-button" href="signUp.html">Sign Up</a>
+            <a id="sign-in" class="authorization-button" href="../1-HTML/signIn.html">Sign In</a>
+            <a id="sign-up" class="authorization-button" href="../1-HTML/signUp.html">Sign Up</a>
         </div>
     </div>
 </header>
 <main>
     <div class="main-container">
 
+        <!-- Настройка игры -->
         <section class="main-container__settings-container">
             <div class="settings-container__settings">
-
                 <header class="settings__header">Game Setting</header>
                 <main class="settings__main">
-
                     <div class="settings__main__game-mode">
                         <p class="game-mode__heading">Mode</p>
-
                         <div class="game-mode__variants">
 
                             <!-- PvP -->
@@ -69,13 +67,13 @@
                         </div>
                     </div>
                 </main>
-
                 <button id="confirm-button" class="settings__confirm" type="button">Confirm</button>
-
             </div>
         </section>
 
+        <!-- Игровая доска и перезагрузка игры -->
         <section class="main-container__board-container">
+            <!-- Игровая доска -->
             <div class="board-container__board">
                 <div id="board__field-01" class="board__field" data-row="0" data-column="0"></div>
                 <div id="board__field-02" class="board__field" data-row="0" data-column="1"></div>
@@ -87,8 +85,15 @@
                 <div id="board__field-08" class="board__field" data-row="2" data-column="1"></div>
                 <div id="board__field-09" class="board__field" data-row="2" data-column="2"></div>
             </div>
-            <button class="board-container__game-board-button" type="reset">Reset</button>
+
+            <!-- Сообщение о победителе -->
+            <div class="board-container__winner-info">
+                <div class="winner-info__text"></div>
+                <button class="winner-info__reset-button" type="reset">Reset</button>
+            </div>
         </section>
+
+
     </div>
 </main>
 

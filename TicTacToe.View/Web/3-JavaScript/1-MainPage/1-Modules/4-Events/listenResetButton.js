@@ -2,7 +2,7 @@
 
 
 export function listenResetButton() {
-    const resetButton = document.querySelector(".board-container__game-board-button");
+    const resetButton = document.querySelector(".winner-info__reset-button");
 
     if (!resetButton) {
         throw new Error("The reset button is inactive");

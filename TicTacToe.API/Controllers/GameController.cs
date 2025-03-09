@@ -16,9 +16,6 @@ public class GameController : ControllerBase
     [HttpPost("settings")]
     public IActionResult ConfirmSettings([FromBody] SettingsRequest request)
     {
-        Console.WriteLine("|> Controller: settings");
-        Console.WriteLine($"|> Contorller seID: {request.GameSessionId}");
-
         if (string.IsNullOrEmpty(request.GameSessionId)) return BadRequest(new { error = "Empty sessionId" });
         if (string.IsNullOrEmpty(request.GameMode)) return BadRequest(new { error = "Empty GameMode" });
 
@@ -32,9 +29,6 @@ public class GameController : ControllerBase
     [HttpPost("start")]
     public IActionResult StartSession([FromBody] string sessionId)
     {
-        Console.WriteLine("|> Controller: start");
-        Console.WriteLine($"|> Contorller sID: {sessionId}");
-
         var session = _gameSessionsService.GetOrCreateSession(sessionId);
         return Ok(session.AcceptResponse());
     }
@@ -66,8 +60,6 @@ public class GameController : ControllerBase
     [HttpPost("reset")]
     public IActionResult ResetSession([FromBody] string sessionId)
     {
-        Console.WriteLine("|> Controller: reset");
-
         bool success = _gameSessionsService.ResetSession(sessionId);
 
         if (!success) return NotFound(new { message = "Session not found." });
@@ -79,8 +71,6 @@ public class GameController : ControllerBase
     [HttpPost("end")]
     public IActionResult EndSession([FromQuery] string sessionId)
     {
-        Console.WriteLine("|> Controller: end");
-
         bool success = _gameSessionsService.RemoveSession(sessionId);
 
         if (!success) return NotFound(new { message = "Session not found." });

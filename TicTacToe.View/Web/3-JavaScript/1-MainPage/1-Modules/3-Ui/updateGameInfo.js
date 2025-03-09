@@ -2,13 +2,13 @@
 
 
 import {getGameState} from "../2-Api/getGameState.js";
+import {drawWinnerMessage} from "./drawWinnerMessage.js";
 
 // Функции
 export {updateBoard, updateGameState};
 
 // Перечисление
 export {UpdateMode};
-
 
 
 // Перечисление вариантов обновления доски
@@ -58,7 +58,10 @@ async function updateGameState(updateMode) {
         throw new Error(error.message);
     }
 
-    if (boardData && boardData.board) updateBoard(boardData.board, updateMode);
-    else throw new Error("Failed to load board data.");
+    if (boardData) {
+        if (boardData.board) updateBoard(boardData.board, updateMode);
+        if (boardData.winner) drawWinnerMessage(boardData.winner, updateMode);
+    } else throw new Error("Failed to load board data: board.")
+
 }
 
