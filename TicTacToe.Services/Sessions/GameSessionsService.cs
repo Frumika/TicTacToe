@@ -33,9 +33,10 @@ public class GameSessionsService
 
     public bool ResetSession(string sessionId, string gameMode, string botMode)
     {
-        var newSession = new Session(gameMode, botMode);
-        _gameServices[sessionId] = newSession;
-        
+        var session = GetSession(sessionId);
+        if (session is null) return false;
+
+        session.Reset(gameMode, botMode);
         return true;
     }
 }

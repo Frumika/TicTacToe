@@ -3,6 +3,7 @@
 import {getOrCreateSessionId, getSessionId} from "../1-Core/sessionId.js";
 import {URL} from "./url.js";
 import {sendStartRequest} from "./sendStartRequest.js";
+import {checkGameSession} from "./checkGameSession.js";
 
 export async function sendMove(row, column) {
     // Определяем URL контроллера
@@ -11,13 +12,12 @@ export async function sendMove(row, column) {
     // Находим id нужной нам игровой сессии
     let gameSessionId = getSessionId("gameSessionId");
 
-    console.log(`1-Game Session: ${gameSessionId}`)
-
-    if (!gameSessionId) {
-        await sendStartRequest(); // Если игровой сессии нет - отправляем запрос на создание перед тем как сделать ход
-        gameSessionId = getSessionId("gameSessionId");
-
-        console.log(`2-Game Session: ${gameSessionId}`)
+    if (!gameSessionId) { // Если Сессии с Id не существует, то
+        await sendStartRequest(); // Создаем сессию и отправляем запрос на создание сессии на сервере
+        gameSessionId = getSessionId("gameSessionId"); // Получаем id этой сессии
+    } else { // Если Сессия уже существует, то
+        const success = await checkGameSession(gameSessionId); // Проверяем её на сервере
+        if (!success) await sendStartRequest(); // И создаем новую, если её нет
     }
 
 
