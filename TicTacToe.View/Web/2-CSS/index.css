@@ -26,7 +26,6 @@ body {
     align-items: center;
 
     height: 110px;
-
 }
 
 .header-container__logo {
@@ -70,7 +69,6 @@ body {
     gap: 25px;
 
     margin-right: 60px;
-
 }
 
 .authorization-button {
@@ -132,14 +130,13 @@ body {
     align-items: center;
 
     margin-top: 50px;
-
 }
 
 /*------------------> 1-Main Settings <------------------*/
 .main-container__settings-container {
     position: absolute;
 
-    display: none;
+    display: flex;
     flex-direction: column;
 
 
@@ -152,7 +149,6 @@ body {
     height: 100%;
 
     margin-left: 35px;
-
 }
 
 .settings-container__settings {
@@ -165,7 +161,6 @@ body {
     border-radius: 25px;
 
     background: black;
-
 }
 
 .settings__header {
@@ -180,44 +175,44 @@ body {
     padding: 0 50px 5px 50px;
 }
 
-
-.settings__main {
+.settings__params{
     display: flex;
+
     flex-direction: column;
+    align-items: start;
 
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 40px;
+    width: 355px;
 }
 
-.settings__main__game-mode {
-    border: 3px solid white;
-    border-radius: 30px;
+.params__bot-mode{
+    display: none;
+}
 
+.params__item{
     display: flex;
 
-    flex-direction: column;
-    align-items: stretch;
+    justify-content: start;
+    align-items: center;
+
+    margin-bottom: 20px;
 }
 
 .game-mode__heading {
     font-family: "Play", "Work Sans", "Arial", sans-serif;
-    font-size: 32px;
+    font-size: 26px;
     font-weight: bold;
 
     color: white;
 
-    border-bottom: 3px solid white;
-
-    padding: 5px 140px 5px 140px;
-
+    margin-right: 15px;
 }
 
 .game-mode__variants {
     display: flex;
 
-    justify-content: space-around;
+    align-items: center;
+
+    gap: 15px;
 }
 
 .variants__elem {
@@ -226,8 +221,6 @@ body {
     align-items: center;
 
     gap: 5px;
-
-    margin: 5px 0 5px 0;
 }
 
 .elem__circle {
@@ -239,7 +232,7 @@ body {
 
     cursor: pointer;
 
-    background: transparent;
+    background: black;
 }
 
 .elem__text {
@@ -253,24 +246,6 @@ body {
 }
 
 
-.settings__confirm {
-    font-family: "Play", "Work Sans", "Arial", sans-serif;
-    font-size: 32px;
-    font-weight: bold;
-
-    background: white;
-    color: black;
-
-    border: 2px solid white;
-    border-radius: 15px;
-
-    padding: 5px 10px 5px 10px;
-    margin: 0 0 20px 0;
-
-    cursor: pointer;
-}
-
-
 /*------------------> Board <------------------*/
 .main-container__board-container {
     display: flex;
@@ -279,8 +254,6 @@ body {
 
     justify-content: center;
     align-items: center;
-
-
 }
 
 .board-container__board {

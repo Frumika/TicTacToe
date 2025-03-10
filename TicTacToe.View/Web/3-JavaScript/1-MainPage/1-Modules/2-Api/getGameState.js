@@ -1,6 +1,6 @@
 "use strict"
 
-import {getOrCreateSessionId} from "../1-Core/sessionId.js";
+import {getOrCreateSessionId, getSessionId} from "../1-Core/sessionId.js";
 import {URL} from "./url.js";
 
 
@@ -9,7 +9,7 @@ export async function getGameState() {
 
     const url = URL.GAME_CONTROLLER_URL
 
-    const gameSessionId = getOrCreateSessionId("gameSessionId");
+    const gameSessionId = getSessionId("gameSessionId");
     if (!gameSessionId) {
         throw new Error("The game session was not received");
     }

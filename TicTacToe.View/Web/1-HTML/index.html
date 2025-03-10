@@ -46,11 +46,14 @@
 
         <!-- Настройка игры -->
         <section class="main-container__settings-container">
+
             <div class="settings-container__settings">
-                <header class="settings__header">Game Setting</header>
-                <main class="settings__main">
-                    <div class="settings__main__game-mode">
-                        <p class="game-mode__heading">Mode</p>
+                <header class="settings__header">Game Settings</header>
+                <div class="settings__params">
+
+                    <!-- Настройка игрового режима -->
+                    <div class="params__game-mode params__item">
+                        <p class="game-mode__heading">Mode:</p>
                         <div class="game-mode__variants">
 
                             <!-- PvP -->
@@ -66,8 +69,35 @@
                             </div>
                         </div>
                     </div>
-                </main>
-                <button id="confirm-button" class="settings__confirm" type="button">Confirm</button>
+
+
+                    <!-- Настройка уровня сложности бота -->
+                    <div class="params__bot-mode params__item">
+                        <p class="game-mode__heading">Bot:</p>
+                        <div class="game-mode__variants">
+
+                            <!-- Easy -->
+                            <div id="bot-easy" class="variants__elem">
+                                <div class="elem__circle"></div>
+                                <p class="elem__text">Easy</p>
+                            </div>
+
+                            <!-- Medium -->
+                            <div id="bot-medium" class="variants__elem">
+                                <div class="elem__circle"></div>
+                                <p class="elem__text">Medium</p>
+                            </div>
+
+                            <!-- Hard -->
+                            <div id="bot-hard" class="variants__elem">
+                                <div class="elem__circle"></div>
+                                <p class="elem__text">Hard</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Еще какая-нибудь настройка -->
             </div>
         </section>
 

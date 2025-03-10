@@ -13,25 +13,17 @@ public class GameController : ControllerBase
         _gameSessionsService = gameSessionsService;
     }
 
-    [HttpPost("settings")]
-    public IActionResult ConfirmSettings([FromBody] SettingsRequest request)
-    {
-        if (string.IsNullOrEmpty(request.GameSessionId)) return BadRequest(new { error = "Empty sessionId" });
-        if (string.IsNullOrEmpty(request.GameMode)) return BadRequest(new { error = "Empty GameMode" });
-
-        var session = _gameSessionsService.GetSession(request.GameSessionId);
-        if (session is null) return NotFound(new { error = "Session not found" });
-
-        session?.ApplySetting(request.GameMode);
-        return Ok(new { success = "Settings confirmed." });
-    }
 
     [HttpPost("start")]
-    public IActionResult StartSession([FromBody] string sessionId)
+    public IActionResult StartSession([FromBody] GameInfoRequest request)
     {
-        var session = _gameSessionsService.GetOrCreateSession(sessionId);
-        return Ok(session.AcceptResponse());
+        var session = _gameSessionsService.CreateSession(request.GameSessionId, request.GameMode, request.BotMode);
+        if (!session) return NotFound(new { message = "Session not create" });
+
+        return Ok(new { message = "Session was created" });
     }
+    
+    
 
 
     [HttpPost("move")]
@@ -39,9 +31,10 @@ public class GameController : ControllerBase
     {
         if (string.IsNullOrEmpty(request.GameSessionId)) return BadRequest(new { message = "Empty sessionId" });
 
-        var session = _gameSessionsService.GetOrCreateSession(request.GameSessionId);
-        bool moveSuccess = session.SendRequest(request.Row, request.Column);
+        var session = _gameSessionsService.GetSession(request.GameSessionId);
+        if (session is null) return BadRequest(new { message = "Session not found" });
 
+        bool moveSuccess = session.SendRequest(request.Row, request.Column);
         if (!moveSuccess) return BadRequest(new { message = "Invalid move" });
 
         return Ok(new { message = "Successful move" });
@@ -58,9 +51,9 @@ public class GameController : ControllerBase
     }
 
     [HttpPost("reset")]
-    public IActionResult ResetSession([FromBody] string sessionId)
+    public IActionResult ResetSession([FromBody] GameInfoRequest request)
     {
-        bool success = _gameSessionsService.ResetSession(sessionId);
+        bool success = _gameSessionsService.ResetSession(request.GameSessionId, request.GameMode, request.BotMode);
 
         if (!success) return NotFound(new { message = "Session not found." });
 
@@ -87,8 +80,9 @@ public class MoveRequest
     public int Column { get; set; }
 }
 
-public class SettingsRequest
+public class GameInfoRequest
 {
     public string? GameSessionId { get; set; }
     public string? GameMode { get; set; }
+    public string? BotMode { get; set; }
 }

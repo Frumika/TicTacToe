@@ -7,7 +7,6 @@ function getSessionId(key) {
 
     try {
         sessionId = sessionStorage.getItem(key);
-        if (!sessionId) console.warn(`Session ID with key '${key}' not found.`);
     } catch (error) {
         console.error(`Error reading from sessionStorage: ${error.message}`);
     }

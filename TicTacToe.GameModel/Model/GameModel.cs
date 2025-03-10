@@ -31,9 +31,6 @@ public class GameModel
     {
         _board = new Board(size);
         _gameMode = gameMode;
-        
-        Console.WriteLine($"|>>> GameModel mode: {gameMode}");
-
         if (_gameMode == PvE) _bot = new Bot(_currentItem == Cross ? Zero : Cross, botMode);
     }
     /*----------------------------------------------*/

@@ -12,16 +12,30 @@ public class GameStateDto
 
 public class Session
 {
-    private GameModel _gameModel = null;
+    private GameModel _gameModel;
 
     public Session()
     {
         _gameModel = new GameModel(3, GameMode.PvE, BotMode.Medium);
     }
 
-    public Session(GameMode gameMode)
+    public Session(string gameMode, string botMode)
     {
-        _gameModel = new GameModel(3, gameMode, BotMode.Medium);
+        GameMode gMode = gameMode switch
+        {
+            "PvP" => GameMode.PvP,
+            _ => GameMode.PvE
+        };
+
+        BotMode bMode = botMode switch
+        {
+            "Easy" => BotMode.Easy,
+            "Medium" => BotMode.Medium,
+            "Hard" => BotMode.Hard,
+            _ => BotMode.Medium
+        };
+        
+        _gameModel = new GameModel(3, gMode, bMode);
     }
 
     public bool SendRequest(int row, int column)
@@ -33,10 +47,9 @@ public class Session
 
             return condition;
         }
-
         return false;
     }
-
+    
     public GameStateDto AcceptResponse()
     {
         return new GameStateDto()
@@ -44,18 +57,5 @@ public class Session
             Board = _gameModel.Board,
             Winner = _gameModel.Winner
         };
-    }
-
-    public void Reset() => _gameModel?.ResetGame();
-
-    public void ApplySetting(string gameMode)
-    {
-        GameMode mode = gameMode switch
-        {
-            "PvP" => GameMode.PvP,
-            _ => GameMode.PvE
-        };
-
-        _gameModel = new GameModel(3, mode, BotMode.Medium);
     }
 }

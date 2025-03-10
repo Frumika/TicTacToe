@@ -2,6 +2,7 @@
 
 import {URL} from "./url.js";
 import {getSessionId} from "../1-Core/sessionId.js";
+import {GameSettings} from "../1-Core/gameSettings.js";
 
 
 export async function sendResetRequest() {
@@ -16,13 +17,18 @@ export async function sendResetRequest() {
 
     // Данные, которые будут отправлены на сервер в запросе
     const requestData = {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(gameSessionId)
+        gameSessionId: gameSessionId,
+        GameMode: GameSettings.GameMode,
+        BotMode: GameSettings.BotMode
     }
 
     // Отправляем запрос на обновление доски на сервер
-    const resetResponse = await fetch(`${url}/api/game/reset`, requestData);
+    const resetResponse = await fetch(`${url}/api/game/reset`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(requestData)
+
+    });
     if (!resetResponse.ok) {
         const error = await resetResponse.json();
         throw new Error(error.message || "The board has not been updated");
