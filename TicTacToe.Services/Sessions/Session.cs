@@ -38,19 +38,17 @@ public class Session
         _gameModel = new GameModel(3, gMode, bMode);
     }
 
-    public bool SendRequest(int row, int column)
+    public bool MakeMove(int row, int column)
     {
         if (_gameModel.Winner == Winner.Undefined)
         {
             bool condition = _gameModel.MakeMove(row, column);
-            _gameModel.PrintBoard();
-
             return condition;
         }
         return false;
     }
     
-    public GameStateDto AcceptResponse()
+    public GameStateDto GameState()
     {
         return new GameStateDto()
         {

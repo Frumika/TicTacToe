@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TicTacToe.Services;
+using TicTacToe.API.Requests;
 
 
 [ApiController]
@@ -14,17 +15,22 @@ public class GameController : ControllerBase
     }
 
 
+    [HttpPost("check")]
+    public IActionResult CheckSession([FromBody] string sessionId)
+    {
+        var session = _gameSessionsService.GetSession(sessionId);
+        if (session is null) return NotFound(new { message = "Session not found" });
+        return Ok(new { message = "Session was found" });
+    }
+
     [HttpPost("start")]
     public IActionResult StartSession([FromBody] GameInfoRequest request)
     {
         var session = _gameSessionsService.CreateSession(request.GameSessionId, request.GameMode, request.BotMode);
-        if (!session) return NotFound(new { message = "Session not create" });
+        if (!session) return BadRequest(new { message = "Session not create" });
 
         return Ok(new { message = "Session was created" });
     }
-    
-    
-
 
     [HttpPost("move")]
     public IActionResult MakeMove([FromBody] MoveRequest request)
@@ -34,12 +40,11 @@ public class GameController : ControllerBase
         var session = _gameSessionsService.GetSession(request.GameSessionId);
         if (session is null) return BadRequest(new { message = "Session not found" });
 
-        bool moveSuccess = session.SendRequest(request.Row, request.Column);
+        bool moveSuccess = session.MakeMove(request.Row, request.Column);
         if (!moveSuccess) return BadRequest(new { message = "Invalid move" });
 
         return Ok(new { message = "Successful move" });
     }
-
 
     [HttpPost("state")]
     public IActionResult GetBoardState([FromBody] string sessionId)
@@ -47,7 +52,7 @@ public class GameController : ControllerBase
         var session = _gameSessionsService.GetSession(sessionId);
         if (session is null) return NotFound(new { message = "Session not found" });
 
-        return Ok(session.AcceptResponse());
+        return Ok(session.GameState());
     }
 
     [HttpPost("reset")]
@@ -70,19 +75,4 @@ public class GameController : ControllerBase
 
         return NoContent(); // Удалено успешно
     }
-}
-
-public class MoveRequest
-{
-    public string? GameSessionId { get; set; }
-
-    public int Row { get; set; }
-    public int Column { get; set; }
-}
-
-public class GameInfoRequest
-{
-    public string? GameSessionId { get; set; }
-    public string? GameMode { get; set; }
-    public string? BotMode { get; set; }
 }
