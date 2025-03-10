@@ -171,8 +171,8 @@ body {
     border-bottom: 3px solid white;
     color: white;
 
-    margin: 10px 40px 25px 40px;
-    padding: 0 50px 5px 50px;
+    margin: 10px 37px 25px 37px;
+    padding: 0 37px 5px 37px;
 }
 
 .settings__params{
@@ -316,7 +316,7 @@ body {
 
 .board-container__winner-info {
     display: flex;
-    visibility: hidden;
+/*    visibility: hidden; */
 
     justify-content: space-evenly;
     align-items: center;

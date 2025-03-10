@@ -13,11 +13,11 @@ export function drawWinnerMessage(winner, updateMode) {
 
         if (updateMode === UpdateMode.MakeMove) {
             setTimeout(() => {
-                winnerBlock.style.visibility = "visible"
-            }, 200)
+                winnerBlock.style.display = "flex"
+            }, 150)
         }
         else{
-            winnerBlock.style.visibility = "visible";
+            winnerBlock.style.display = "flex";
         }
 
         switch (winner) {
@@ -37,7 +37,7 @@ export function drawWinnerMessage(winner, updateMode) {
     }
 }
 
-export function hiddenWinner() {
+export function hiddenWinnerMessage() {
     let winnerBlock = document.querySelector(".board-container__winner-info");
-    winnerBlock.style.visibility = "hidden"
+    winnerBlock.style.display = "none"
 }

@@ -9,7 +9,7 @@ import {sendResetRequest} from "./1-Modules/2-Api/sendResetRequest.js"; // За�
 // UI: Работа с визуальным представлением
 import {updateGameState, UpdateMode} from "./1-Modules/3-Ui/updateGameInfo.js"; // Обновление доски с сервера
 import {drawClearBoard} from "./1-Modules/3-Ui/drawClearBoard.js"; // Очистка доски
-import {hiddenWinner} from "./1-Modules/3-Ui/drawWinnerMessage.js"; // Вывод сообщения о победителе
+import {hiddenWinnerMessage} from "./1-Modules/3-Ui/drawWinnerMessage.js"; // Вывод сообщения о победителе
 import {setBaseGameMode, setBaseBotMode, GameSettings} from "./1-Modules/1-Core/gameSettings.js";
 import {drawGameMode, drawBotMode} from "./1-Modules/3-Ui/gameSettings.js";
 
@@ -66,7 +66,7 @@ document.addEventListener("reset", async () => {
     try {
         await sendResetRequest();
         drawClearBoard();
-        hiddenWinner();
+        hiddenWinnerMessage();
     } catch (error) {
         console.error(error.message);
     }
@@ -81,7 +81,7 @@ document.addEventListener("mode-select", (event) => {
 });
 
 
-//
+// Отслеживание выбора сложности бота
 document.addEventListener("bot-select", (event) => {
     const mode = event.detail.mode;
     GameSettings.BotMode = mode;

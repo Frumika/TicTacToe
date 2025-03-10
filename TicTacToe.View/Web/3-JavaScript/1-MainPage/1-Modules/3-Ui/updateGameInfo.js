@@ -3,6 +3,7 @@
 
 import {getGameState} from "../2-Api/getGameState.js";
 import {drawWinnerMessage} from "./drawWinnerMessage.js";
+import {GameSettings} from "../1-Core/gameSettings.js";
 
 // Функции
 export {updateBoard, updateGameState};
@@ -16,7 +17,6 @@ const UpdateMode = {
     MakeMove: 0,
     UpdateAllFields: 1,
 }
-
 
 // Обновление доски
 function updateBoard(board, updateMode) {
@@ -32,7 +32,7 @@ function updateBoard(board, updateMode) {
                     fieldElement.textContent = "X";
                 } else if (field.item === "Zero") {
 
-                    if (updateMode === UpdateMode.MakeMove) {
+                    if (updateMode === UpdateMode.MakeMove && GameSettings.GameMode === "PvE") {
                         setTimeout(() => {
                             fieldElement.textContent = "O"
                         }, 200)
