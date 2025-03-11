@@ -1,8 +1,12 @@
 "use strict"
 
-const API_BASE_URL = "http://localhost:5026";
+import {URL} from "../0-Common/url.js";
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
+    const url = URL.SIGN_UP_CONTROLLER;
+
     const form = document.querySelector(".sign_up-container__form");
     const loginInput = document.getElementById("login");
 
@@ -38,14 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             try {
-                const response = await fetch(`${API_BASE_URL}/api/signup/register`, {
+                const response = await fetch(`${url}/register`, {
                     method: "POST",
                     headers: {"Content-Type": "application/json"},
                     body: JSON.stringify({login, password})
                 });
 
                 if (response.ok) {
-                    window.location.href = "../../1-HTML/index.html"
+                    window.location.href = "../1-HTML/index.html";
                 } else {
                     alert("Registration failed!");
                 }
