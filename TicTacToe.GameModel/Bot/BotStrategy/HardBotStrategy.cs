@@ -19,32 +19,19 @@ public class HardBotStrategy : BotStrategy
         (int row, int column) bestMove = (-1, -1);
         int bestScore = current == Item ? int.MinValue : int.MaxValue;
 
-        var emptyFields = board.GetFieldsCoordinates(Empty);
-
         if (!board.HasEmptyFields) return (bestMove, 0);
 
-        foreach (var field in emptyFields)
+        foreach (var field in board.GetFieldsCoordinates(Empty))
         {
             Board newBoard = new Board(board);
             newBoard.SetField(field.row, field.column, current);
 
             int score = DetermineCostMove(newBoard, current, field.row, field.column, depth);
 
-            if (current == Item)
+            if ((current == Item && score > bestScore) || (current != Item && score < bestScore))
             {
-                if (score > bestScore)
-                {
-                    bestScore = score;
-                    bestMove = (field.row, field.column);
-                }
-            }
-            else
-            {
-                if (score < bestScore)
-                {
-                    bestScore = score;
-                    bestMove = (field.row, field.column);
-                }
+                bestScore = score;
+                bestMove = (field.row, field.column);
             }
         }
 
@@ -59,15 +46,12 @@ public class HardBotStrategy : BotStrategy
         {
             return current == Item ? cost - depth : depth - cost;
         }
-        else if (!board.HasEmptyFields)
-        {
-            return 0;
-        }
-        else
-        {
-            FieldItem opponent = current == Zero ? Cross : Zero;
-            var (_, score) = FindBestMove(board, opponent, depth + 1);
-            return score;
-        }
+
+        if (!board.HasEmptyFields) return 0;
+
+        FieldItem opponent = current == Zero ? Cross : Zero;
+        var (_, score) = FindBestMove(board, opponent, depth + 1);
+
+        return  score ;
     }
 }
