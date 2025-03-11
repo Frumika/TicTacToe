@@ -5,7 +5,7 @@ namespace TicTacToe.GameModel.GameBoard;
 public class Board
 {
     /*------------| < Private Fields > |------------*/
-    private Field[,] _board;
+    private Field[,] _board = null!;
     private int _emptyFields;
     /*----------------------------------------------*/
 
@@ -14,11 +14,11 @@ public class Board
     public int Rows { get; init; }
     public int Columns { get; init; }
 
+    private int Size { get; init; }
+
     public bool HasEmptyFields => _emptyFields > 0;
 
     public Field[][] BoardState => ToJaggedArray();
-
-    private int Size { get; init; }
     /*----------------------------------------------*/
 
 
@@ -39,6 +39,25 @@ public class Board
             for (int j = 0; j < Columns; j++)
             {
                 _board[i, j] = new Field() { Row = i, Column = j };
+            }
+        }
+    }
+
+    public Board(Board other)
+    {
+        Rows = other.Rows;
+        Columns = other.Columns;
+        Size = other.Size;
+
+        _board = new Field[Rows, Columns];
+        _emptyFields = Rows * Columns;
+
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                FieldItem item = other._board[i, j].Item;
+                _board[i, j] = new Field() { Item = item, Row = i, Column = j };
             }
         }
     }

@@ -315,8 +315,7 @@ body {
 /*------------------> Winner <------------------*/
 
 .board-container__winner-info {
-    display: flex;
-/*    visibility: hidden; */
+    display: none;
 
     justify-content: space-evenly;
     align-items: center;

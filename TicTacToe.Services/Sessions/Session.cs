@@ -6,7 +6,7 @@ using TicTacToe.GameModel.Entity;
 
 public class GameStateDto
 {
-    public Field[][] Board { get; set; }
+    public Field[][]? Board { get; set; }
     public Winner Winner { get; set; }
 }
 
