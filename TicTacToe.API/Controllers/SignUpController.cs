@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TicTacToe.Services;
+using TicTacToe.API.Requests;
 
 
 [ApiController]
@@ -11,11 +12,4 @@ public class SignUpController : ControllerBase
     {
         return Ok(new { success = "User was registered" });
     }
-}
-
-
-public class RegisterRequest
-{
-    public string Login { get; set; } = string.Empty;
-    public string Password { get; set; } = string.Empty;
 }
