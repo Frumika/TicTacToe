@@ -1,13 +1,13 @@
 "use strict"
 
-import {URL} from "./url.js";
+import {URL} from "../../../0-Common/url.js";
 import {getSessionId} from "../1-Core/sessionId.js";
 import {GameSettings} from "../1-Core/gameSettings.js";
 
 
 export async function sendResetRequest() {
     // URL игрового контроллера
-    const url = URL.GAME_CONTROLLER_URL;
+    const url = URL.GAME_CONTROLLER;
 
     // Id игровой сессии
     const gameSessionId = getSessionId("gameSessionId");
@@ -23,7 +23,7 @@ export async function sendResetRequest() {
     }
 
     // Отправляем запрос на обновление доски на сервер
-    const resetResponse = await fetch(`${url}/api/game/reset`, {
+    const resetResponse = await fetch(`${url}/reset`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(requestData)

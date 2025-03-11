@@ -5,7 +5,7 @@ import {UpdateMode} from "./updateGameInfo.js";
 
 export function drawWinnerMessage(winner, updateMode) {
 
-    let winnerBlock = document.querySelector(".board-container__winner-info");
+    let winnerBlock = document.querySelector(".settings-container__winner-info");
     let winnerText = document.querySelector(".winner-info__text");
 
 
@@ -38,6 +38,6 @@ export function drawWinnerMessage(winner, updateMode) {
 }
 
 export function hiddenWinnerMessage() {
-    let winnerBlock = document.querySelector(".board-container__winner-info");
+    let winnerBlock = document.querySelector(".settings-container__winner-info");
     winnerBlock.style.display = "none"
 }

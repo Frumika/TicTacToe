@@ -1,11 +1,11 @@
 "use strict"
 
-import {URL} from "./url.js";
+import {URL} from "../../../0-Common/url.js";
 
 export async function checkGameSession(gameSessionId) {
-    const url = URL.GAME_CONTROLLER_URL;
+    const url = URL.GAME_CONTROLLER;
 
-    const response = await fetch(`${url}/api/game/check`, {
+    const response = await fetch(`${url}/check`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(gameSessionId)

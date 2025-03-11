@@ -314,7 +314,7 @@ body {
 
 /*------------------> Winner <------------------*/
 
-.board-container__winner-info {
+.settings-container__winner-info {
     display: none;
 
     justify-content: space-evenly;
