@@ -10,75 +10,64 @@ public class HardBotStrategy : BotStrategy
 
     public override (int row, int column) FindField(Board board)
     {
-        (int row, int column) bestMove = (-1, -1);
-        int bestScore = int.MinValue; // Для бота ищем максимум
-
-        foreach (var field in board.GetFieldsCoordinates(Empty))
-        {
-            Board newBoard = new Board(board);
-            newBoard.SetField(field.row, field.column, Item);
-
-            Console.WriteLine("NEW BOARD =>");
-            newBoard.PrintBoard();
-            Console.WriteLine("NEW BOARD =>");
-
-            int score = Minimax(newBoard, false, 1); // Передаём false, так как теперь ходит человек
-
-            if (score > bestScore)
-            {
-                bestScore = score;
-                bestMove = field;
-            }
-        }
-
+        var (bestMove, _) = FindBestMove(board, Item);
         return bestMove;
     }
 
-    private int Minimax(Board board, bool isMaximizing, int depth)
+    private ((int row, int column) move, int score) FindBestMove(Board board, FieldItem current, int depth = 1)
     {
-        FieldItem opponentItem = Item == Zero ? Cross : Zero;
+        (int row, int column) bestMove = (-1, -1);
+        int bestScore = current == Item ? int.MinValue : int.MaxValue;
 
-        if (IsWinningState(board, Item)) return 10 - depth; // Если бот победил
-        if (IsWinningState(board, opponentItem)) return depth - 10; // Если победил игрок
-        if (!board.HasEmptyFields) return 0; // Ничья
+        var emptyFields = board.GetFieldsCoordinates(Empty);
 
-        int bestScore = isMaximizing ? int.MinValue : int.MaxValue;
-        FieldItem current = isMaximizing ? Item : opponentItem;
+        if (!board.HasEmptyFields) return (bestMove, 0);
 
-        foreach (var field in board.GetFieldsCoordinates(Empty))
+        foreach (var field in emptyFields)
         {
             Board newBoard = new Board(board);
             newBoard.SetField(field.row, field.column, current);
-            int score = Minimax(newBoard, !isMaximizing, depth + 1);
 
-            Console.WriteLine($"Minimax Score: {score}");
-            
-            if (isMaximizing)
+            int score = DetermineCostMove(newBoard, current, field.row, field.column, depth);
+
+            if (current == Item)
             {
-                bestScore = Math.Max(bestScore, score);
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    bestMove = (field.row, field.column);
+                }
             }
             else
             {
-                bestScore = Math.Min(bestScore, score);
+                if (score < bestScore)
+                {
+                    bestScore = score;
+                    bestMove = (field.row, field.column);
+                }
             }
         }
 
-        return bestScore;
+        return (bestMove, bestScore);
     }
 
-    private bool IsWinningState(Board board, FieldItem player)
+    private int DetermineCostMove(Board board, FieldItem current, int row, int column, int depth)
     {
-        foreach (var field in board.GetFieldsCoordinates(player))
-        {
-            if (board.IsWinningField(field.row, field.column))
-            {
-                Console.WriteLine("|>-----------------------");
-                board.PrintBoard();
-                Console.WriteLine("|>-----------------------");
-                return true;
-            }
-        }
+        int cost = board.Rows + board.Columns + 1;
 
-        return false;
+        if (board.IsWinningField(row, column))
+        {
+            return current == Item ? cost - depth : depth - cost;
+        }
+        else if (!board.HasEmptyFields)
+        {
+            return 0;
+        }
+        else
+        {
+            FieldItem opponent = current == Zero ? Cross : Zero;
+            var (_, score) = FindBestMove(board, opponent, depth + 1);
+            return score;
+        }
     }
 }
