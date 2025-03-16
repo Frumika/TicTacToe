@@ -14,16 +14,16 @@ public class HardBotStrategy : BotStrategy
         return bestMove;
     }
 
-    private ((int row, int column) move, int score) FindBestMove(Board board, FieldItem current, int depth = 1)
+    private ((int row, int column) move, int score) FindBestMove(Board board, FieldItem current, int depth = 0)
     {
-        (int row, int column) bestMove = (-1, -1);
-        int bestScore = current == Item ? int.MinValue : int.MaxValue;
+        (int row, int column) bestMove = (-1, -1); 
+        int bestScore = current == Item ? int.MinValue : int.MaxValue; 
 
         if (!board.HasEmptyFields) return (bestMove, 0);
 
         foreach (var field in board.GetFieldsCoordinates(Empty))
         {
-            Board newBoard = new Board(board);
+            Board newBoard = new Board(board); 
             newBoard.SetField(field.row, field.column, current);
 
             int score = DetermineCostMove(newBoard, current, field.row, field.column, depth);
@@ -40,7 +40,7 @@ public class HardBotStrategy : BotStrategy
 
     private int DetermineCostMove(Board board, FieldItem current, int row, int column, int depth)
     {
-        int cost = board.Rows + board.Columns + 1;
+        int cost = board.Rows * board.Columns + 1;
 
         if (board.IsWinningField(row, column))
         {
@@ -52,6 +52,6 @@ public class HardBotStrategy : BotStrategy
         FieldItem opponent = current == Zero ? Cross : Zero;
         var (_, score) = FindBestMove(board, opponent, depth + 1);
 
-        return  score ;
+        return score;
     }
 }

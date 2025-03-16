@@ -50,7 +50,7 @@ public class Board
         Size = other.Size;
 
         _board = new Field[Rows, Columns];
-        _emptyFields = Rows * Columns;
+        _emptyFields = other._emptyFields;
 
         for (int i = 0; i < Rows; i++)
         {
