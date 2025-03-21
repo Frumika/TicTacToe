@@ -28,8 +28,7 @@ document.addEventListener("send", async () => {
             await sendSignUpInfo();
 
         } catch (error) {
-            console.error(error.message);
-
+            console.error(`SignUp ERROR: ${error.message}`);
         }
     } else {
         drawPasswordsEnterError();

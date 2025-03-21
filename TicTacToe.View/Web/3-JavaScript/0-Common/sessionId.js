@@ -30,12 +30,12 @@ function getSessionId(key) {
 }
 
 
-function createSessionId(key) {
+function createSessionId(key, minutes) {
     let sessionId;
 
     try {
         sessionId = crypto.randomUUID();
-        setCookie(key, sessionId,5)
+        setCookie(key, sessionId, minutes)
     } catch (error) {
         console.error(`Error generating sessionId: ${error.message}`);
     }
@@ -43,8 +43,8 @@ function createSessionId(key) {
     return sessionId;
 }
 
-function getOrCreateSessionId(key) {
+function getOrCreateSessionId(key, minutes) {
     let sessionId = getSessionId(key);
-    if (sessionId == null) sessionId = createSessionId(key);
+    if (sessionId == null) sessionId = createSessionId(key, minutes);
     return sessionId;
 }

@@ -7,17 +7,25 @@ import {getSessionId} from "../../../0-Common/sessionId.js";
 export async function sendSignUpInfo() {
     const url = URL.SIGN_UP_CONTROLLER;
 
-    const playerSessionId = getSessionId("playerSessionId");
+    let playerSessionId = "1234";
+
+    try {
+        playerSessionId = getSessionId("playerSessionId");
+    } catch (error) {
+        throw new Error(`Player session Id ERROR: ${error.message}`);
+    }
 
     /* Добавить начало обработки сессий !!! */
-    const loginInput = document.getElementById("login");
-    const passwordInput = document.getElementById("password-entering");
+    const loginInput = document.getElementById("login").value;
+    const passwordInput = document.getElementById("password-entering").value;
 
     const requestData = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({playerSessionId, loginInput, passwordInput})
     };
+
+    console.log(`request: ${playerSessionId}, ${loginInput}, ${passwordInput}`);
 
     const response = await fetch(`${url}/register`, requestData);
 

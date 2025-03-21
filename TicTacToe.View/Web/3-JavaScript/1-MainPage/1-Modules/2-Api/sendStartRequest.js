@@ -9,7 +9,7 @@ export async function sendStartRequest() {
 
     const url = URL.GAME_CONTROLLER;
 
-    const gameSessionId = getOrCreateSessionId("gameSessionId");
+    const gameSessionId = getOrCreateSessionId("gameSessionId", 5);
 
     console.log(`Start Game: ${gameSessionId}`)
 
