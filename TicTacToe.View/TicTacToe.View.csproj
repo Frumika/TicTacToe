@@ -9,9 +9,4 @@
     <ItemGroup>
       <Folder Include="Web\" />
     </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\TicTacToe.API\TicTacToe.API.csproj" />
-    </ItemGroup>
-
 </Project>
