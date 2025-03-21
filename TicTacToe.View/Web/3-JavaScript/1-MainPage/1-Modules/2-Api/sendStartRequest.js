@@ -23,7 +23,8 @@ export async function sendStartRequest() {
         body: JSON.stringify(gameInfoRequest)
     });
 
-
-
-
+    if (!response.ok) {
+        const errorMessage = await response.json();
+        throw new Error(`The game has not been started. Reason - ${errorMessage}`);
+    }
 }

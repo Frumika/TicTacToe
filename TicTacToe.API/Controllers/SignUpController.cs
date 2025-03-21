@@ -7,10 +7,10 @@ using TicTacToe.API.Requests;
 [Route("api/signup")]
 public class SignUpController : ControllerBase
 {
-    [HttpPost("register")]
+    [HttpPost("registration")]
     public IActionResult RegiserUser([FromBody] RegisterRequest request)
     {
-        Console.WriteLine($"{request.PlayerSessionId}: {request.Login}, {request.Password}");
+        Console.WriteLine($"{request.Login}, {request.Password}");
         return Ok(new { success = "User was registered" });
     }
 }
