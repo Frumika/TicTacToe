@@ -9,11 +9,11 @@ export async function sendSignUpInfo() {
 
     let playerSessionId = "1234";
 
-    try {
+    /*try {
         playerSessionId = getSessionId("playerSessionId");
     } catch (error) {
         throw new Error(`Player session Id ERROR: ${error.message}`);
-    }
+    }*/
 
     /* Добавить начало обработки сессий !!! */
     const loginInput = document.getElementById("login").value;
@@ -22,7 +22,11 @@ export async function sendSignUpInfo() {
     const requestData = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({playerSessionId, loginInput, passwordInput})
+        body: JSON.stringify({
+            playerSessionId: playerSessionId,
+            login: loginInput,
+            password: passwordInput
+        })
     };
 
     console.log(`request: ${playerSessionId}, ${loginInput}, ${passwordInput}`);
@@ -32,5 +36,7 @@ export async function sendSignUpInfo() {
     if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message);
+    } else {
+        window.location.href = "/Web/1-HTML/index.html";
     }
 }

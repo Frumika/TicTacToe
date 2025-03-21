@@ -11,9 +11,6 @@ export async function sendStartRequest() {
 
     const gameSessionId = getOrCreateSessionId("gameSessionId", 5);
 
-    console.log(`Start Game: ${gameSessionId}`)
-
-
     const gameInfoRequest = {
         gameSessionId: gameSessionId,
         gameMode: GameSettings.GameMode,
