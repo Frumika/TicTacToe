@@ -1,7 +1,7 @@
 "use strict"
 
 import {URL} from "../../../0-Common/url.js";
-import {getOrCreateSessionId} from "../1-Core/sessionId.js";
+import {getOrCreateSessionId} from "../../../0-Common/sessionId.js";
 import {GameSettings} from "../1-Core/gameSettings.js";
 
 
@@ -25,6 +25,8 @@ export async function sendStartRequest() {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(gameInfoRequest)
     });
+
+
 
 
 }

@@ -1,7 +1,7 @@
 "use strict"
 
 import {URL} from "../../../0-Common/url.js";
-import {getSessionId} from "../1-Core/sessionId.js";
+import {getSessionId} from "../../../0-Common/sessionId.js";
 import {GameSettings} from "../1-Core/gameSettings.js";
 
 

@@ -1,6 +1,6 @@
 "use strict"
 
-import {getOrCreateSessionId, getSessionId} from "../1-Core/sessionId.js";
+import { getSessionId} from "../../../0-Common/sessionId.js";
 import {URL} from "../../../0-Common/url.js";
 import {sendStartRequest} from "./sendStartRequest.js";
 import {checkGameSession} from "./checkGameSession.js";
