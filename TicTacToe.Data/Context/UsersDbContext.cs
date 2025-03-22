@@ -3,15 +3,13 @@ using Microsoft.EntityFrameworkCore.Design;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace TicTacToe.Data.Context;
 
-[PrimaryKey(nameof(Id))]
+
 public class User
 {
-    public int Id { get; set; }
-    [MaxLength(45)] public string? Login { get; set; } = string.Empty;
-    public string? HashPassword { get; set; } = string.Empty;
+    public string Login { get; set; } = string.Empty;
+    public string HashPassword { get; set; } = string.Empty;
 }
 
 public class UsersDbContext : DbContext
@@ -20,5 +18,20 @@ public class UsersDbContext : DbContext
 
     public UsersDbContext(DbContextOptions<UsersDbContext> options) : base(options)
     {
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+        
+        modelBuilder.Entity<User>(entity =>
+        {
+            // Настройка первичного ключа
+            entity.HasKey(user => user.Login);
+            
+            // Настройка обязательных полей
+            entity.Property(user => user.Login).IsRequired();
+            entity.Property(user => user.HashPassword).IsRequired();
+        });
     }
 }

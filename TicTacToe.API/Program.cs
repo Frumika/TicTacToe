@@ -8,8 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<GameSessionsService>();
 
-builder.Services.AddDbContext<UsersDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Настройка подключения к DB
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<UsersDbContext>(options => options.UseNpgsql(connectionString));
+
 
 builder.Services.AddCors(options =>
 {

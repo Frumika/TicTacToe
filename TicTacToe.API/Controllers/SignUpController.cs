@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc; 
 using TicTacToe.Services;
 using TicTacToe.API.Requests;
 
@@ -8,7 +8,7 @@ using TicTacToe.API.Requests;
 public class SignUpController : ControllerBase
 {
     [HttpPost("registration")]
-    public IActionResult RegiserUser([FromBody] RegisterRequest request)
+    public IActionResult RegisterUser([FromBody] RegisterRequest request)
     {
         Console.WriteLine($"{request.Login}, {request.Password}");
         return Ok(new { success = "User was registered" });
