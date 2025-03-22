@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 
 namespace TicTacToe.Data.Context;
 
-
 public class User
 {
     public string Login { get; set; } = string.Empty;
@@ -15,6 +14,8 @@ public class User
 
 public class UsersDbContext : DbContext
 {
+    private const int LoginLength = 60;
+
     public DbSet<User> Users { get; set; }
 
     public UsersDbContext(DbContextOptions<UsersDbContext> options) : base(options)
@@ -37,7 +38,10 @@ public class UsersDbContext : DbContext
             entity.HasKey(user => user.Login);
 
             // Настройка обязательных полей
-            entity.Property(user => user.Login).IsRequired();
+            entity.Property(user => user.Login)
+                .IsRequired()
+                .HasMaxLength(LoginLength)
+                .HasColumnType($"VARCHAR({LoginLength})");
             entity.Property(user => user.HashPassword).IsRequired();
         });
     }
