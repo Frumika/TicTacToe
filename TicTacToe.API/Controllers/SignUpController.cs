@@ -40,7 +40,7 @@ public class SignUpController : ControllerBase
             return StatusCode(500, new { message = "Error while registering user", error = exception.Message });
         }
 
-        return Ok(new { success = "User was registered" });
+        return Ok(new { success = "The user was registered" });
     }
 
     private static string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password, 10);
