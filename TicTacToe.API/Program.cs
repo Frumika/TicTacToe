@@ -30,6 +30,13 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 var app = builder.Build();
 
+// Прогреваем базу данных
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+    dbContext.Users.Any();
+}
+
 app.UseCors("AllowAllOrigins");
 app.MapControllers();
 app.Run();

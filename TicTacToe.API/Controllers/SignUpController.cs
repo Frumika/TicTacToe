@@ -1,16 +1,43 @@
-﻿using Microsoft.AspNetCore.Mvc; 
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TicTacToe.Services;
 using TicTacToe.API.Requests;
+using TicTacToe.Data.Context; // UsersDbContext
 
 
 [ApiController]
 [Route("api/signup")]
 public class SignUpController : ControllerBase
 {
-    [HttpPost("registration")]
-    public IActionResult RegisterUser([FromBody] RegisterRequest request)
+    private readonly UsersDbContext _dbContext;
+
+    public SignUpController(UsersDbContext dbContext)
     {
-        Console.WriteLine($"{request.Login}, {request.Password}");
+        _dbContext = dbContext;
+    }
+
+    [HttpPost("registration")]
+    public async Task<IActionResult> RegisterUser([FromBody] RegisterRequest request)
+    {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        try
+        {
+            bool isUserExist = await _dbContext.Users.AsNoTracking().AnyAsync(user => user.Login == request.Login);
+
+            if (isUserExist) return Conflict(new { message = "User with this login already exists" });
+            
+            User newUser = new() { Login = request.Login, HashPassword = request.Password };
+            _dbContext.Users.Add(newUser);
+            
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception exception)
+        {
+            return StatusCode(500, new { message = "Error while registering user", error = exception.Message });
+        }
+
         return Ok(new { success = "User was registered" });
     }
 }
