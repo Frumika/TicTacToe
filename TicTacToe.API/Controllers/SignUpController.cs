@@ -1,7 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TicTacToe.Services;
 using TicTacToe.API.Requests;
 using TicTacToe.Data.Context; // UsersDbContext
 

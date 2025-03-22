@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace TicTacToe.Data.Context;
 
+
 public class User
 {
     public string Login { get; set; } = string.Empty;
