@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using StackExchange.Redis;
 using TicTacToe.Services;
+using TicTacToe.Services.Redis;
 using TicTacToe.Data.Context;
 
 
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<UsersDbContext>(options => options.UseNpgsql(conne
 
 // Настройка подключения к Redis
 builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost"));
+builder.Services.AddScoped<RedisSessionService>();
 
 // Разрешаем принимать запросы с любых портов
 builder.Services.AddCors(options =>

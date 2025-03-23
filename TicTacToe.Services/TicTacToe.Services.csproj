@@ -10,4 +10,8 @@
       <ProjectReference Include="..\TicTacToe.GameModel\TicTacToe.GameModel.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="StackExchange.Redis" Version="2.8.31" />
+    </ItemGroup>
+
 </Project>
