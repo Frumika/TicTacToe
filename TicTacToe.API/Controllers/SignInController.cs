@@ -20,8 +20,6 @@ public class SignInController : ControllerBase
     [HttpPost("authorization")]
     public async Task<IActionResult> AuthorizeUser([FromBody] AuthorizeRequest request)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
-
         try
         {
             var user = await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Login == request.Login);

@@ -19,8 +19,6 @@ public class SignUpController : ControllerBase
     [HttpPost("registration")]
     public async Task<IActionResult> RegisterUser([FromBody] RegisterRequest request)
     {
-        if (!ModelState.IsValid) return BadRequest(ModelState);
-
         try
         {
             bool isUserExist = await _dbContext.Users.AsNoTracking().AnyAsync(user => user.Login == request.Login);

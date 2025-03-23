@@ -21,7 +21,7 @@ export async function sendSignUpInfo() {
 
     if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message);
+        throw new Error(JSON.stringify(error.errors));
     } else {
         window.location.href = "/Web/1-HTML/index.html";
     }
