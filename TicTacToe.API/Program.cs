@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using StackExchange.Redis;
 using TicTacToe.Services;
 using TicTacToe.Data.Context;
 
@@ -8,11 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<GameSessionsService>();
 
-// Настройка подключения к DB
+// Настройка подключения к PostgreSQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<UsersDbContext>(options => options.UseNpgsql(connectionString));
 
+// Настройка подключения к Redis
+builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost"));
 
+// Разрешаем принимать запросы с любых портов
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
