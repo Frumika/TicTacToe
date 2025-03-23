@@ -1,6 +1,6 @@
 "use strict"
 
-export {getSessionId, createSessionId, getOrCreateSessionId};
+export {getSessionId, createSessionId, addSessionId, getOrCreateSessionId};
 
 
 function getCookie(name) {
@@ -41,6 +41,10 @@ function createSessionId(key, minutes) {
     }
 
     return sessionId;
+}
+
+function addSessionId(key, sessionId, minutes){
+    setCookie(key, sessionId, minutes);
 }
 
 function getOrCreateSessionId(key, minutes) {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicTacToe.API.Requests;
 using TicTacToe.Data.Context; // UsersDbContext
+using TicTacToe.Services.Redis;
 
 
 [ApiController]
@@ -10,11 +11,12 @@ using TicTacToe.Data.Context; // UsersDbContext
 public class IdentityManagementController : ControllerBase
 {
     private readonly UsersDbContext _dbContext;
+    private readonly RedisSessionService _redisSessionService;
 
-    public IdentityManagementController(UsersDbContext dbContext)
+    public IdentityManagementController(UsersDbContext dbContext, RedisSessionService redisSessionService)
     {
-        Console.WriteLine("We using IdentityManagementController");
         _dbContext = dbContext;
+        _redisSessionService = redisSessionService;
     }
 
     [HttpPost("signin")]
@@ -28,13 +30,18 @@ public class IdentityManagementController : ControllerBase
             {
                 return Unauthorized(new { message = "Invalid login or password" });
             }
+
+            string sessionId = Guid.NewGuid().ToString();
+            UserDto userDto = new() { Login = user.Login };
+            
+            await _redisSessionService.SetSessionAsync(sessionId, userDto, TimeSpan.FromMinutes(5));
+
+            return Ok(new { sessionId });
         }
         catch (Exception exception)
         {
             return StatusCode(500, new { message = "Error while authorization user", error = exception.Message });
         }
-
-        return Ok(new { success = "The user was authorized" });
     }
 
 
@@ -65,7 +72,7 @@ public class IdentityManagementController : ControllerBase
 
 
     private static string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password, 10);
-    
+
     private static bool VerifyPassword(string password, string hashedPassword)
         => BCrypt.Net.BCrypt.Verify(password, hashedPassword);
 }
