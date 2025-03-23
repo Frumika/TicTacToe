@@ -2,9 +2,9 @@
 
 
 export function drawSomethingWrong(key) {
-    const container = document.querySelector(".sign_up-message");
-    const image = document.querySelector(".sign_up-message__image");
-    const text = document.querySelector(".sign_up-message__text");
+    const container = document.querySelector(".sign_in-message");
+    const image = document.querySelector(".sign_in-message__image");
+    const text = document.querySelector(".sign_in-message__text");
 
     container.style.visibility = "visible";
     container.style.border = "4px solid red";
@@ -13,8 +13,8 @@ export function drawSomethingWrong(key) {
 
     text.style.color = "red";
 
-    if (key === 409) {
-        text.textContent = "User already exist";
+    if (key === 401) {
+        text.textContent = "The user does not exist";
     }
     else if(key === 500){
         text.textContent = "Something is broken on the server :(";

@@ -1,6 +1,7 @@
 "use strict"
 
-document.getElementById("toggle-password").addEventListener("click", function () {
+
+export function togglePassword() {
     let passwordInput = document.getElementById("password");
     let eyeIcon = document.getElementById("image-eye-closed");
 
@@ -13,4 +14,4 @@ document.getElementById("toggle-password").addEventListener("click", function ()
         eyeIcon.src = "../Sources/Svg/eye_closed.svg";
         eyeIcon.alt = "Show";
     }
-});
+}

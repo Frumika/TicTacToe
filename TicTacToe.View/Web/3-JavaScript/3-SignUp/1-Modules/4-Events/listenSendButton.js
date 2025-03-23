@@ -1,7 +1,7 @@
 "use strict"
 
 
-export function listenSignUpSendButton() {
+export function listenSendButton() {
     const sendButton = document.querySelector(".form__submit-button");
 
     if (!sendButton) {

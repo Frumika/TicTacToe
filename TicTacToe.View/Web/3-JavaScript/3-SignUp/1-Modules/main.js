@@ -4,21 +4,21 @@
 import {isPasswordsEquals} from "./1-Core/checkPasswords.js";
 import {checkIsFormFillFull} from "./1-Core/checkIsFormFillFull.js";
 
-import {sendSignUpInfo} from "./2-Api/sendSignUpInfo.js";
+import {sendInfo} from "./2-Api/sendInfo.js";
 
 import {togglePassword} from "./3-Ui/togglePassword.js";
-import {clearPasswordError, drawPasswordsEnterError} from "./3-Ui/drawPasswordsEnterError.js";
-import {drawFieldsIsNotFill, hiddenFieldsIsNotFill} from "./3-Ui/drawFieldsIsNotFill.js";
-import {drawSomethingWrong} from "./3-Ui/drawSomethingWrong.js";
+import {drawFieldsIsNotFill} from "./3-Ui/drawWarnings.js";
+import {clearPasswordError, drawPasswordsEnterError} from "./3-Ui/drawErrors.js";
 
-import {listenSignUpSendButton} from "./4-Events/listenSignUpSendButton.js";
+import {listenSendButton} from "./4-Events/listenSendButton.js";
 import {listenTogglePassword} from "./4-Events/listenTogglePasswordButton.js";
 import {listenPasswordInputField} from "./4-Events/listenPasswordsInputField.js";
 
 
+
 // Прослушивание загрузки страницы
 document.addEventListener("DOMContentLoaded", async () => {
-    listenSignUpSendButton();
+    listenSendButton();
     listenTogglePassword();
     listenPasswordInputField();
 });
@@ -29,7 +29,7 @@ document.addEventListener("send", async () => {
     if (checkIsFormFillFull()) {
         if (isPasswordsEquals()) {
             try {
-                await sendSignUpInfo();
+                await sendInfo();
             } catch (error) {
                 console.error(`SignUp ERROR: ${error.message}`);
             }

@@ -1,10 +1,10 @@
 "use strict"
 
 import {URL} from "../../../0-Common/url.js";
-import {drawAllSuccessful} from "../3-Ui/drawAllSuccessful.js";
-import {drawSomethingWrong} from "../3-Ui/drawSomethingWrong.js";
+import {drawAllSuccessful} from "../3-Ui/drawSuccesses.js";
+import {drawSomethingWrong} from "../3-Ui/drawErrors.js";
 
-export async function sendSignUpInfo() {
+export async function sendInfo() {
     const url = URL.SIGN_UP_CONTROLLER;
 
     const loginInput = document.getElementById("login").value;
@@ -28,7 +28,7 @@ export async function sendSignUpInfo() {
     } else {
         drawAllSuccessful();
         setTimeout(() => {
-            window.location.href = "/Web/1-HTML/index.html"; // Перенаправление через 1.5 сек
+            window.location.href = "/Web/1-HTML/index.html";
         }, 2000);
     }
 }

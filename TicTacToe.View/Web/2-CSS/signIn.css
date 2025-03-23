@@ -17,6 +17,40 @@ body {
     height: 100vh;
 }
 
+
+/*------------------> Message <------------------*/
+.sign_in-message {
+    position: absolute;
+
+    visibility: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: start;
+    gap: 8px;
+
+    margin-top: 30px;
+
+    border: 4px solid white;
+    border-radius: 25px;
+
+    padding: 10px;
+}
+
+.sign_in-message__image {
+}
+
+.sign_in-message__text {
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-weight: normal;
+    font-size: 26px;
+
+    color: white;
+}
+
+
+/*------------------> Container <------------------*/
 .sign_in-container {
     border: 4px solid white;
     border-radius: 30px;
@@ -110,7 +144,7 @@ body {
     width: 20px;
 }
 
-.form__submit-button {
+.form__send-button {
     margin-top: 40px;
 
     font-family: "Play", "Work Sans", "Arial", sans-serif;
