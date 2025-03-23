@@ -5,7 +5,7 @@ import {drawWasAuthorized} from "../3-Ui/drawSuccesses.js";
 import {drawSomethingWrong} from "../3-Ui/drawErrors.js";
 
 export async function sendInfo() {
-    const url = URL.SIGN_IN_CONTROLLER;
+    const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
 
     const login = document.getElementById("login").value;
     const password = document.getElementById("password").value;
@@ -19,7 +19,7 @@ export async function sendInfo() {
         })
     };
 
-    const response = await fetch(`${url}/authorization`, requestData);
+    const response = await fetch(`${url}/signin`, requestData);
 
     if (!response.ok) {
         drawSomethingWrong(response.status);
