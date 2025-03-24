@@ -1,6 +1,6 @@
 "use strict"
 
-export {getSessionId, createSessionId, addSessionId, getOrCreateSessionId};
+export {getSessionId, createSessionId, addSessionId, deleteSession, getOrCreateSessionId};
 
 
 function getCookie(name) {
@@ -10,12 +10,16 @@ function getCookie(name) {
     return null;
 }
 
-
 function setCookie(name, value, minutes) {
     const expires = new Date();
     expires.setTime(expires.getTime() + (minutes * 60 * 1000));
     document.cookie = `${name}=${value}; expires=${expires.toUTCString()}; path=/`;
 }
+
+function deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+}
+
 
 function getSessionId(key) {
     let sessionId;
@@ -28,7 +32,6 @@ function getSessionId(key) {
 
     return sessionId;
 }
-
 
 function createSessionId(key, minutes) {
     let sessionId;
@@ -43,8 +46,12 @@ function createSessionId(key, minutes) {
     return sessionId;
 }
 
-function addSessionId(key, sessionId, minutes){
+function addSessionId(key, sessionId, minutes) {
     setCookie(key, sessionId, minutes);
+}
+
+function deleteSession(key) {
+    deleteCookie(key);
 }
 
 function getOrCreateSessionId(key, minutes) {

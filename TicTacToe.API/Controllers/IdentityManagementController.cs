@@ -33,7 +33,7 @@ public class IdentityManagementController : ControllerBase
 
             string sessionId = Guid.NewGuid().ToString();
             UserDto userDto = new() { Login = user.Login };
-            
+
             await _redisSessionService.SetSessionAsync(sessionId, userDto, TimeSpan.FromMinutes(5));
 
             return Ok(new { sessionId });
@@ -70,6 +70,29 @@ public class IdentityManagementController : ControllerBase
         return Ok(new { success = "The user was registered" });
     }
 
+
+    [HttpPost("signout")]
+    public async Task<IActionResult> SignOutUser([FromBody] string sessionId)
+    {
+        Console.WriteLine($"SessiondId: {sessionId}");
+
+        if (string.IsNullOrWhiteSpace(sessionId))
+        {
+            return BadRequest(new { message = "Session ID cannot be null or empty" });
+        }
+
+        try
+        {
+            bool isDelete = await _redisSessionService.DeleteSessionAsync(sessionId);
+            if (!isDelete) return StatusCode(500, new { message = "The user has not been deleted" });
+        }
+        catch (Exception exception)
+        {
+            return StatusCode(500, new { message = "Error while deleting user", error = exception.Message });
+        }
+
+        return NoContent();
+    }
 
     private static string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password, 10);
 

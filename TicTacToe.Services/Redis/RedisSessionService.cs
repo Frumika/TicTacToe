@@ -37,7 +37,7 @@ public class RedisSessionService
 
         try
         {
-            string json = await _database.StringGetAsync($"session:{sessionId}");
+            string? json = await _database.StringGetAsync($"session:{sessionId}");
 
             if (string.IsNullOrEmpty(json)) return null;
             return JsonSerializer.Deserialize<UserDto>(json);

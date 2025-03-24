@@ -24,9 +24,7 @@
 
 </head>
 <body>
-
 <aside class="aside-container__authorized">
-
     <div class="authorized__account-info">
         <p class="account-info__login black-text-selection">SomeSomeLogin</p>
         <img class="account-info__image" src="../Sources/Svg/profile_black.svg" alt="Profile">
@@ -35,34 +33,57 @@
     <div class="authorized__account-options">
         <div class="account-options__upper-container account-options__container">
             <div class="account-options__option">
-                <img class="option__image" src="../Sources/Svg/rules.svg" alt="Rules">
-                <p class="option__text white-text-selection">Rules</p>
+                <a class="option__link" href="">
+                    <img class="option__image" src="../Sources/Svg/rules.svg" alt="Rules">
+                </a>
+
+                <a class="option__link" href="">
+                    <p class="option__text white-text-selection">Rules</p>
+                </a>
             </div>
 
             <div class="account-options__option">
-                <img class="option__image" src="../Sources/Svg/profile_white.svg" alt="Profile">
-                <p class="option__text white-text-selection">Profile</p>
+                <a class="option__link" href="">
+                    <img class="option__image" src="../Sources/Svg/profile_white.svg" alt="Profile">
+                </a>
+
+                <a class="option__link" href="">
+                    <p class="option__text white-text-selection">Profile</p>
+                </a>
             </div>
 
             <div class="account-options__option">
-                <img class="option__image" src="../Sources/Svg/stats.svg" alt="Leaderboard">
-                <p class="option__text white-text-selection">Leaderboard</p>
+                <a class="option__link" href="">
+                    <img class="option__image" src="../Sources/Svg/stats.svg" alt="Leaderboard">
+                </a>
+
+                <a class="option__link" href="">
+                    <p class="option__text white-text-selection">Leaderboard</p>
+                </a>
             </div>
         </div>
 
         <div class="account-options__lower-container account-options__container">
             <div class="account-options__option">
-                <img class="option__image" src="../Sources/Svg/settings.svg" alt="Settings">
-                <p class="option__text">Settings</p>
+                <a class="option__link" href="">
+                    <img class="option__image" src="../Sources/Svg/settings.svg" alt="Settings">
+                </a>
+
+                <a class="option__link" href="">
+                    <p class="option__text white-text-selection">Settings</p>
+                </a>
             </div>
 
             <div class="account-options__option">
-                <img class="option__image" src="../Sources/Svg/out.svg" alt="Sign Out">
-                <p class="option__text">Sign Out</p>
+                <div class="option__link" >
+                    <img id="sign-out-image" class="option__image" src="../Sources/Svg/out.svg" alt="Sign Out">
+                </div>
+                <div class="option__link" >
+                    <p id="sign-out-text" class="option__text white-text-selection">Sign Out</p>
+                </div>
             </div>
         </div>
     </div>
-
 </aside>
 
 <header>
@@ -160,10 +181,7 @@
                 <div id="board__field-08" class="board__field" data-row="2" data-column="1"></div>
                 <div id="board__field-09" class="board__field" data-row="2" data-column="2"></div>
             </div>
-
         </section>
-
-
     </div>
 </main>
 
