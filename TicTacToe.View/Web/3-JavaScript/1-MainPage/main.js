@@ -8,6 +8,7 @@ import {checkUserSessionId} from "./1-Modules/1-Core/checkUserSession.js";
 import {sendMove} from "./1-Modules/2-Api/sendMove.js"; // Запрос о совершенном ходе
 import {sendResetRequest} from "./1-Modules/2-Api/sendResetRequest.js"; // Запрос о перезагрузки игровой доски
 import {sendSignOutRequest} from "./1-Modules/2-Api/sendSignOutRequest.js";
+import {getUserLogin} from "./1-Modules/2-Api/getUserInfo.js";
 
 // UI: Работа с визуальным представлением
 import {updateGameState, UpdateMode} from "./1-Modules/3-Ui/updateGameInfo.js"; // Обновление доски с сервера
@@ -101,8 +102,15 @@ document.addEventListener("bot-select", (event) => {
 
 
 // Отображение данных пользователя после авторизации
-document.addEventListener("authorized-show", () => {
-    showUserInfo();
+document.addEventListener("authorized-show", async () => {
+    let login;
+    try {
+        login = await getUserLogin();
+    } catch (error) {
+        console.error(error.message);
+    }
+
+    showUserInfo(login);
 });
 
 

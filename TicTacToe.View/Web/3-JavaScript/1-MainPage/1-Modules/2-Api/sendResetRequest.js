@@ -27,8 +27,8 @@ export async function sendResetRequest() {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(requestData)
-
     });
+
     if (!resetResponse.ok) {
         const error = await resetResponse.json();
         throw new Error(error.message || "The board has not been updated");

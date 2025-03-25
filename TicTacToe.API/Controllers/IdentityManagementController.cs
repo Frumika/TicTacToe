@@ -19,6 +19,27 @@ public class IdentityManagementController : ControllerBase
         _redisSessionService = redisSessionService;
     }
 
+    [HttpPost("info")]
+    public async Task<IActionResult> GetUserData([FromBody] string sessionId)
+    {
+        if (string.IsNullOrWhiteSpace(sessionId))
+        {
+            return BadRequest(new { message = "Session ID cannot be null or empty" });
+        }
+
+        try
+        {
+            UserDto? userDto = await _redisSessionService.GetSessionAsync<UserDto>(sessionId);
+            if (userDto is null) return NotFound(new { message = "The user was not found" });
+
+            return Ok(new { user = userDto });
+        }
+        catch (Exception exception)
+        {
+            return StatusCode(500, new { message = "Error when searching for a user", error = exception.Message });
+        }
+    }
+
     [HttpPost("signin")]
     public async Task<IActionResult> SignInUser([FromBody] IdentityRequest request)
     {
