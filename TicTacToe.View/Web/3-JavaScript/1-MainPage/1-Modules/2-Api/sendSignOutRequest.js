@@ -2,13 +2,13 @@
 
 import {URL} from "../../../0-Common/url.js";
 import {deleteSession, getSessionId} from "../../../0-Common/sessionId.js";
-import {hideUserInfo} from "../3-Ui/drawAuthorization.js";
+import {hideUserInfo, showAccountOptions} from "../3-Ui/drawAuthorization.js";
 
 
 export async function sendSignOutRequest() {
     const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
 
-    const userSessionId = getSessionId("userSessionId");
+    const userSessionId = getSessionId("userSessionId")?.replace(/^"|"$/g, '');
     if (!userSessionId) {
         throw new Error("User session not found");
     }
@@ -27,5 +27,6 @@ export async function sendSignOutRequest() {
     } else {
         deleteSession("userSessionId");
         hideUserInfo();
+        showAccountOptions();
     }
 }
