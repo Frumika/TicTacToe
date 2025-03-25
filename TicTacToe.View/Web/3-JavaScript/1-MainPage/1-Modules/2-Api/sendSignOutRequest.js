@@ -2,7 +2,7 @@
 
 import {URL} from "../../../0-Common/url.js";
 import {deleteSession, getSessionId} from "../../../0-Common/sessionId.js";
-import {hideUserInfo, showAccountOptions} from "../3-Ui/drawAuthorization.js";
+import {hideUserInfo, switchAccountOptions} from "../3-Ui/drawAuthorization.js";
 
 
 export async function sendSignOutRequest() {
@@ -27,6 +27,6 @@ export async function sendSignOutRequest() {
     } else {
         deleteSession("userSessionId");
         hideUserInfo();
-        showAccountOptions();
+        switchAccountOptions();
     }
 }

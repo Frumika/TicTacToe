@@ -1,6 +1,6 @@
 "use strict"
 
-export {showUserInfo, hideUserInfo, showAccountOptions, hideAccountOptions}
+export {showUserInfo, hideUserInfo, switchAccountOptions, hideAccountOptions}
 
 function showUserInfo(){
     const container = document.querySelector(".aside-container__authorized");
@@ -24,7 +24,7 @@ function hideUserInfo(){
     container.style.visibility = "hidden";
 }
 
-function showAccountOptions(){
+function switchAccountOptions(){
     const container = document.querySelector(".authorized__account-options");
 
     let visibility = container.style.visibility;

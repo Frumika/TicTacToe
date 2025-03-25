@@ -1,6 +1,8 @@
 "use strict"
 
 /*------------------> Import <------------------*/
+// CORE: Функции общего назначения
+import {checkUserSessionId} from "./1-Modules/1-Core/checkUserSession.js";
 
 // API: Отправка данных на сервер
 import {sendMove} from "./1-Modules/2-Api/sendMove.js"; // Запрос о совершенном ходе
@@ -16,7 +18,7 @@ import {drawGameMode, drawBotMode} from "./1-Modules/3-Ui/gameSettings.js";
 import {
     hideAccountOptions,
     hideUserInfo,
-    showAccountOptions,
+    switchAccountOptions,
     showUserInfo
 } from "./1-Modules/3-Ui/drawAuthorization.js";
 
@@ -29,9 +31,6 @@ import {
     listenModalWindow,
     listenSignOutButton
 } from "./1-Modules/4-Events/listenIAuthorizeButtons.js";
-
-// Всё то, что... то
-import {checkUserSessionId} from "./1-Modules/1-Core/checkUserSession.js";
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -106,14 +105,16 @@ document.addEventListener("authorized-show", () => {
     showUserInfo();
 });
 
+
 // Сокрытие данные пользователя если тот не авторизован
 document.addEventListener("authorized-hide", () => {
     hideUserInfo();
 });
 
+
 // Обработка показа опций пользователя
 document.addEventListener("account-info", () => {
-    showAccountOptions();
+    switchAccountOptions();
 });
 
 

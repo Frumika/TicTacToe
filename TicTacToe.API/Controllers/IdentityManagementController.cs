@@ -74,8 +74,6 @@ public class IdentityManagementController : ControllerBase
     [HttpPost("signout")]
     public async Task<IActionResult> SignOutUser([FromBody] string sessionId)
     {
-        Console.WriteLine($"SessiondId: {sessionId}");
-
         if (string.IsNullOrWhiteSpace(sessionId))
         {
             return BadRequest(new { message = "Session ID cannot be null or empty" });
