@@ -13,13 +13,22 @@ import {drawClearBoard} from "./1-Modules/3-Ui/drawClearBoard.js"; // Очист
 import {hiddenWinnerMessage} from "./1-Modules/3-Ui/drawWinnerMessage.js"; // Вывод сообщения о победителе
 import {setBaseGameMode, setBaseBotMode, GameSettings} from "./1-Modules/1-Core/gameSettings.js";
 import {drawGameMode, drawBotMode} from "./1-Modules/3-Ui/gameSettings.js";
-import {hideUserInfo, showAccountOptions, showUserInfo} from "./1-Modules/3-Ui/drawAuthorization.js";
+import {
+    hideAccountOptions,
+    hideUserInfo,
+    showAccountOptions,
+    showUserInfo
+} from "./1-Modules/3-Ui/drawAuthorization.js";
 
 // EVENTS: Прослушивание элементов страницы
 import {listenFields} from "./1-Modules/4-Events/listenFields.js"; // Полей игровой доски
 import {listenResetButton} from "./1-Modules/4-Events/listenResetButton.js"; // Кнопки сброса
 import {listenGameModeSelection, listenBotModeSelection} from "./1-Modules/4-Events/listenGameSettings.js"; // Выбор игрового режима
-import {listenAccountInfo, listenSignOutButton} from "./1-Modules/4-Events/listenIAuthorizeButtons.js";
+import {
+    listenAccountInfo,
+    listenModalWindow,
+    listenSignOutButton
+} from "./1-Modules/4-Events/listenIAuthorizeButtons.js";
 
 // Всё то, что... то
 import {checkUserSessionId} from "./1-Modules/1-Core/checkUserSession.js";
@@ -38,7 +47,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     checkUserSessionId();
 
     listenAccountInfo();
-    listenSignOutButton()
+    listenSignOutButton();
+
+    listenModalWindow();
 
     try {
         await updateGameState(UpdateMode.UpdateAllFields);
@@ -97,12 +108,12 @@ document.addEventListener("authorized-show", () => {
 
 // Сокрытие данные пользователя если тот не авторизован
 document.addEventListener("authorized-hide", () => {
-    hideUserInfo()
+    hideUserInfo();
 });
 
 // Обработка показа опций пользователя
 document.addEventListener("account-info", () => {
-    showAccountOptions()
+    showAccountOptions();
 });
 
 
@@ -113,4 +124,10 @@ document.addEventListener("sign-out", async () => {
     } catch (error) {
         console.error(`Error while deleting user: ${error.message}`);
     }
+});
+
+
+// Сокрытие модального окна
+document.addEventListener("hide-modal", () => {
+    hideAccountOptions();
 });

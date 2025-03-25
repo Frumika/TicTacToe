@@ -1,6 +1,6 @@
 "use strict"
 
-export {listenAccountInfo, listenSignOutButton};
+export {listenAccountInfo, listenSignOutButton, listenModalWindow};
 
 
 function listenAccountInfo() {
@@ -25,5 +25,20 @@ function listenSignOutButton() {
 
     text.addEventListener("click", () => {
         document.dispatchEvent(signOutEvent);
+    });
+}
+
+function listenModalWindow() {
+    const modalWindow = document.querySelector(".authorized__account-options");
+    const accountInfo = document.querySelector(".authorized__account-info");
+
+    document.addEventListener("click", (event) => {
+        if (!modalWindow.contains(event.target) &&
+            !accountInfo.contains(event.target) &&
+            modalWindow.style.visibility === "visible") {
+
+            const hideModalEvent = new CustomEvent("hide-modal");
+            document.dispatchEvent(hideModalEvent);
+        }
     });
 }
