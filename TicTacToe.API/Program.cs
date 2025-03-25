@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using StackExchange.Redis;
-using TicTacToe.Services;
+using TicTacToe.Services.Game;
 using TicTacToe.Services.Redis;
 using TicTacToe.Data.Context;
 

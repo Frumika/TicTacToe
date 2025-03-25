@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Services;
+﻿namespace TicTacToe.Services.Game;
 
 using TicTacToe.GameModel.GameBoard;
 using TicTacToe.GameModel.Model;

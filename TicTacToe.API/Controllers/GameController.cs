@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TicTacToe.Services;
+using TicTacToe.Services.Game;
 using TicTacToe.API.Requests;
 
 

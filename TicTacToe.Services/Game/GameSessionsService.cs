@@ -2,7 +2,7 @@
 using TicTacToe.GameModel.Entity;
 using TicTacToe.GameModel.Model;
 
-namespace TicTacToe.Services;
+namespace TicTacToe.Services.Game;
 
 public class GameSessionsService
 {
