@@ -26,7 +26,7 @@ public class IdentityManagementController : ControllerBase
         IQueryable<User> query = _dbContext.Users.AsNoTracking();
 
         switch (request.Type)
-        {   
+        {
             case StatisticType.ByMatches:
             {
                 query = query.OrderByDescending(user => user.Matches);
@@ -48,6 +48,7 @@ public class IdentityManagementController : ControllerBase
         try
         {
             var list = await query
+                .Skip(request.SkipModifier * request.UsersCount)
                 .Take(request.UsersCount)
                 .Select(u => new
                 {
@@ -58,7 +59,7 @@ public class IdentityManagementController : ControllerBase
                 })
                 .ToListAsync();
 
-            return Ok(list);
+            return Ok(new { list = list, isLastPage = list.Count < request.UsersCount });
         }
         catch (Exception exception)
         {
