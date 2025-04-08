@@ -19,6 +19,53 @@ public class IdentityManagementController : ControllerBase
         _redisSessionService = redisSessionService;
     }
 
+
+    [HttpPost("statistics")]
+    public async Task<IActionResult> GetUsersStatistics([FromBody] UsersStatisticsRequest request)
+    {
+        IQueryable<User> query = _dbContext.Users.AsNoTracking();
+
+        switch (request.Type)
+        {   
+            case StatisticType.ByMatches:
+            {
+                query = query.OrderByDescending(user => user.Matches);
+                break;
+            }
+            case StatisticType.ByWins:
+            {
+                query = query.OrderByDescending(user => user.Wins);
+                break;
+            }
+            case StatisticType.ByLosses:
+            {
+                query = query.OrderByDescending(user => user.Matches - user.Wins);
+                break;
+            }
+            default: return BadRequest("Unknown statistics type");
+        }
+
+        try
+        {
+            var list = await query
+                .Take(request.UsersCount)
+                .Select(u => new
+                {
+                    Login = u.Login,
+                    Matches = u.Matches,
+                    Wins = u.Wins,
+                    Losses = u.Matches - u.Wins
+                })
+                .ToListAsync();
+
+            return Ok(list);
+        }
+        catch (Exception exception)
+        {
+            return StatusCode(500, new { message = "Internal server error", error = exception.Message });
+        }
+    }
+
     [HttpPost("info")]
     public async Task<IActionResult> GetUserData([FromBody] string sessionId)
     {
