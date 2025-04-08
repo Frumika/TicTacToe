@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+
+    background: black;
+}
+
+.white-text-selection::selection{
+    background: white;
+    color: black;
+}
+
+.black-text-selection::selection{
+    background: black;
+    color: white;
+}
+
+

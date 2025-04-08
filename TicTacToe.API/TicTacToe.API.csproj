@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>TicTacToe.API</RootNamespace>
       <UserSecretsId>61d7f3a3-8598-43ac-85ad-12b07dc95153</UserSecretsId>
+      <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
     <ItemGroup>
@@ -20,6 +21,12 @@
     <ItemGroup>
       <ProjectReference Include="..\TicTacToe.Data\TicTacToe.Data.csproj" />
       <ProjectReference Include="..\TicTacToe.Services\TicTacToe.Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
     
     
