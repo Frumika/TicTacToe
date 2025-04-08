@@ -10,6 +10,9 @@ public class User
 {
     public string Login { get; set; } = string.Empty;
     public string HashPassword { get; set; } = string.Empty;
+    
+    public int Matches { get; set; } 
+    public int Wins { get; set; }
 }
 
 public class UsersDbContext : DbContext
@@ -34,14 +37,16 @@ public class UsersDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            // Настройка первичного ключа
             entity.HasKey(user => user.Login);
-
-            // Настройка обязательных полей
             entity.Property(user => user.Login)
                 .IsRequired()
                 .HasMaxLength(LoginLength)
                 .HasColumnType($"VARCHAR({LoginLength})");
+
+            entity.Property(user => user.Matches).HasDefaultValue(0);
+
+            entity.Property(user => user.Wins).HasDefaultValue(0);
+            
             entity.Property(user => user.HashPassword).IsRequired();
         });
     }
