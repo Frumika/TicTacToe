@@ -43,7 +43,7 @@ body {
 }
 
 /* Main */
-.leaderboard-main__container{
+.leaderboard-main__container {
     display: flex;
     flex-direction: column;
 
@@ -51,7 +51,7 @@ body {
 }
 
 /* Кнопки сортировки */
-.main-container__sort-type-buttons{
+.main-container__sort-type-buttons {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -62,7 +62,7 @@ body {
     margin-bottom: 15px;
 }
 
-.sort-button{
+.sort-button {
     background: none;
     outline: none;
 
@@ -80,7 +80,7 @@ body {
     padding: 2px 5px 2px 5px;
 }
 
-.sort-button:last-child{
+.sort-button:last-child {
     border-right: none;
 }
 
@@ -122,3 +122,31 @@ body {
 .table-body__text:last-child {
     border-right: none;
 }
+
+/* Пагинация */
+.main-container__pagination {
+    margin-top: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100px;
+}
+
+.pagination__chevron {
+    cursor: pointer;
+}
+
+#pagination-left,
+#pagination-right{
+    visibility: visible;
+}
+
+.pagination__number{
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-weight: normal;
+    font-size: 24px;
+    color: white;
+}
+

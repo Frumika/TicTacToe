@@ -27,9 +27,9 @@
 
 <main class="leaderboard-main__container">
     <div class="main-container__sort-type-buttons">
-        <button class="sort-button" type="button">By Matches</button>
-        <button class="sort-button" type="button">By Wins</button>
-        <button class="sort-button" type="button">By Losses</button>
+        <button class="sort-button" id="by-matches" type="button">By Matches</button>
+        <button class="sort-button" id="by-wins" type="button">By Wins</button>
+        <button class="sort-button" id="by-losses" type="button">By Losses</button>
     </div>
 
     <div class="main-container__leaderboard-table">
@@ -47,10 +47,16 @@
             </thead>
 
             <tbody class="table-body">
-                <!-- Тут будут строки сделанные JS -->
+            <!-- Тут будут строки сделанные JS -->
             </tbody>
 
         </table>
+    </div>
+
+    <div class="main-container__pagination">
+        <img class="pagination__chevron" id="pagination-left" src="../Sources/Svg/chevron-left.svg" alt="">
+        <p class="pagination__number"></p>
+        <img class="pagination__chevron" id="pagination-right" src="../Sources/Svg/chevron-right.svg" alt="">
     </div>
 </main>
 

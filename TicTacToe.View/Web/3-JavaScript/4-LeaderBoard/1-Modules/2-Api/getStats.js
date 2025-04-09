@@ -2,7 +2,7 @@
 
 import {URL} from "../../../0-Common/url.js";
 
-export async function getStats(sortType, page) {
+export async function getStats(sortType, count ,page) {
     const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
 
     const requestData = {
@@ -10,7 +10,7 @@ export async function getStats(sortType, page) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             skipModifier: page,
-            usersCount: 10,
+            usersCount: count,
             stringStatisticType: sortType
         })
     };
@@ -22,5 +22,5 @@ export async function getStats(sortType, page) {
 
     const responseData = await response.json();
 
-    return responseData.list;
+    return responseData;
 }
