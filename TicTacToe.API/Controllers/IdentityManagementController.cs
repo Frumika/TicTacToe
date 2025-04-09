@@ -1,4 +1,5 @@
-﻿using BCrypt.Net;
+﻿using System.Diagnostics.CodeAnalysis;
+using BCrypt.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicTacToe.API.Requests;
@@ -19,6 +20,28 @@ public class IdentityManagementController : ControllerBase
         _redisSessionService = redisSessionService;
     }
 
+    [HttpPost("update")]
+    public async Task<IActionResult> UpdateUserData([FromBody] UpdateDataRequest request)
+    {
+        try
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Login == request.Login);
+
+            if (user is null) return BadRequest(new { message = "The user is not logged in" });
+
+            user.Matches++;
+            if (request.IsWin) user.Wins++;
+            _dbContext.Users.Update(user);
+            
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception exception)
+        {
+            return StatusCode(500, new { message = "Error while update user info", error = exception.Message });
+        }
+
+        return Ok();
+    }
 
     [HttpPost("statistics")]
     public async Task<IActionResult> GetUsersStatistics([FromBody] UsersStatisticsRequest request)
