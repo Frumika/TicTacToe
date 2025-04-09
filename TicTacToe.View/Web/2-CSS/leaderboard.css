@@ -14,24 +14,24 @@ body {
     align-items: center;
 }
 
-.white-text-selection::selection{
+.white-text-selection::selection {
     background: white;
     color: black;
 }
 
-.black-text-selection::selection{
+.black-text-selection::selection {
     background: black;
     color: white;
 }
 
 /* Header */
-.leaderboard__header-container{
+.leaderboard__header-container {
     display: flex;
 
     margin: 40px 0 60px 0;
 }
 
-.header-container__text{
+.header-container__text {
     font-family: "Play", "Work Sans", "Arial", sans-serif;
     font-weight: bold;
     font-size: 32px;
@@ -43,14 +43,14 @@ body {
 }
 
 /* Таблица */
-#leaderboard{
+#leaderboard {
     width: 1000px;
     border: 4px solid white;
 
     color: white;
 }
 
-.table-head__text{
+.table-head__text {
     font-family: "Play", "Work Sans", "Arial", sans-serif;
     font-weight: bold;
     font-size: 24px;
@@ -60,7 +60,23 @@ body {
     border-right: 3px solid white;
 }
 
-.table-head__text:last-child{
-    border: none;
+.table-head__text:last-child {
+    border-right: none;
 
+}
+
+.table-body__text {
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-weight: normal;
+    font-size: 22px;
+
+    color: white;
+
+    border-right: 3px solid white;
+
+    padding: 3px 0 3px 10px;
+}
+
+.table-body__text:last-child {
+    border-right: none;
 }
