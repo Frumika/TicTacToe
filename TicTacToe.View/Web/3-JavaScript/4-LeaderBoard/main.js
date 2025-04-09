@@ -2,5 +2,4 @@
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    alert("Hi")
 });

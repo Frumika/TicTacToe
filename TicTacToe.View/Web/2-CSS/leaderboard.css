@@ -8,6 +8,10 @@ body {
     font-family: "Play", "Work Sans", "Arial", sans-serif;
 
     background: black;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .white-text-selection::selection{
@@ -20,4 +24,43 @@ body {
     color: white;
 }
 
+/* Header */
+.leaderboard__header-container{
+    display: flex;
 
+    margin: 40px 0 60px 0;
+}
+
+.header-container__text{
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-weight: bold;
+    font-size: 32px;
+
+    letter-spacing: 5px;
+    color: white;
+
+    text-decoration: none;
+}
+
+/* Таблица */
+#leaderboard{
+    width: 1000px;
+    border: 4px solid white;
+
+    color: white;
+}
+
+.table-head__text{
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-weight: bold;
+    font-size: 24px;
+
+    color: white;
+
+    border-right: 3px solid white;
+}
+
+.table-head__text:last-child{
+    border: none;
+
+}
