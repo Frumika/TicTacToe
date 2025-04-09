@@ -31,7 +31,7 @@ public class UsersStatisticsRequest
     public int UsersCount { get; set; }
 
     [Required(ErrorMessage = "StringStatisticType is required")]
-    public string StringStatisticType { get; set; }
+    public string StringStatisticType { get; set; } = string.Empty;
 
     public StatisticType Type
     {

@@ -4,6 +4,7 @@
 import {getGameState} from "../2-Api/getGameState.js";
 import {drawWinnerMessage} from "./drawWinnerMessage.js";
 import {GameSettings} from "../1-Core/gameSettings.js";
+import {CollectAndSendUpdate} from "../1-Core/CollectAndSendUpdate.js";
 
 // Функции
 export {updateBoard, updateGameState};
@@ -60,7 +61,10 @@ async function updateGameState(updateMode) {
 
     if (boardData) {
         if (boardData.board) updateBoard(boardData.board, updateMode);
-        if (boardData.winner) drawWinnerMessage(boardData.winner, updateMode);
+        if (boardData.winner) {
+            drawWinnerMessage(boardData.winner, updateMode);
+            await CollectAndSendUpdate(boardData.winner);
+        }
     } else throw new Error("Failed to load board data: board.")
 
 }
