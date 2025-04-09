@@ -14,7 +14,7 @@ export let SortType = {
 
 export let Params = {
     SortType: SortType.ByMatches,
-    UsersCount: 2,
+    UsersCount: 10,
     CurrentPage: 0,
     IsLastPage: true,
 }
@@ -24,13 +24,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     listenSortButton();
     listenChevrons();
 
-    let isLast = await loadAndRenderStats(Params.SortType, Params.UsersCount, Params.CurrentPage);
-
-    drawCurrentPage(Params.CurrentPage + 1, isLast);
-
-    console.log(`IS LAST: ${isLast}`);
-
-    Params.IsLastPage = isLast;
+    Params.IsLastPage = await loadAndRenderStats(Params.SortType, Params.UsersCount, Params.CurrentPage);
+    drawCurrentPage(Params.CurrentPage + 1, Params.IsLastPage);
 });
 
 
@@ -41,20 +36,13 @@ document.addEventListener("sort-click", async () => {
 
 document.addEventListener("go-prev", async () => {
     Params.CurrentPage--;
-
-    let isLast = await loadAndRenderStats(Params.SortType, Params.UsersCount, Params.CurrentPage);
-
-    Params.IsLastPage = isLast;
-
-    drawCurrentPage(Params.CurrentPage + 1, isLast);
+    Params.IsLastPage = await loadAndRenderStats(Params.SortType, Params.UsersCount, Params.CurrentPage);
+    drawCurrentPage(Params.CurrentPage + 1, Params.IsLastPage);
 });
 
 
 document.addEventListener("go-next", async () => {
     Params.CurrentPage++;
-    let isLast = await loadAndRenderStats(Params.SortType, Params.UsersCount, Params.CurrentPage);
-
-    Params.IsLastPage = isLast;
-
-    drawCurrentPage(Params.CurrentPage + 1, isLast);
+    Params.IsLastPage = await loadAndRenderStats(Params.SortType, Params.UsersCount, Params.CurrentPage);
+    drawCurrentPage(Params.CurrentPage + 1, Params.IsLastPage);
 });

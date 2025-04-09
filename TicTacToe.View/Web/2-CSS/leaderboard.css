@@ -28,13 +28,13 @@ body {
 .leaderboard__header-container {
     display: flex;
 
-    margin: 40px 0 30px 0;
+    margin: 40px 0 50px 0;
 }
 
 .header-container__text {
     font-family: "Play", "Work Sans", "Arial", sans-serif;
     font-weight: bold;
-    font-size: 32px;
+    font-size: 40px;
 
     letter-spacing: 5px;
     color: white;
@@ -105,12 +105,11 @@ body {
     padding: 4px 0 4px 0;
 
     border-right: 3px solid white;
-    border-bottom: 3px solid white;
+    border-bottom: 4px solid white;
 }
 
 .table-head__text:last-child {
     border-right: none;
-
 }
 
 .table-body__text {
