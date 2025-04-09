@@ -14,7 +14,7 @@ export let SortType = {
 
 export let Params = {
     SortType: SortType.ByMatches,
-    UsersCount: 10,
+    UsersCount: 2,
     CurrentPage: 0,
     IsLastPage: true,
 }
