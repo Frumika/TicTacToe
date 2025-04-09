@@ -2,16 +2,16 @@
 
 import {URL} from "../../../0-Common/url.js";
 
-export async function getStats() {
+export async function getStats(sortType, page) {
     const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
 
     const requestData = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-            skipModifier: 0,
+            skipModifier: page,
             usersCount: 10,
-            stringStatisticType: "ByMatches"
+            stringStatisticType: sortType
         })
     };
 
