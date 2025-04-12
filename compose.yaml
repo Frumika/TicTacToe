@@ -16,6 +16,17 @@ services:
       - REDIS_HOST=redis
     networks:
       - app-network
+        
+  frontend:
+    build:
+      context: ../TicTacToe/TicTacToe.View/Web/
+      dockerfile: Dockerfile
+    ports:
+      - "8081:80" 
+    networks:
+      - app-network
+    depends_on:
+      - api
 
   postgres:
     image: postgres:17

@@ -28,7 +28,7 @@ export async function sendInfo() {
     } else {
         drawAllSuccessful();
         setTimeout(() => {
-            window.location.href = "/Web/1-HTML/index.html";
+            window.location.href = "/1-HTML/index.html";
         }, 2000);
     }
 }
