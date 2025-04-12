@@ -15,7 +15,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<UsersDbContext>(options => options.UseNpgsql(connectionString));
 
 // Настройка подключения к Redis
-builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("localhost"));
+var redisHost = builder.Configuration["REDIS_HOST"] ?? "localhost";
+builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("redis"));
 builder.Services.AddScoped<RedisSessionService>();
 
 // Разрешаем принимать запросы с любых портов
@@ -40,6 +41,11 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+
+    // Применяем миграции (если есть)
+    dbContext.Database.Migrate();
+
+    // Отправляем запрос для прогрева базы данных
     dbContext.Users.Any();
 }
 
