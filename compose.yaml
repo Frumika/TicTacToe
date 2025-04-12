@@ -8,15 +8,16 @@ services:
     ports:
       - "5026:8080"
     depends_on:
-      - db
+      - postgres
       - redis
     environment:
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=personal_info;Username=postgres;Password=1234
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=personal_info;Username=postgres;Password=1234
+      - REDIS_HOST=redis
     networks:
       - app-network
 
-  db:
+  postgres:
     image: postgres:17
     restart: always
     environment:
@@ -33,8 +34,6 @@ services:
   redis:
     image: redis:7
     restart: always
-    environment:
-      - REDIS_HOST=redis
     ports:
       - "6379:6379"
     networks:

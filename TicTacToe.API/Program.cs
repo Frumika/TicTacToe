@@ -15,8 +15,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<UsersDbContext>(options => options.UseNpgsql(connectionString));
 
 // Настройка подключения к Redis
-var redisHost = builder.Configuration["REDIS_HOST"] ?? "localhost";
-builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect("redis"));
+var redisHost = Environment.GetEnvironmentVariable("REDIS_HOST") ?? "localhost";
+builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisHost));
 builder.Services.AddScoped<RedisSessionService>();
 
 // Разрешаем принимать запросы с любых портов
