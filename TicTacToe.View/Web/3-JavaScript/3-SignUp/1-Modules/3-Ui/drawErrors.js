@@ -9,7 +9,7 @@ export function drawSomethingWrong(key) {
     container.style.visibility = "visible";
     container.style.border = "4px solid red";
 
-    image.src = "../../../Sources/Svg/error_circle.svg"
+    image.src = "../../../4-Sources/Svg/error_circle.svg"
 
     text.style.color = "red";
 

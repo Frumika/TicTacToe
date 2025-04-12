@@ -16,7 +16,7 @@ export function togglePassword() {
     });
 
     eyeIcons.forEach(icon => {
-        icon.src = isHidden ? "../../../Sources/Svg/eye_open.svg" : "../../../Sources/Svg/eye_closed.svg";
+        icon.src = isHidden ? "../../../4-Sources/Svg/eye_open.svg" : "../../../4-Sources/Svg/eye_closed.svg";
         icon.alt = isHidden ? "Hide" : "Show";
     });
 }

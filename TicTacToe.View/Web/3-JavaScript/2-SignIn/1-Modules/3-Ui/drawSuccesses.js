@@ -9,7 +9,7 @@ export function drawWasAuthorized() {
     container.style.visibility = "visible";
     container.style.border = "4px solid green";
 
-    image.src = "../../../Sources/Svg/check_circle.svg"
+    image.src = "../../../4-Sources/Svg/check_circle.svg"
 
     text.style.color = "green";
     text.textContent = "You have successfully authorized!";

@@ -8,7 +8,7 @@ export function drawFieldsIsNotFill() {
     container.style.visibility = "visible";
     container.style.border = "4px solid yellow";
 
-    image.src = "../../../Sources/Svg/warning_circle.svg"
+    image.src = "../../../4-Sources/Svg/warning_circle.svg"
 
     text.style.color = "yellow";
     text.textContent = "Not all fields were filled in";
