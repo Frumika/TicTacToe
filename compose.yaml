@@ -36,7 +36,7 @@ services:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: personal_info
     ports:
-      - "5432:5432"
+      - "5444:5444"
     networks:
       - app-network
     volumes:
@@ -46,7 +46,7 @@ services:
     image: redis:7
     restart: always
     ports:
-      - "6379:6379"
+      - "6400:6400"
     networks:
       - app-network
     healthcheck:
