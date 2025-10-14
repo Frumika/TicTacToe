@@ -1,5 +1,6 @@
 "use strict"
 
+import {addHead} from "../../0-Common/addHead.js";
 
 import {isPasswordsEquals} from "./1-Core/checkPasswords.js";
 import {checkIsFormFillFull} from "./1-Core/checkIsFormFillFull.js";
@@ -15,9 +16,13 @@ import {listenTogglePassword} from "./4-Events/listenTogglePasswordButton.js";
 import {listenPasswordInputField} from "./4-Events/listenPasswordsInputField.js";
 
 
-
 // Прослушивание загрузки страницы
 document.addEventListener("DOMContentLoaded", async () => {
+    await addHead({
+        title: "Sign Up",
+        styles: ["../2-CSS/signUp.css"]
+    });
+
     listenSendButton();
     listenTogglePassword();
     listenPasswordInputField();

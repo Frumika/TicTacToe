@@ -1,5 +1,6 @@
 "use strict"
 
+import {addHead} from "../0-Common/addHead.js";
 import {listenSortButton} from "./1-Modules/4-Events/listenSortButtons.js";
 import {loadAndRenderStats} from "./1-Modules/1-Core/loadAndRenderStats.js";
 import {drawCurrentPage} from "./1-Modules/3-Ui/drawCurrnetPage.js";
@@ -21,6 +22,16 @@ export let Params = {
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        await addHead({
+            title: "Leaderboard",
+            styles: ["../2-CSS/leaderboard.css"]
+        });
+
+    } catch (err) {
+        console.error(err.message)
+    }
+
     listenSortButton();
     listenChevrons();
 

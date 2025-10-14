@@ -3,6 +3,7 @@
 /*------------------> Import <------------------*/
 // CORE: Функции общего назначения
 import {checkUserSessionId} from "./1-Modules/1-Core/checkUserSession.js";
+import {addHead} from "../0-Common/addHead.js";
 
 // API: Отправка данных на сервер
 import {sendMove} from "./1-Modules/2-Api/sendMove.js"; // Запрос о совершенном ходе
@@ -35,6 +36,11 @@ import {
 
 
 document.addEventListener("DOMContentLoaded", async () => {
+    await addHead({
+        title: "Game",
+        styles: ["../2-CSS/index.css"]
+    });
+
     listenFields();
     listenResetButton();
 
