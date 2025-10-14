@@ -14,16 +14,15 @@ body {
     background: black;
 }
 
-.white-text-selection::selection{
+.white-text-selection::selection {
     background: white;
     color: black;
 }
 
-.black-text-selection::selection{
+.black-text-selection::selection {
     background: black;
     color: white;
 }
-
 
 
 /*------------------> Header <------------------*/
@@ -133,6 +132,35 @@ body {
     border: 4px solid white;
 }
 
+@media (max-width: 790px) {
+    .logo__text {
+        display: none;
+    }
+
+    .header-container {
+        height: 80px;
+    }
+
+    .header-container__logo {
+        margin-left: 8px;
+    }
+
+    .logo__icon {
+        width: 60px;
+        height: auto;
+    }
+
+    .header-container__authorization {
+        gap: 15px;
+        margin-right: 8px;
+    }
+
+    .authorization-button {
+        font-size: 22px;
+        padding: 6px 20px;
+    }
+}
+
 /*------------------> Authorized <------------------*/
 
 .aside-container__authorized {
@@ -222,23 +250,23 @@ body {
     width: 345px;
 }
 
-.account-options__container{
+.account-options__container {
     display: flex;
     flex-direction: column;
 
     gap: 15px;
 }
 
-.account-options__upper-container{
+.account-options__upper-container {
     margin-top: 15px;
 }
 
-.account-options__lower-container{
+.account-options__lower-container {
     margin-top: 60px;
     margin-bottom: 15px;
 }
 
-.account-options__option{
+.account-options__option {
     display: flex;
 
     align-items: center;
@@ -251,19 +279,19 @@ body {
     gap: 10px;
 }
 
-.option__link{
+.option__link {
     text-decoration: none;
 }
 
-.option__image{
+.option__image {
     text-decoration: none;
 }
 
-.option__image::selection{
+.option__image::selection {
     background: none;
 }
 
-.option__text{
+.option__text {
     font-family: "Play", "Work Sans", "Arial", sans-serif;
     font-weight: bold;
     font-size: 32px;
