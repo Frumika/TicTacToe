@@ -85,8 +85,8 @@ body {
 }
 
 /* Таблица */
+
 #leaderboard {
-    width: 1200px;
     border: 4px solid white;
 
     border-radius: 15px;
@@ -102,7 +102,7 @@ body {
 
     color: white;
 
-    padding: 4px 0 4px 0;
+    padding: 10px 40px;
 
     border-right: 3px solid white;
     border-bottom: 4px solid white;
@@ -154,4 +154,21 @@ body {
     font-size: 24px;
     color: white;
 }
-
+@media screen and (max-width: 1210px) {
+    .table-head__text{
+        font-size: 20px;
+        padding: 8px 25px;
+    }
+    .table-body__text{
+        font-size: 20px;
+    }
+}
+@media screen and (max-width: 545px) {
+    .table-head__text{
+        font-size: 15px;
+        padding: 5px 20px;
+    }
+    .table-body__text{
+        font-size: 15px;
+    }
+}
