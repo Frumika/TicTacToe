@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicTacToe.API.Requests;
 using TicTacToe.DataAccess.Context;
-using TicTacToe.Domain.Models; // UsersDbContext
+using TicTacToe.Domain.Models;
+using TicTacToe.Domain.Models.App; // UsersDbContext
 using TicTacToe.Services.Redis;
 
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using TicTacToe.Domain.Models;
+using TicTacToe.Domain.Models.App;
 
 namespace TicTacToe.DataAccess.Context;
 

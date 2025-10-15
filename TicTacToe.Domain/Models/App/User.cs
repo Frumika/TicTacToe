@@ -1,4 +1,4 @@
-﻿namespace TicTacToe.Domain.Models;
+﻿namespace TicTacToe.Domain.Models.App;
 
 public class User
 {
