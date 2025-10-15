@@ -328,7 +328,6 @@ body {
     display: flex;
     flex-direction: column;
 
-
     justify-content: center;
     align-items: center;
 
@@ -564,7 +563,7 @@ body {
     .main-container{
         width: 100%;
         justify-content: space-between;
-        flex-direction: column;
+        flex-direction: column-reverse;
         align-items: center;
         gap: 30px;
     }
@@ -579,5 +578,14 @@ body {
     }
     .elem__text{
         font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .settings__header{
+        padding: 0 20px 5px 20px;
+    }
+    .settings__params{
+        padding: 0 20px;
     }
 }
