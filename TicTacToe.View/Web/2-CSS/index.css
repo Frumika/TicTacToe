@@ -226,7 +226,7 @@ body {
 
 /*------------------> Account Options <------------------*/
 .authorized__account-options {
-    visibility: visible;
+    visibility: hidden;
 
     border: 4px solid white;
     border-radius: 25px;
