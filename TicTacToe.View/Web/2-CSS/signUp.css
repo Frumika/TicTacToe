@@ -52,7 +52,6 @@ body {
 
 /*------------------> Container <------------------*/
 .sign_up-container {
-
     border: 4px solid white;
     border-radius: 30px;
 
@@ -164,7 +163,36 @@ body {
 
     cursor: pointer;
 
-    width: 380px;
+    width: 100%;
     height: 40px;
 }
 
+@media screen and (max-width: 540px) {
+    .sign_up-container__link{
+        font-size: 25px;
+    }
+    .input-field{
+        font-size: 20px;
+    }
+}
+
+
+@media screen and (max-width: 460px) {
+    .sign_up-container__link{
+        padding: 2%;
+        margin: 10px 20px 20px 20px;
+    }
+    .sign_up-container__form{
+        margin: 10px 30px 20px 30px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .sign_up-container__link{
+        padding: 2%;
+        margin: 10px;
+    }
+    .sign_up-container__form{
+        margin: 20px 10px;
+    }
+}
