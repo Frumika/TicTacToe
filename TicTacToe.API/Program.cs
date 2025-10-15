@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using StackExchange.Redis;
 using TicTacToe.Services.Game;
 using TicTacToe.Services.Redis;
-using TicTacToe.Data.Context;
+using TicTacToe.DataAccess.Context;
 
 
 var builder = WebApplication.CreateBuilder(args);

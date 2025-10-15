@@ -1,23 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Logging;
+using TicTacToe.Domain.Models;
 
-namespace TicTacToe.Data.Context;
-
-public class User
-{
-    public string Login { get; set; } = string.Empty;
-    public string HashPassword { get; set; } = string.Empty;
-    
-    public int Matches { get; set; } 
-    public int Wins { get; set; }
-}
+namespace TicTacToe.DataAccess.Context;
 
 public class UsersDbContext : DbContext
 {
     private const int LoginLength = 60;
+    private const int PasswordLength = 128;
 
     public DbSet<User> Users { get; set; }
 
@@ -46,8 +36,10 @@ public class UsersDbContext : DbContext
             entity.Property(user => user.Matches).HasDefaultValue(0);
 
             entity.Property(user => user.Wins).HasDefaultValue(0);
-            
-            entity.Property(user => user.HashPassword).IsRequired();
+
+            entity.Property(user => user.HashPassword).IsRequired()
+                .HasMaxLength(PasswordLength)
+                .HasColumnType($"VARCHAR({PasswordLength})");
         });
     }
 }

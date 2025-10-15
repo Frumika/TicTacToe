@@ -3,7 +3,8 @@ using BCrypt.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicTacToe.API.Requests;
-using TicTacToe.Data.Context; // UsersDbContext
+using TicTacToe.DataAccess.Context;
+using TicTacToe.Domain.Models; // UsersDbContext
 using TicTacToe.Services.Redis;
 
 
