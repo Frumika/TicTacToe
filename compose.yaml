@@ -1,6 +1,4 @@
-﻿version: '3.8'
-
-services:
+﻿services:
   api:
     build:
       context: .
@@ -16,13 +14,13 @@ services:
       - REDIS_HOST=redis
     networks:
       - app-network
-        
+  
   frontend:
     build:
       context: ../TicTacToe/TicTacToe.View/Web/
       dockerfile: Dockerfile
     ports:
-      - "8081:80" 
+      - "8081:80"
     networks:
       - app-network
     depends_on:
@@ -36,7 +34,7 @@ services:
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: personal_info
     ports:
-      - "5444:5444"
+      - "5444:5432"
     networks:
       - app-network
     volumes:
@@ -46,7 +44,7 @@ services:
     image: redis:7
     restart: always
     ports:
-      - "6400:6400"
+      - "6400:6379"
     networks:
       - app-network
     healthcheck:
