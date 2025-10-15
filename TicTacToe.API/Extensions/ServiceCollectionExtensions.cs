@@ -1,7 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using TicTacToe.DataAccess.Context;
+using TicTacToe.Services.Game;
 
 namespace TicTacToe.API.Extensions;
 
@@ -11,6 +13,7 @@ public static class ServiceCollectionExtensions
     {
         services
             .ConnectPostgres(config)
+            .ConnectRedis(config)
             .AddCorsPolicy()
             .AddApplicationServices()
             .AddApplicationControllers();
@@ -22,7 +25,18 @@ public static class ServiceCollectionExtensions
     {
         services.AddDbContext<UsersDbContext>(options =>
             options.UseNpgsql(config.GetConnectionString("UsersDatabase")));
-        
+
+        return services;
+    }
+
+    private static IServiceCollection ConnectRedis(this IServiceCollection services, AppConfiguration config)
+    {
+        var redisHost = config.Configuration["Redis:Host"];
+        var redisPort = config.Configuration["Redis:Port"];
+
+        var connectionString = $"{redisHost}:{redisPort}";
+        services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(connectionString));
+
         return services;
     }
 
@@ -40,6 +54,7 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
+        services.AddSingleton<GameSessionsService>();
         // services.AddScoped<IIdentityService, IdentityService>();
         return services;
     }
