@@ -9,8 +9,8 @@
       - postgres
       - redis
     environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=personal_info;Username=postgres;Password=1234
       - REDIS_HOST=redis
     networks:
       - app-network
