@@ -12,10 +12,10 @@ public class RedisSessionService
         _database = redis.GetDatabase();
     }
 
-    public async Task SetSessionAsync(string sessionId, UserDto userDto, TimeSpan expiry)
+    public async Task SetSessionAsync(string sessionId, UserRedisDto userDto, TimeSpan expiry)
     {
         if (string.IsNullOrWhiteSpace(sessionId)) throw new ArgumentException("Session ID cannot be null or empty");
-        
+
         if (userDto is null) throw new ArgumentNullException(nameof(userDto));
 
         try
@@ -31,7 +31,7 @@ public class RedisSessionService
         }
     }
 
-    public async Task<UserDto?> GetSessionAsync<T>(string sessionId)
+    public async Task<UserRedisDto?> GetSessionAsync<T>(string sessionId)
     {
         if (string.IsNullOrWhiteSpace(sessionId)) throw new ArgumentException("Session ID cannot be null or empty");
 
@@ -40,7 +40,7 @@ public class RedisSessionService
             string? json = await _database.StringGetAsync($"session:{sessionId}");
 
             if (string.IsNullOrEmpty(json)) return null;
-            return JsonSerializer.Deserialize<UserDto>(json);
+            return JsonSerializer.Deserialize<UserRedisDto>(json);
         }
         catch (Exception exception)
         {

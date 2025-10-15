@@ -7,11 +7,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TicTacToe.GameModel\TicTacToe.GameModel.csproj" />
+      <PackageReference Include="StackExchange.Redis" Version="2.8.31" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="StackExchange.Redis" Version="2.8.31" />
+      <ProjectReference Include="..\TicTacToe.Domain\TicTacToe.Domain.csproj" />
     </ItemGroup>
 
 </Project>

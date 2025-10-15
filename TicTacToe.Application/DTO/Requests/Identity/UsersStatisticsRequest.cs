@@ -1,24 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using static TicTacToe.API.Requests.StatisticType;
+using TicTacToe.Application.Enums;
+using static TicTacToe.Application.Enums.StatisticType;
 
-namespace TicTacToe.API.Requests;
-
-public class IdentityRequest
-{
-    [Required(ErrorMessage = "Login is required")]
-    public string Login { get; set; } = string.Empty;
-
-    [Required(ErrorMessage = "Password is required")]
-    public string Password { get; set; } = string.Empty;
-}
-
-
-public enum StatisticType
-{
-    ByMatches,
-    ByWins,
-    ByLosses
-}
+namespace TicTacToe.Application.DTO.Requests.Identity;
 
 public class UsersStatisticsRequest
 {
@@ -48,14 +32,4 @@ public class UsersStatisticsRequest
             return type;
         }
     }
-}
-
-
-public class UpdateDataRequest
-{
-    [Required(ErrorMessage = "Login is required")]
-    public string Login { get; set; } = String.Empty;
-
-    [Required(ErrorMessage = "IsWin is required")]
-    public bool IsWin { get; set; } = default;
 }

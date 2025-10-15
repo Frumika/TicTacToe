@@ -2,8 +2,11 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
+using TicTacToe.Application.Interfaces;
+using TicTacToe.Application.Services;
 using TicTacToe.DataAccess.Context;
 using TicTacToe.Services.Game;
+using TicTacToe.Services.Redis;
 
 namespace TicTacToe.API.Extensions;
 
@@ -55,7 +58,8 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddSingleton<GameSessionsService>();
-        // services.AddScoped<IIdentityService, IdentityService>();
+        services.AddSingleton<RedisSessionService>();
+        services.AddScoped<IIdentityService, IdentityService>();
         return services;
     }
 

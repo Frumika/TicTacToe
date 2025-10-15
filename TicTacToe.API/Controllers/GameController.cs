@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TicTacToe.Application.DTO.Requests;
+using TicTacToe.Application.DTO.Requests.Game;
 using TicTacToe.Services.Game;
-using TicTacToe.API.Requests;
 
+namespace TicTacToe.API.Controllers;
 
 [ApiController]
 [Route("api/game")]

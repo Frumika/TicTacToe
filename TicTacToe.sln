@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.GameModel", "TicTacToe.GameModel\TicTacToe.GameModel.csproj", "{0D4F093D-0F07-440C-B32D-42C47EDFF8DB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.API", "TicTacToe.API\TicTacToe.API.csproj", "{93859960-BC9A-4B64-B510-CE075CCC9240}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.View", "TicTacToe.View\TicTacToe.View.csproj", "{3E4F290E-4F25-40A9-B98F-AACB95921EF5}"
@@ -25,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0D4F093D-0F07-440C-B32D-42C47EDFF8DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D4F093D-0F07-440C-B32D-42C47EDFF8DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D4F093D-0F07-440C-B32D-42C47EDFF8DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D4F093D-0F07-440C-B32D-42C47EDFF8DB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{93859960-BC9A-4B64-B510-CE075CCC9240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{93859960-BC9A-4B64-B510-CE075CCC9240}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93859960-BC9A-4B64-B510-CE075CCC9240}.Release|Any CPU.ActiveCfg = Release|Any CPU

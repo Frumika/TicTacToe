@@ -19,8 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\TicTacToe.DataAccess\TicTacToe.DataAccess.csproj" />
-      <ProjectReference Include="..\TicTacToe.Services\TicTacToe.Services.csproj" />
+      <ProjectReference Include="..\TicTacToe.Application\TicTacToe.Application.csproj" />
     </ItemGroup>
 
     <ItemGroup>

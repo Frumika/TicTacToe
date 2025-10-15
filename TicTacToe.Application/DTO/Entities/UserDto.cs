@@ -1,0 +1,23 @@
+﻿using TicTacToe.Domain.Models.App;
+
+namespace TicTacToe.Application.DTO.Entities;
+
+public class UserDto
+{
+    public string Login { get; set; } = string.Empty;
+    public int Matches { get; set; }
+    public int Wins { get; set; }
+    public int Losses { get; set; }
+
+    public UserDto()
+    {
+    }
+
+    public UserDto(User user)
+    {
+        Login = user.Login;
+        Matches = user.Matches;
+        Wins = user.Wins;
+        Losses = user.Matches - user.Wins;
+    }
+}

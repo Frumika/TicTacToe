@@ -1,6 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using TicTacToe.GameModel.Entity;
-using TicTacToe.GameModel.Model;
 
 namespace TicTacToe.Services.Game;
 

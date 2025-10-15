@@ -15,7 +15,6 @@ COPY ["TicTacToe.Application/TicTacToe.Application.csproj", "TicTacToe.Applicati
 COPY ["TicTacToe.DataAccess/TicTacToe.DataAccess.csproj", "TicTacToe.DataAccess/"]
 COPY ["TicTacToe.Domain/TicTacToe.Domain.csproj","TicTacToe.Domain/"]
 COPY ["TicTacToe.Services/TicTacToe.Services.csproj", "TicTacToe.Services/"]
-COPY ["TicTacToe.GameModel/TicTacToe.GameModel.csproj", "TicTacToe.GameModel/"]
 RUN dotnet restore "TicTacToe.API/TicTacToe.API.csproj"
 
 # Копируем весь исходный код после восстановления зависимостей

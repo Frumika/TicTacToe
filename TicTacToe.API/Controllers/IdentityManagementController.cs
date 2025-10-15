@@ -1,23 +1,28 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using BCrypt.Net;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TicTacToe.API.Requests;
+using TicTacToe.Application.DTO.Requests;
+using TicTacToe.Application.DTO.Requests.Identity;
+using TicTacToe.Application.Enums;
+using TicTacToe.Application.Interfaces;
 using TicTacToe.DataAccess.Context;
-using TicTacToe.Domain.Models;
-using TicTacToe.Domain.Models.App; // UsersDbContext
-using TicTacToe.Services.Redis;
+using TicTacToe.Domain.Models.App;
+using TicTacToe.Services.Redis; // UsersDbContext
 
+
+namespace TicTacToe.API.Controllers;
 
 [ApiController]
 [Route("api/identity")]
 public class IdentityManagementController : ControllerBase
 {
+    private readonly IIdentityService _identityService;
     private readonly UsersDbContext _dbContext;
     private readonly RedisSessionService _redisSessionService;
 
-    public IdentityManagementController(UsersDbContext dbContext, RedisSessionService redisSessionService)
+    public IdentityManagementController(IIdentityService identityService, UsersDbContext dbContext,
+        RedisSessionService redisSessionService)
     {
+        _identityService = identityService;
         _dbContext = dbContext;
         _redisSessionService = redisSessionService;
     }
@@ -25,24 +30,15 @@ public class IdentityManagementController : ControllerBase
     [HttpPost("update")]
     public async Task<IActionResult> UpdateUserData([FromBody] UpdateDataRequest request)
     {
-        try
+        var response = await _identityService.UpdateUserDataAsync(request);
+
+        return response.Code switch
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Login == request.Login);
-
-            if (user is null) return BadRequest(new { message = "The user is not logged in" });
-
-            user.Matches++;
-            if (request.IsWin) user.Wins++;
-            _dbContext.Users.Update(user);
-            
-            await _dbContext.SaveChangesAsync();
-        }
-        catch (Exception exception)
-        {
-            return StatusCode(500, new { message = "Error while update user info", error = exception.Message });
-        }
-
-        return Ok();
+            IdentityStatus.Success => Ok(response),
+            IdentityStatus.UserNotFound => BadRequest(response),
+            IdentityStatus.UnknownError => StatusCode(500, response),
+            _ => BadRequest(response)
+        };
     }
 
     [HttpPost("statistics")]
@@ -102,7 +98,7 @@ public class IdentityManagementController : ControllerBase
 
         try
         {
-            UserDto? userDto = await _redisSessionService.GetSessionAsync<UserDto>(sessionId);
+            UserRedisDto? userDto = await _redisSessionService.GetSessionAsync<UserRedisDto>(sessionId);
             if (userDto is null) return NotFound(new { message = "The user was not found" });
 
             return Ok(new { user = userDto });
@@ -126,7 +122,7 @@ public class IdentityManagementController : ControllerBase
             }
 
             string sessionId = Guid.NewGuid().ToString();
-            UserDto userDto = new() { Login = user.Login };
+            UserRedisDto userDto = new() { Login = user.Login };
 
             await _redisSessionService.SetSessionAsync(sessionId, userDto, TimeSpan.FromMinutes(5));
 
