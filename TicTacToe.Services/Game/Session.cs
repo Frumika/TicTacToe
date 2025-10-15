@@ -1,8 +1,7 @@
-﻿namespace TicTacToe.Services.Game;
+﻿using TicTacToe.Domain.Enums;
+using TicTacToe.Domain.Models.Game;
 
-using TicTacToe.GameModel.GameBoard;
-using TicTacToe.GameModel.Model;
-using TicTacToe.GameModel.Entity;
+namespace TicTacToe.Services.Game;
 
 public class GameStateDto
 {

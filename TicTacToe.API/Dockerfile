@@ -11,9 +11,10 @@ WORKDIR /src
 
 # Копируем только файлы проектов и восстанавливаем зависимости
 COPY ["TicTacToe.API/TicTacToe.API.csproj", "TicTacToe.API/"]
-COPY ["TicTacToe.Data/TicTacToe.Data.csproj", "TicTacToe.Data/"]
+COPY ["TicTacToe.Application/TicTacToe.Application.csproj", "TicTacToe.Application/"]
+COPY ["TicTacToe.DataAccess/TicTacToe.DataAccess.csproj", "TicTacToe.DataAccess/"]
+COPY ["TicTacToe.Domain/TicTacToe.Domain.csproj","TicTacToe.Domain/"]
 COPY ["TicTacToe.Services/TicTacToe.Services.csproj", "TicTacToe.Services/"]
-COPY ["TicTacToe.GameModel/TicTacToe.GameModel.csproj", "TicTacToe.GameModel/"]
 RUN dotnet restore "TicTacToe.API/TicTacToe.API.csproj"
 
 # Копируем весь исходный код после восстановления зависимостей

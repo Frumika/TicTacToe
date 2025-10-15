@@ -84,7 +84,6 @@ project.assets.json
 *.db
 
 # ASP.NET specific
-appsettings.Development.json
 appsettings.Local.json
 appsettings.Production.json
 appsettings.Staging.json
