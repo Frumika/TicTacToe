@@ -164,7 +164,7 @@ body {
 /*------------------> Authorized <------------------*/
 
 .aside-container__authorized {
-    visibility: hidden;
+    /*visibility: hidden;*/
 
     position: absolute;
     z-index: 10;
