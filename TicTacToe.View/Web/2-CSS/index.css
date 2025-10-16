@@ -541,23 +541,19 @@ body {
 
 
 @media screen and (max-width: 1450px) {
-    .main-container{
-        width: 80%;
-        justify-content: space-between;
-    }
-    .main-container__settings-container {
-        position: relative;
-    }
-}
-@media screen and (max-width: 1252px) {
-    .main-container{
+    .main-container {
         width: 100%;
         justify-content: space-between;
         flex-direction: column-reverse;
         align-items: center;
         gap: 30px;
     }
-    .main-container__settings-container { margin: 0 }
+
+    .main-container__settings-container {
+        position: relative;
+        margin: 0;
+    }
+
 }
 @media screen and (max-width: 980px) {
     .settings__header {

@@ -21,12 +21,14 @@ const UpdateMode = {
 
 // Обновление доски
 function updateBoard(board, updateMode) {
+    const fontSize = window.innerWidth <= 730 ? "80px" : "100px";
+
     board.forEach((row, rowIndex) => {
         row.forEach((field, colIndex) => {
             const fieldElement = document.querySelector(`[data-row="${rowIndex}"][data-column="${colIndex}"]`);
 
             if (fieldElement) {
-                fieldElement.style.fontSize = "100px";
+                fieldElement.style.fontSize = "80px";
                 fieldElement.style.color = "white";
 
                 if (field.item === "Cross") {
