@@ -35,8 +35,7 @@ function listenModalWindow() {
     document.addEventListener("click", (event) => {
         if (!modalWindow.contains(event.target) &&
             !accountInfo.contains(event.target) &&
-            // modalWindow.style.visibility === "visible") {
-            modalWindow.style.display === "flex") {
+            modalWindow.style.visibility === "visible") {
 
             const hideModalEvent = new CustomEvent("hide-modal");
             document.dispatchEvent(hideModalEvent);
