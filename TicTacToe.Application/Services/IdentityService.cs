@@ -2,11 +2,12 @@
 using TicTacToe.Application.DTO.Requests.Identity;
 using TicTacToe.Application.DTO.Responses.Identity;
 using TicTacToe.Application.Enums;
-using TicTacToe.Application.Interfaces;
+using TicTacToe.Application.DTO.Entities;
+using TicTacToe.Application.Services.Interfaces;
 using TicTacToe.DataAccess.Context;
 using TicTacToe.Domain.Models.App;
 using TicTacToe.Services.Redis;
-using UserDto = TicTacToe.Application.DTO.Entities.UserDto;
+
 
 namespace TicTacToe.Application.Services;
 
@@ -23,12 +24,15 @@ public class IdentityService : IIdentityService
 
     public async Task<UpdateDataResponse> UpdateUserDataAsync(UpdateDataRequest request)
     {
+        var result = request.Validate();
+        if (!result.IsValid) return UpdateDataResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);
+
         try
         {
             var user = await _usersDbContext.Users.FirstOrDefaultAsync(user => user.Login == request.Login);
 
             if (user is null)
-                return UpdateDataResponse.Fail(IdentityStatus.UserNotFound, "The user is not logged in");
+                return UpdateDataResponse.Fail(IdentityStatusCode.UserNotFound, "The user is not logged in");
 
             user.Matches++;
             if (request.IsWin) user.Wins++;
@@ -38,14 +42,17 @@ public class IdentityService : IIdentityService
         }
         catch (Exception exception)
         {
-            return UpdateDataResponse.Fail(IdentityStatus.UnknownError, exception.Message);
+            return UpdateDataResponse.Fail(IdentityStatusCode.UnknownError, exception.Message);
         }
 
         return UpdateDataResponse.Success("The user data was updated");
     }
 
-    public async Task<UsersStatisticsResponse> GetUsersStatisticsAsync(UsersStatisticsRequest request)
+    public async Task<UsersStatisticsResponse> GetUsersStatisticsAsync(GetUsersStatisticsRequest request)
     {
+        var result = request.Validate();
+        if (!result.IsValid) return UsersStatisticsResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);
+
         IQueryable<User> query = _usersDbContext.Users.AsNoTracking();
 
         switch (request.Type)
@@ -67,51 +74,52 @@ public class IdentityService : IIdentityService
             }
             default:
             {
-                return UsersStatisticsResponse.Fail(IdentityStatus.IncorrectData, "Unknown statistics type");
+                return UsersStatisticsResponse.Fail(IdentityStatusCode.IncorrectData, "Unknown statistics type");
             }
         }
 
         try
         {
-            var list = await query
+            var users = await query
                 .Skip(request.SkipModifier * request.UsersCount)
                 .Take(request.UsersCount)
                 .Select(user => new UserDto(user))
                 .ToListAsync();
 
-            bool isLastPage = list.Count < request.UsersCount;
+            bool isLastPage = users.Count < request.UsersCount;
 
-            return UsersStatisticsResponse.Success(list, isLastPage);
+            return UsersStatisticsResponse.Success(users, isLastPage);
         }
         catch (Exception exception)
         {
-            return UsersStatisticsResponse.Fail(IdentityStatus.UnknownError, exception.Message);
+            return UsersStatisticsResponse.Fail(IdentityStatusCode.UnknownError, exception.Message);
         }
     }
 
-    public async Task<GetUserDataResponse> GetUserDataAsync(string sessionId)
+    public async Task<GetUserDataResponse> GetUserDataAsync(GetUserDataRequest request)
     {
-        if (string.IsNullOrWhiteSpace(sessionId))
-        {
-            return GetUserDataResponse.Fail(IdentityStatus.IncorrectData, "Session ID cannot be null or empty");
-        }
+        var result = request.Validate();
+        if (!result.IsValid) return GetUserDataResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);
 
         try
         {
-            UserRedisDto? userDto = await _redisSessionService.GetSessionAsync<UserRedisDto>(sessionId);
+            UserRedisDto? userDto = await _redisSessionService.GetSessionAsync<UserRedisDto>(request.SessionId);
             if (userDto is null)
-                return GetUserDataResponse.Fail(IdentityStatus.UserNotFound, "The user is not logged in");
+                return GetUserDataResponse.Fail(IdentityStatusCode.UserNotFound, "The user is not logged in");
 
             return GetUserDataResponse.Success(new UserDto { Login = userDto.Login });
         }
         catch (Exception exception)
         {
-            return GetUserDataResponse.Fail(IdentityStatus.UnknownError, exception.Message);
+            return GetUserDataResponse.Fail(IdentityStatusCode.UnknownError, exception.Message);
         }
     }
 
     public async Task<SignInResponse> SignInUserAsync(IdentityRequest request)
     {
+        var result = request.Validate();
+        if (!result.IsValid) return SignInResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);
+        
         try
         {
             var user = await _usersDbContext.Users.AsNoTracking()
@@ -119,7 +127,7 @@ public class IdentityService : IIdentityService
 
             if (user is null || !VerifyPassword(request.Password, user.HashPassword))
             {
-                return SignInResponse.Fail(IdentityStatus.IncorrectData, "Invalid login or password");
+                return SignInResponse.Fail(IdentityStatusCode.IncorrectData, "Invalid login or password");
             }
 
             string sessionId = Guid.NewGuid().ToString();
@@ -131,17 +139,20 @@ public class IdentityService : IIdentityService
         }
         catch (Exception exception)
         {
-            return SignInResponse.Fail(IdentityStatus.UnknownError, exception.Message);
+            return SignInResponse.Fail(IdentityStatusCode.UnknownError, exception.Message);
         }
     }
 
     public async Task<SignUpResponse> SignUpUserAsync(IdentityRequest request)
     {
+        var result = request.Validate();
+        if (!result.IsValid) return SignUpResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);
+        
         try
         {
             bool isUserExist = await _usersDbContext.Users.AsNoTracking().AnyAsync(user => user.Login == request.Login);
             if (isUserExist)
-                return SignUpResponse.Fail(IdentityStatus.IncorrectData, "User with this login already exists");
+                return SignUpResponse.Fail(IdentityStatusCode.UserAlreadyExists, "User with this login already exists");
 
 
             User newUser = new()
@@ -155,28 +166,26 @@ public class IdentityService : IIdentityService
         }
         catch (Exception exception)
         {
-            return SignUpResponse.Fail(IdentityStatus.UnknownError, exception.Message);
+            return SignUpResponse.Fail(IdentityStatusCode.UnknownError, exception.Message);
         }
 
         return SignUpResponse.Success("The user was registered");
     }
 
-    public async Task<SignOutResponse> SignOutUserAsync(string sessionId)
+    public async Task<SignOutResponse> SignOutUserAsync(SignOutRequest request)
     {
-        if (string.IsNullOrWhiteSpace(sessionId))
-        {
-            return SignOutResponse.Fail(IdentityStatus.IncorrectData, "Session ID cannot be null or empty");
-        }
+        var result = request.Validate();
+        if (!result.IsValid) return SignOutResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);
 
         try
         {
-            bool isDelete = await _redisSessionService.DeleteSessionAsync(sessionId);
+            bool isDelete = await _redisSessionService.DeleteSessionAsync(request.SessionId);
             if (!isDelete)
-                return SignOutResponse.Fail(IdentityStatus.UnknownError, "The user has not been deleted");
+                return SignOutResponse.Fail(IdentityStatusCode.UnknownError, "The user has not been deleted");
         }
         catch (Exception)
         {
-            return SignOutResponse.Fail(IdentityStatus.UnknownError, "Error while deleting user");
+            return SignOutResponse.Fail(IdentityStatusCode.UnknownError, "Error while deleting user");
         }
 
         return SignOutResponse.Success("The user was logged out");

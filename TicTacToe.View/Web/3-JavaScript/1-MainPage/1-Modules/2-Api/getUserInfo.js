@@ -2,12 +2,11 @@
 
 import {URL} from "../../../0-Common/url.js";
 import {getSessionId} from "../../../0-Common/sessionId.js";
+import {IdentityStatusHelper} from "../../../0-Common/Helpers/IdentityStatusHelper.js";
 
 
 export async function getUserLogin() {
     const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
-
-    let login;
 
     const userSessionId = getSessionId("userSessionId")?.replace(/^"|"$/g, '');
     if (!userSessionId) {
@@ -17,21 +16,19 @@ export async function getUserLogin() {
     const requestData = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(userSessionId)
+        body: JSON.stringify({
+            sessionId: userSessionId
+        })
     }
 
     const response = await fetch(`${url}/info`, requestData);
+    const result = await response.json();
 
-    if (!response.ok) {
-        const error = await response.json();
-        throw new Error(JSON.stringify(error.message));
-    } else {
-        const userInfo = await response.json();
-        console.log(JSON.stringify(userInfo));
-
-        login = userInfo.user.login;
-        console.log(login);
+    if (!result.isSuccess) {
+        throw new Error(result.message);
     }
 
-    return login;
+    const user = result.user;
+
+    return user.login;
 }

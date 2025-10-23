@@ -2,7 +2,7 @@
 
 namespace TicTacToe.Application.DTO.Responses.Identity;
 
-public class SignOutResponse : BaseResponse<IdentityStatus>
+public class SignOutResponse : BaseResponse<IdentityStatusCode>
 {
     public static SignOutResponse Success(string? message = null)
     {
@@ -10,11 +10,11 @@ public class SignOutResponse : BaseResponse<IdentityStatus>
         {
             IsSuccess = true,
             Message = message,
-            Code = IdentityStatus.Success
+            Code = IdentityStatusCode.Success
         };
     }
     
-    public static SignOutResponse Fail(IdentityStatus code, string? message = null)
+    public static SignOutResponse Fail(IdentityStatusCode code, string? message = null)
     {
         return new SignOutResponse
         {

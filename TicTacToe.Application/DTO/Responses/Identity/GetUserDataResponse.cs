@@ -3,9 +3,9 @@ using TicTacToe.Application.Enums;
 
 namespace TicTacToe.Application.DTO.Responses.Identity;
 
-public class GetUserDataResponse : BaseResponse<IdentityStatus>
+public class GetUserDataResponse : BaseResponse<IdentityStatusCode>
 {
-    UserDto? User { get; set; }
+    public UserDto? User { get; set; }
 
     public static GetUserDataResponse Success(UserDto user, string? message = null)
     {
@@ -13,11 +13,12 @@ public class GetUserDataResponse : BaseResponse<IdentityStatus>
         {
             IsSuccess = true,
             Message = message,
+            Code = IdentityStatusCode.Success,
             User = user
         };
     }
 
-    public static GetUserDataResponse Fail(IdentityStatus code, string? message = null)
+    public static GetUserDataResponse Fail(IdentityStatusCode code, string? message = null)
     {
         return new GetUserDataResponse
         {
