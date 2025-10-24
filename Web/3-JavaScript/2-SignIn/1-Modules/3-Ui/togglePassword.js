@@ -7,11 +7,11 @@ export function togglePassword() {
 
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        eyeIcon.src = "/TicTacToe.View/Web/4-Sources/Svg/eye_open.svg";
+        eyeIcon.src = "/Web/4-Sources/Svg/eye_open.svg";
         eyeIcon.alt = "Hide";
     } else {
         passwordInput.type = "password";
-        eyeIcon.src = "/TicTacToe.View/Web/4-Sources/Svg/eye_closed.svg";
+        eyeIcon.src = "/Web/4-Sources/Svg/eye_closed.svg";
         eyeIcon.alt = "Show";
     }
 }

@@ -16,7 +16,7 @@ export function togglePassword() {
     });
 
     eyeIcons.forEach(icon => {
-        icon.src = isHidden ? "/TicTacToe.View/Web/4-Sources/Svg/eye_open.svg" : "/TicTacToe.View/Web/4-Sources/Svg/eye_closed.svg";
+        icon.src = isHidden ? "/Web/4-Sources/Svg/eye_open.svg" : "/Web/4-Sources/Svg/eye_closed.svg";
         icon.alt = isHidden ? "Hide" : "Show";
     });
 }

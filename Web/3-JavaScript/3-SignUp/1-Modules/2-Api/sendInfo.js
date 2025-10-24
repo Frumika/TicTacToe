@@ -29,7 +29,7 @@ export async function sendInfo() {
     } else {
         drawAllSuccessful();
         setTimeout(() => {
-            window.location.href = "/TicTacToe.View/Web/1-HTML/index.html";
+            window.location.href = "/Web/1-HTML/index.html";
         }, 2000);
     }
 }

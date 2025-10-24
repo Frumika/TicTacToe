@@ -34,7 +34,7 @@ export async function sendInfo() {
 
         drawWasAuthorized();
         setTimeout(() => {
-            window.location.href = "/TicTacToe.View/Web/1-HTML/index.html";
+            window.location.href = "/Web/1-HTML/index.html";
         }, 2000);
     }
 }
