@@ -1,9 +1,8 @@
 ﻿using Backend.Domain.Models.App;
 
+namespace Backend.Application.DTO.Entities.Identity;
 
-namespace Backend.Application.DTO.Entities;
-
-public class UserDto
+public class UserDto : BaseDto
 {
     public string Login { get; set; } = string.Empty;
     public int Matches { get; set; }

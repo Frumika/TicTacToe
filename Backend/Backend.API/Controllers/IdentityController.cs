@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Backend.Application.DTO.Requests.Identity;
 using Backend.Application.DTO.Responses;
+using Backend.Application.DTO.Responses.Identity;
 using Backend.Application.Enums;
 using Backend.Application.Services.Interfaces;
 
@@ -60,7 +61,7 @@ public class IdentityController : ControllerBase
         return ToHttpResult(response);
     }
     
-    private IActionResult ToHttpResult(BaseResponse<IdentityStatusCode> response)
+    private IActionResult ToHttpResult(IdentityResponse response)
     {
         return response.Code switch
         {

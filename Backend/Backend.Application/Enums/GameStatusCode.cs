@@ -2,5 +2,6 @@
 
 public enum GameStatusCode
 {
-    
+    Success,
+    UnknownError
 }

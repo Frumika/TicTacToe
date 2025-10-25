@@ -5,10 +5,10 @@ namespace Backend.Application.Services.Interfaces;
 
 public interface IGameService
 {
-    Task<CheckSessionResponse> CheckSessionAsync(CheckSessionRequest request);
-    Task<StartSessionResponse> StartSessionAsync(StartSessionRequest request);
-    Task<MakeMoveResponse> MakeMoveAsync(MakeMoveRequest request);
-    Task<GetBoardStateResponse> GetBoardStateAsync(GetBoardStateRequest request);
-    Task<ResetSessionResponse> ResetSessionAsync(ResetSessionRequest request);
-    Task<EndSessionResponse> EndSessionAsync(EndSessionRequest request);
+    Task<GameResponse> CheckSessionAsync(CheckSessionRequest request);
+    Task<GameResponse> StartSessionAsync(StartSessionRequest request);
+    Task<GameResponse> MakeMoveAsync(MakeMoveRequest request);
+    Task<GameResponse> GetBoardStateAsync(GetBoardStateRequest request);
+    Task<GameResponse> ResetSessionAsync(ResetSessionRequest request);
+    Task<GameResponse> EndSessionAsync(EndSessionRequest request);
 }
