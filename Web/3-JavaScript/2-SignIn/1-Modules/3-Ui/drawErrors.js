@@ -1,7 +1,7 @@
 "use strict"
 
 
-import {IdentityStatus} from "../../../0-Common/Enums/IdentityStatus.js";
+import {IdentityStatusCode} from "../../../0-Common/Enums/IdentityStatusCode.js";
 
 export function drawSomethingWrong(key) {
     const container = document.querySelector(".sign_in-message");
@@ -15,10 +15,10 @@ export function drawSomethingWrong(key) {
 
     text.style.color = "red";
 
-    if (key === IdentityStatus.IncorrectData) {
+    if (key === IdentityStatusCode.IncorrectData) {
         text.textContent = "The user does not exist";
     }
-    else if(key === IdentityStatus.UnknownError){
+    else if(key === IdentityStatusCode.UnknownError){
         text.textContent = "Something is broken on the server :(";
     }
     else{

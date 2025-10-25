@@ -1,6 +1,6 @@
 "use strict"
 
-export const IdentityStatus = {
+export const IdentityStatusCode = {
     Success: "Success",
     InvalidLogin: "InvalidLogin",
     InvalidPassword: "InvalidPassword",

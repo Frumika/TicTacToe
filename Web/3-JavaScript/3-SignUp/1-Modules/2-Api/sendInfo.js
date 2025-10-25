@@ -3,7 +3,7 @@
 import {URL} from "../../../0-Common/url.js";
 import {drawAllSuccessful} from "../3-Ui/drawSuccesses.js";
 import {drawSomethingWrong} from "../3-Ui/drawErrors.js";
-import {IdentityStatusHelper} from "../../../0-Common/Helpers/IdentityStatusHelper.js";
+import {IdentityStatusCodeHelper} from "../../../0-Common/Helpers/IdentityStatusCodeHelper.js";
 
 export async function sendInfo() {
     const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
@@ -24,7 +24,7 @@ export async function sendInfo() {
     const result = await response.json();
 
     if (!result.isSuccess) {
-        drawSomethingWrong(IdentityStatusHelper.getCode(result));
+        drawSomethingWrong(IdentityStatusCodeHelper.getCode(result));
         throw new Error(result.message);
     } else {
         drawAllSuccessful();

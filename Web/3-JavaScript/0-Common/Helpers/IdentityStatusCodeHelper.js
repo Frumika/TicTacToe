@@ -1,23 +1,23 @@
 "use strict"
 
-import {IdentityStatus} from "../Enums/IdentityStatus.js";
+import {IdentityStatusCode} from "../Enums/IdentityStatusCode.js";
 
 
-export class IdentityStatusHelper {
+export class IdentityStatusCodeHelper {
 
     static getCode(result) {
         if (!result || typeof result !== "object") {
-            return IdentityStatus.UnknownFormat;
+            return IdentityStatusCode.UnknownFormat;
         }
 
         const code = result.code;
         if (typeof code !== "string") {
-            return IdentityStatus.UnknownFormat;
+            return IdentityStatusCode.UnknownFormat;
         }
 
-        const values = Object.values(IdentityStatus);
+        const values = Object.values(IdentityStatusCode);
         if (!values.includes(code)) {
-            return IdentityStatus.UnknownCode;
+            return IdentityStatusCode.UnknownCode;
         }
 
         return code;
@@ -29,7 +29,7 @@ export class IdentityStatusHelper {
     }
 
     static isSuccess(result) {
-        return this.getCode(result) === IdentityStatus.Success;
+        return this.getCode(result) === IdentityStatusCode.Success;
     }
 
     static isFailure(result) {

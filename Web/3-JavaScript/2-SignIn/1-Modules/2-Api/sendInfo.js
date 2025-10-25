@@ -4,7 +4,7 @@ import {URL} from "../../../0-Common/url.js";
 import {addSessionId} from "../../../0-Common/sessionId.js";
 import {drawWasAuthorized} from "../3-Ui/drawSuccesses.js";
 import {drawSomethingWrong} from "../3-Ui/drawErrors.js";
-import {IdentityStatusHelper} from "../../../0-Common/Helpers/IdentityStatusHelper.js";
+import {IdentityStatusCodeHelper} from "../../../0-Common/Helpers/IdentityStatusCodeHelper.js";
 
 
 export async function sendInfo() {
@@ -26,7 +26,7 @@ export async function sendInfo() {
     const result = await response.json();
 
     if (!result.isSuccess) {
-        drawSomethingWrong(IdentityStatusHelper.getCode(result));
+        drawSomethingWrong(IdentityStatusCodeHelper.getCode(result));
         throw new Error(result.message);
     } else {
         const userSessionId = JSON.stringify(result.sessionId);

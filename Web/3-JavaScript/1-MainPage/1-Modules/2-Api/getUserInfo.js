@@ -2,7 +2,7 @@
 
 import {URL} from "../../../0-Common/url.js";
 import {getSessionId} from "../../../0-Common/sessionId.js";
-import {IdentityStatusHelper} from "../../../0-Common/Helpers/IdentityStatusHelper.js";
+import {IdentityStatusCodeHelper} from "../../../0-Common/Helpers/IdentityStatusCodeHelper.js";
 
 
 export async function getUserLogin() {

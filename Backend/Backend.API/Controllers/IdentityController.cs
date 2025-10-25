@@ -9,11 +9,11 @@ namespace Backend.API.Controllers;
 
 [ApiController]
 [Route("api/identity")]
-public class IdentityManagementController : ControllerBase
+public class IdentityController : ControllerBase
 {
     private readonly IIdentityService _identityService;
     
-    public IdentityManagementController(IIdentityService identityService)
+    public IdentityController(IIdentityService identityService)
     {
         _identityService = identityService;
     }
