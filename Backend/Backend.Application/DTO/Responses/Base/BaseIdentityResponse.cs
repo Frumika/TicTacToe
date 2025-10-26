@@ -3,7 +3,7 @@ using Backend.Application.Enums;
 
 namespace Backend.Application.DTO.Responses.Base;
 
-public class BaseIdentityResponse<TResponse>
+public abstract class BaseIdentityResponse<TResponse>
     : BaseResponse<IdentityStatusCode, TResponse>
     where TResponse : BaseIdentityResponse<TResponse>, new()
 {
