@@ -3,5 +3,5 @@
 public class UsersStatisticDto : BaseDto
 {
     public IEnumerable<UserDto>? Users { get; set; }
-    public bool isLastPage { get; set; }
+    public bool IsLastPage { get; set; }
 }

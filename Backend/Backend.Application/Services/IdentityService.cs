@@ -89,7 +89,7 @@ public class IdentityService : IIdentityService
                 .ToListAsync();
 
             usersStatisticDto.Users = users;
-            usersStatisticDto.isLastPage = users.Count < request.UsersCount;
+            usersStatisticDto.IsLastPage = users.Count < request.UsersCount;
 
             return IdentityResponse.Success(usersStatisticDto);
         }

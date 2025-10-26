@@ -1,8 +1,7 @@
 ﻿using Backend.Application.DTO.Requests.Base;
 using Backend.Application.Enums;
 using static Backend.Application.Enums.StatisticType;
-using Base_ValidationResult = Backend.Application.DTO.Requests.Base.ValidationResult;
-using ValidationResult = Backend.Application.DTO.Requests.Base.ValidationResult;
+
 
 namespace Backend.Application.DTO.Requests.Identity;
 
@@ -28,10 +27,10 @@ public class GetUsersStatisticsRequest : IValidatableRequest
         }
     }
 
-    public Base_ValidationResult Validate()
+    public ValidationResult Validate()
     {
         string? message = null;
-        
+
         bool isSkipModifierValid = SkipModifier >= 0;
         bool isUserCountValid = UsersCount >= 1;
         bool isStatisticTypeValid = !string.IsNullOrWhiteSpace(StringStatisticType);
