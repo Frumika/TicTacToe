@@ -45,9 +45,6 @@ public class GameController : ControllerBase
     public async Task<IActionResult> GetGameState(GetBoardStateRequest request)
     {
         var response = await _gameService.GetGameStateAsync(request);
-        
-        Console.WriteLine(JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true }));
-        
         return ToHttpResponse(response);
     }
 

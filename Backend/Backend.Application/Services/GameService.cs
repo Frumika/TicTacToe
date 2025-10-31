@@ -24,7 +24,7 @@ public class GameService : IGameService
         var session = _gameSessionsManager.GetSession(request.SessionId);
         if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
-        return GameResponse.Success(null, "Session was found");
+        return GameResponse.Success("Session was found");
     }
 
     public async Task<GameResponse> StartSessionAsync(StartSessionRequest request)
@@ -35,7 +35,7 @@ public class GameService : IGameService
         var session = _gameSessionsManager.CreateSession(request.SessionId, request.GameMode, request.BotMode);
         if (!session) return GameResponse.Fail(GameStatusCode.SessionAlreadyExists, "Session already exists");
 
-        return GameResponse.Success(null, "Session was created");
+        return GameResponse.Success("Session was created");
     }
 
     public async Task<GameResponse> MakeMoveAsync(MakeMoveRequest request)
@@ -49,7 +49,7 @@ public class GameService : IGameService
         bool moveSuccess = session.MakeMove(request.Row, request.Column);
         if (!moveSuccess) return GameResponse.Fail(GameStatusCode.InvalidMove, "Invalid Move");
 
-        return GameResponse.Success(null, "Successful move");
+        return GameResponse.Success("Successful move");
     }
 
     public async Task<GameResponse> GetGameStateAsync(GetBoardStateRequest request)
@@ -71,7 +71,7 @@ public class GameService : IGameService
         bool success = _gameSessionsManager.ResetSession(request.SessionId, request.GameMode, request.BotMode);
         if (!success) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
-        return GameResponse.Success(null, "Session was reset");
+        return GameResponse.Success("Session was reset");
     }
 
     public async Task<GameResponse> EndSessionAsync(EndSessionRequest request)
@@ -82,6 +82,6 @@ public class GameService : IGameService
         bool success = _gameSessionsManager.RemoveSession(request.SessionId);
         if (!success) return GameResponse.Fail(GameStatusCode.SessionResetFailed, "Session reset failed");
 
-        return GameResponse.Success(null, "Session was ended");
+        return GameResponse.Success("Session was ended");
     }
 }

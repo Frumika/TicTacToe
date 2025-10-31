@@ -45,7 +45,7 @@ public class IdentityService : IIdentityService
             return IdentityResponse.Fail(IdentityStatusCode.UnknownError, exception.Message);
         }
 
-        return IdentityResponse.Success(null, "The user data was updated");
+        return IdentityResponse.Success( "The user data was updated");
     }
 
     public async Task<IdentityResponse> GetUsersStatisticsAsync(GetUsersStatisticsRequest request)
@@ -173,7 +173,7 @@ public class IdentityService : IIdentityService
             return IdentityResponse.Fail(IdentityStatusCode.UnknownError, exception.Message);
         }
 
-        return IdentityResponse.Success(null, "The user was registered");
+        return IdentityResponse.Success("The user was registered");
     }
 
     public async Task<IdentityResponse> SignOutUserAsync(SignOutRequest request)
@@ -192,7 +192,7 @@ public class IdentityService : IIdentityService
             return IdentityResponse.Fail(IdentityStatusCode.UnknownError, "Error while deleting user");
         }
 
-        return IdentityResponse.Success(null, "The user was logged out");
+        return IdentityResponse.Success("The user was logged out");
     }
 
     private static string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password, 10);

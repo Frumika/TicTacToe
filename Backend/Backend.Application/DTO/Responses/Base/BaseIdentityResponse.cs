@@ -7,14 +7,13 @@ public abstract class BaseIdentityResponse<TResponse>
     : BaseResponse<IdentityStatusCode, TResponse>
     where TResponse : BaseIdentityResponse<TResponse>, new()
 {
-    public new static TResponse Success(BaseDto? data = null, string? message = null)
+    public new static TResponse Success<TData>(TData? data = null, string? message = null) where TData : class
     {
-        return new TResponse
-        {
-            IsSuccess = true,
-            Message = message,
-            Code = IdentityStatusCode.Success,
-            Data = data
-        };
+        return CreateSuccess(IdentityStatusCode.Success, data, message);
+    }
+
+    public new static TResponse Success(string? message = null)
+    {
+        return CreateSuccess(IdentityStatusCode.Success, message);
     }
 }

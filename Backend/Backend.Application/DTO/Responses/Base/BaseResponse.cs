@@ -1,6 +1,4 @@
-﻿using Backend.Application.DTO.Entities;
-
-namespace Backend.Application.DTO.Responses.Base;
+﻿namespace Backend.Application.DTO.Responses.Base;
 
 public abstract class BaseResponse<TCode, TResponse>
     where TCode : Enum
@@ -9,17 +7,40 @@ public abstract class BaseResponse<TCode, TResponse>
     public bool IsSuccess { get; set; }
     public string? Message { get; set; }
     public TCode? Code { get; set; }
-    public BaseDto? Data { get; set; }
+    public object? Data { get; set; }
 
-    public static TResponse Success(BaseDto? data = null, string? message = null)
+
+    protected static TResponse CreateSuccess<TData>(TCode code, TData? data = null, string? message = null)
+        where TData : class
     {
         return new TResponse
         {
             IsSuccess = true,
             Message = message,
-            Code = default,
+            Code = code,
             Data = data
         };
+    }
+
+    protected static TResponse CreateSuccess(TCode code, string? message = null)
+    {
+        return new TResponse
+        {
+            IsSuccess = true,
+            Message = message,
+            Code = code,
+            Data = null
+        };
+    }
+
+    public static TResponse Success<TData>(TData? data = null, string? message = null) where TData : class
+    {
+        return CreateSuccess(default!, data, message);
+    }
+
+    public static TResponse Success(string? message = null)
+    {
+        return CreateSuccess(default!, message);
     }
 
     public static TResponse Fail(TCode code, string? message = null)

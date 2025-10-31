@@ -7,14 +7,13 @@ public abstract class BaseGameResponse<TResponse>
     : BaseResponse<GameStatusCode, TResponse>
     where TResponse : BaseGameResponse<TResponse>, new()
 {
-    public new static TResponse Success(BaseDto? data = null, string? message = null)
+    public new static TResponse Success<TData>(TData? data = null, string? message = null) where TData : class
     {
-        return new TResponse
-        {
-            IsSuccess = true,
-            Message = message,
-            Code = GameStatusCode.Success,
-            Data = data
-        };
+        return CreateSuccess(GameStatusCode.Success, data, message);
+    }
+
+    public new static TResponse Success(string? message = null)
+    {
+        return CreateSuccess(GameStatusCode.Success, message);
     }
 }
