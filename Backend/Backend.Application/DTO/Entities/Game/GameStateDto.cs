@@ -7,11 +7,7 @@ public class GameStateDto : BaseDto
 {
     public Field[][]? Board { get; set; }
     public Winner Winner { get; set; }
-
     
-    public GameStateDto()
-    {
-    }
     
     public GameStateDto(Session session)
     {

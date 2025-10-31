@@ -25,16 +25,21 @@ export async function sendMove(row, column) {
     }
 
 
-    // По нужному адресу отправляем запрос и ждём ответ от сервера
-    const response = await fetch(`${url}/move`, {
+    const requestData = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({gameSessionId, row, column})
-    });
+        body: JSON.stringify({
+            sessionId: gameSessionId,
+            row: row,
+            column: column
+        })
+    };
+
+    const response = await fetch(`${url}/move`, requestData);
+    const result = await response.json();
 
     // Если что-то пошло не так - выбрасываем ошибку
-    if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
+    if (!result.isSuccess) {
+        throw new Error(result.message);
     }
 }

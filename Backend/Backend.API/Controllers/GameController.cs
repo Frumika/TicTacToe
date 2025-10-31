@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using Backend.Application.DTO.Requests.Game;
 using Backend.Application.DTO.Responses.Game;
 using Backend.Application.Enums;
@@ -22,43 +23,46 @@ public class GameController : ControllerBase
     [HttpPost("check")]
     public async Task<IActionResult> CheckSession(CheckSessionRequest request)
     {
-        var result = await _gameService.CheckSessionAsync(request);
-        return ToHttpResponse(result);
+        var response = await _gameService.CheckSessionAsync(request);
+        return ToHttpResponse(response);
     }
 
     [HttpPost("start")]
     public async Task<IActionResult> StartSession([FromBody] StartSessionRequest request)
     {
-        var result = await _gameService.StartSessionAsync(request);
-        return ToHttpResponse(result);
+        var response = await _gameService.StartSessionAsync(request);
+        return ToHttpResponse(response);
     }
 
     [HttpPost("move")]
     public async Task<IActionResult> MakeMove([FromBody] MakeMoveRequest request)
     {
-        var result = await _gameService.MakeMoveAsync(request);
-        return ToHttpResponse(result);
+        var response = await _gameService.MakeMoveAsync(request);
+        return ToHttpResponse(response);
     }
 
     [HttpPost("state")]
     public async Task<IActionResult> GetGameState(GetBoardStateRequest request)
     {
-        var result = await _gameService.GetGameStateAsync(request);
-        return ToHttpResponse(result);
+        var response = await _gameService.GetGameStateAsync(request);
+        
+        Console.WriteLine(JsonSerializer.Serialize(response, new JsonSerializerOptions { WriteIndented = true }));
+        
+        return ToHttpResponse(response);
     }
 
     [HttpPost("reset")]
     public async Task<IActionResult> ResetSession(ResetSessionRequest request)
     {
-        var result = await _gameService.ResetSessionAsync(request);
-        return ToHttpResponse(result);
+        var response = await _gameService.ResetSessionAsync(request);
+        return ToHttpResponse(response);
     }
 
     [HttpPost("end")]
     public async Task<IActionResult> EndSession(EndSessionRequest request)
     {
-        var result = await _gameService.EndSessionAsync(request);
-        return ToHttpResponse(result);
+        var response = await _gameService.EndSessionAsync(request);
+        return ToHttpResponse(response);
     }
 
     private IActionResult ToHttpResponse(GameResponse response)

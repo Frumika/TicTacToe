@@ -1,6 +1,6 @@
 "use strict"
 
-import { getSessionId} from "../../../0-Common/sessionId.js";
+import {getSessionId} from "../../../0-Common/sessionId.js";
 import {URL} from "../../../0-Common/url.js";
 
 
@@ -14,16 +14,23 @@ export async function getGameState() {
         throw new Error("The game session was not received");
     }
 
-    const response = await fetch(`${url}/state`, {
+    const requestData = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(gameSessionId)
-    });
+        body: JSON.stringify({
+            sessionId: gameSessionId
+        })
+    };
 
-    if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message);
+    const response = await fetch(`${url}/state`, requestData);
+    const result = await response.json();
+
+    if (!result.isSuccess) {
+        throw new Error(result.message);
     }
 
-    return await response.json();
+    console.log(result);
+    console.log(result.data);
+
+    return result.data;
 }

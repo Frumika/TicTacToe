@@ -11,20 +11,20 @@ export async function sendStartRequest() {
 
     const gameSessionId = getOrCreateSessionId("gameSessionId", 5);
 
-    const gameInfoRequest = {
-        gameSessionId: gameSessionId,
-        gameMode: GameSettings.GameMode,
-        botMode: GameSettings.BotMode
-    }
-
-    const response = await fetch(`${url}/start`, {
+    const requestData = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(gameInfoRequest)
-    });
+        body: JSON.stringify({
+            sessionId: gameSessionId,
+            gameMode: GameSettings.GameMode,
+            botMode: GameSettings.BotMode
+        })
+    }
 
-    if (!response.ok) {
-        const errorMessage = await response.json();
-        throw new Error(`The game has not been started. Reason - ${errorMessage}`);
+    const response = await fetch(`${url}/start`, requestData);
+    const result = await response.json();
+
+    if (!result.isSuccess) {
+        throw new Error(result.message);
     }
 }
