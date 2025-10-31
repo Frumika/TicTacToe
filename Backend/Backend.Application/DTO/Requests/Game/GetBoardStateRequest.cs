@@ -4,8 +4,17 @@ namespace Backend.Application.DTO.Requests.Game;
 
 public class GetBoardStateRequest : IValidatableRequest
 {
+    public string SessionId { get; set; } = string.Empty;
+
+
     public ValidationResult Validate()
     {
-        throw new NotImplementedException();
+        string? message = null;
+
+        bool isSessionIdValid = !string.IsNullOrWhiteSpace(SessionId);
+
+        if (!isSessionIdValid) message += "Session Id is required";
+
+        return isSessionIdValid ? ValidationResult.Success() : ValidationResult.Fail(message);
     }
 }

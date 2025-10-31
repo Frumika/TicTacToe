@@ -8,7 +8,7 @@ public interface IGameService
     Task<GameResponse> CheckSessionAsync(CheckSessionRequest request);
     Task<GameResponse> StartSessionAsync(StartSessionRequest request);
     Task<GameResponse> MakeMoveAsync(MakeMoveRequest request);
-    Task<GameResponse> GetBoardStateAsync(GetBoardStateRequest request);
+    Task<GameResponse> GetGameStateAsync(GetBoardStateRequest request);
     Task<GameResponse> ResetSessionAsync(ResetSessionRequest request);
     Task<GameResponse> EndSessionAsync(EndSessionRequest request);
 }

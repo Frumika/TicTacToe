@@ -1,17 +1,13 @@
 ﻿using Backend.Domain.Enums;
-using Backend.Domain.Models.Game;
 
-namespace Backend.Services.Game;
-
-public class GameStateDto
-{
-    public Field[][]? Board { get; set; }
-    public Winner Winner { get; set; }
-}
+namespace Backend.Domain.Models.Game;
 
 public class Session
 {
     private GameModel _gameModel;
+
+    public Field[][] Board => _gameModel.Board;
+    public Winner Winner => _gameModel.Winner;
 
     public Session()
     {
@@ -33,15 +29,6 @@ public class Session
         }
 
         return false;
-    }
-
-    public GameStateDto GameState()
-    {
-        return new GameStateDto()
-        {
-            Board = _gameModel.Board,
-            Winner = _gameModel.Winner
-        };
     }
 
     public void Reset(string gameMode, string botMode)

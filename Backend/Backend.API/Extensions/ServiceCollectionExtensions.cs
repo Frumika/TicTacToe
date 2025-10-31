@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Backend.Application.Managers;
 using StackExchange.Redis;
 using Backend.Application.Services;
 using Backend.Application.Services.Interfaces;
 using Backend.DataAccess.Context;
-using Backend.Services.Game;
 using Backend.Services.Redis;
 
 
@@ -57,9 +57,12 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddSingleton<GameSessionsService>();
+        services.AddSingleton<GameSessionsManager>();
         services.AddSingleton<RedisSessionService>();
+        
         services.AddScoped<IIdentityService, IdentityService>();
+        services.AddScoped<IGameService, GameService>();
+        
         return services;
     }
 

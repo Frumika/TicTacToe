@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Backend.Application.DTO.Requests.Game;
-using Backend.Services.Game;
+using Backend.Application.DTO.Responses.Game;
+using Backend.Application.Enums;
+using Backend.Application.Services.Interfaces;
 
 
 namespace Backend.API.Controllers;
@@ -9,72 +11,68 @@ namespace Backend.API.Controllers;
 [Route("api/game")]
 public class GameController : ControllerBase
 {
-    private GameSessionsService _gameSessionsService;
+    private IGameService _gameService;
 
-    public GameController(GameSessionsService gameSessionsService)
+    public GameController(IGameService gameService)
     {
-        _gameSessionsService = gameSessionsService;
+        _gameService = gameService;
     }
 
 
     [HttpPost("check")]
-    public IActionResult CheckSession([FromBody] string sessionId)
+    public async Task<IActionResult> CheckSession(CheckSessionRequest request)
     {
-        var session = _gameSessionsService.GetSession(sessionId);
-        if (session is null) return NotFound(new { message = "Session not found" });
-        return Ok(new { message = "Session was found" });
+        var result = await _gameService.CheckSessionAsync(request);
+        return ToHttpResponse(result);
     }
 
     [HttpPost("start")]
-    public IActionResult StartSession([FromBody] GameInfoRequest request)
+    public async Task<IActionResult> StartSession([FromBody] StartSessionRequest request)
     {
-        var session = _gameSessionsService.CreateSession(request.GameSessionId, request.GameMode, request.BotMode);
-        if (!session) return BadRequest(new { message = "Session not create" });
-
-        return Ok(new { message = "Session was created" });
+        var result = await _gameService.StartSessionAsync(request);
+        return ToHttpResponse(result);
     }
 
     [HttpPost("move")]
-    public IActionResult MakeMove([FromBody] MoveRequest request)
+    public async Task<IActionResult> MakeMove([FromBody] MakeMoveRequest request)
     {
-        if (string.IsNullOrEmpty(request.GameSessionId)) return BadRequest(new { message = "Empty sessionId" });
-
-        var session = _gameSessionsService.GetSession(request.GameSessionId);
-        if (session is null) return BadRequest(new { message = "Session not found" });
-
-        bool moveSuccess = session.MakeMove(request.Row, request.Column);
-        if (!moveSuccess) return BadRequest(new { message = "Invalid move" });
-
-        return Ok(new { message = "Successful move" });
+        var result = await _gameService.MakeMoveAsync(request);
+        return ToHttpResponse(result);
     }
 
     [HttpPost("state")]
-    public IActionResult GetBoardState([FromBody] string sessionId)
+    public async Task<IActionResult> GetGameState(GetBoardStateRequest request)
     {
-        var session = _gameSessionsService.GetSession(sessionId);
-        if (session is null) return NotFound(new { message = "Session not found" });
-
-        return Ok(session.GameState());
+        var result = await _gameService.GetGameStateAsync(request);
+        return ToHttpResponse(result);
     }
 
     [HttpPost("reset")]
-    public IActionResult ResetSession([FromBody] GameInfoRequest request)
+    public async Task<IActionResult> ResetSession(ResetSessionRequest request)
     {
-        bool success = _gameSessionsService.ResetSession(request.GameSessionId, request.GameMode, request.BotMode);
-
-        if (!success) return NotFound(new { message = "Session not found." });
-
-        return Ok(new { message = "Session reset successfully." });
+        var result = await _gameService.ResetSessionAsync(request);
+        return ToHttpResponse(result);
     }
 
-
     [HttpPost("end")]
-    public IActionResult EndSession([FromQuery] string sessionId)
+    public async Task<IActionResult> EndSession(EndSessionRequest request)
     {
-        bool success = _gameSessionsService.RemoveSession(sessionId);
+        var result = await _gameService.EndSessionAsync(request);
+        return ToHttpResponse(result);
+    }
 
-        if (!success) return NotFound(new { message = "Session not found." });
-
-        return NoContent(); // Удалено успешно
+    private IActionResult ToHttpResponse(GameResponse response)
+    {
+        return response.Code switch
+        {
+            GameStatusCode.Success => Ok(response),
+            GameStatusCode.IncorrectData => BadRequest(response),
+            GameStatusCode.SessionNotFound => NotFound(response),
+            GameStatusCode.SessionAlreadyExists => Conflict(response),
+            GameStatusCode.InvalidMove => BadRequest(response),
+            GameStatusCode.SessionResetFailed => StatusCode(500, response),
+            GameStatusCode.UnknownError => StatusCode(500, response),
+            _ => BadRequest(response)
+        };
     }
 }

@@ -23,45 +23,45 @@ public class IdentityController : ControllerBase
     public async Task<IActionResult> UpdateUserData([FromBody] UpdateDataRequest request)
     {
         var response = await _identityService.UpdateUserDataAsync(request);
-        return ToHttpResult(response);
+        return ToHttpRequest(response);
     }
 
     [HttpPost("statistics")]
     public async Task<IActionResult> GetUsersStatistics([FromBody] GetUsersStatisticsRequest request)
     {
         var response = await _identityService.GetUsersStatisticsAsync(request);
-        return ToHttpResult(response);
+        return ToHttpRequest(response);
     }
 
     [HttpPost("info")]
     public async Task<IActionResult> GetUserData([FromBody] GetUserDataRequest request)
     {
         var response = await _identityService.GetUserDataAsync(request);
-        return ToHttpResult(response);
+        return ToHttpRequest(response);
     }
 
     [HttpPost("signin")]
     public async Task<IActionResult> SignInUser([FromBody] IdentityRequest request)
     {
         var response = await _identityService.SignInUserAsync(request);
-        return ToHttpResult(response);
+        return ToHttpRequest(response);
     }
 
     [HttpPost("signup")]
     public async Task<IActionResult> SignUpUser([FromBody] IdentityRequest request)
     {
         var response = await _identityService.SignUpUserAsync(request);
-        return ToHttpResult(response);
+        return ToHttpRequest(response);
     }
     
     [HttpPost("signout")]
     public async Task<IActionResult> SignOutUser([FromBody] SignOutRequest request)
     {
         var response = await _identityService.SignOutUserAsync(request);
-        return ToHttpResult(response);
+        return ToHttpRequest(response);
     }
     
-    private IActionResult ToHttpResult(IdentityResponse response)
+    private IActionResult ToHttpRequest(IdentityResponse response)
     {
         return response.Code switch
         {
