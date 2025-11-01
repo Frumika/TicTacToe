@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Backend.Application.DTO.Requests.Identity;
-using Backend.Application.DTO.Responses;
 using Backend.Application.DTO.Responses.Identity;
 using Backend.Application.Enums;
 using Backend.Application.Services.Interfaces;
