@@ -4,7 +4,7 @@ using Backend.Application.DTO.Requests.Identity;
 using Backend.Application.DTO.Responses.Identity;
 using Backend.Application.Enums;
 using Backend.Application.Services.Interfaces;
-using Backend.DataAccess.Context;
+using Backend.DataAccess.Postgres.Context;
 using Backend.Domain.Models.App;
 using Backend.Services.Redis;
 

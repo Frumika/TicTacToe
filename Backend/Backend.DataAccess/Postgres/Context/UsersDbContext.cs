@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Backend.Domain.Models.App;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Backend.Domain.Models.App;
 
-namespace Backend.DataAccess.Context;
+namespace Backend.DataAccess.Postgres.Context;
 
 public class UsersDbContext : DbContext
 {

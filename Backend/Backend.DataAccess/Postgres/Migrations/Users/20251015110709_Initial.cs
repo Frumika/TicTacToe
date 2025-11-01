@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿#nullable disable
 
-#nullable disable
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Backend.DataAccess.Migrations.Users
+namespace Backend.DataAccess.Postgres.Migrations.Users
 {
     /// <inheritdoc />
     public partial class Initial : Migration

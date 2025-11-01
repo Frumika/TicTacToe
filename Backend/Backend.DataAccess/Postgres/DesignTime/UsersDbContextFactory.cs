@@ -1,8 +1,8 @@
-﻿using Backend.DataAccess.Context;
+﻿using Backend.DataAccess.Postgres.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Backend.DataAccess.DesignTime;
+namespace Backend.DataAccess.Postgres.DesignTime;
 
 public class UsersDbContextFactory : IDesignTimeDbContextFactory<UsersDbContext>
 {

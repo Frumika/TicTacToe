@@ -1,5 +1,4 @@
-﻿using Backend.DataAccess.Context;
-
+﻿using Backend.DataAccess.Postgres.Context;
 
 namespace Backend.API.Extensions;
 

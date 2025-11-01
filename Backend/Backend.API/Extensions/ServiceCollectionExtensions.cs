@@ -4,7 +4,7 @@ using Backend.Application.Managers;
 using StackExchange.Redis;
 using Backend.Application.Services;
 using Backend.Application.Services.Interfaces;
-using Backend.DataAccess.Context;
+using Backend.DataAccess.Postgres.Context;
 using Backend.Services.Redis;
 
 
