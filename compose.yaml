@@ -7,7 +7,8 @@
       - "5026:8080"
     depends_on:
       - postgres
-      - redis
+      - redis-users
+      - redis-games
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:8080
@@ -39,11 +40,25 @@
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  redis:
+  redis-users:
     image: redis:7
     restart: always
     ports:
       - "6400:6379"
+    networks:
+      - app-network
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      retries: 5
+      start_period: 10s
+      timeout: 5s
+  
+  redis-games:
+    image: redis:7
+    restart: always
+    ports:
+      - "6500:6379"
     networks:
       - app-network
     healthcheck:

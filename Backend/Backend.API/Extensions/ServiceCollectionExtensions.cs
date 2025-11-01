@@ -34,8 +34,8 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection ConnectRedis(this IServiceCollection services, AppConfiguration config)
     {
-        var redisHost = config.Configuration["Redis:Host"];
-        var redisPort = config.Configuration["Redis:Port"];
+        var redisHost = config.Configuration["RedisUsers:Host"];
+        var redisPort = config.Configuration["RedisUsers:Port"];
 
         var connectionString = $"{redisHost}:{redisPort}";
         services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(connectionString));
