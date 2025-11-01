@@ -2,7 +2,7 @@
 
 namespace Backend.Application.DTO.Entities.Identity;
 
-public class UserDto : BaseDto
+public class UserDto
 {
     public string Login { get; set; } = string.Empty;
     public int Matches { get; set; }

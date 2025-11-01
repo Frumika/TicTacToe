@@ -27,8 +27,6 @@ export async function getUserLogin() {
     if (!result.isSuccess) {
         throw new Error(result.message);
     }
-
-    const user = result.user;
-
-    return user.login;
+    
+    return result.data.login;
 }

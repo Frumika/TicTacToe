@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Backend.Application.DTO.Requests.Game;
 using Backend.Application.DTO.Responses.Game;
 using Backend.Application.Enums;

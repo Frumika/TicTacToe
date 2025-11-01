@@ -3,7 +3,7 @@ using Backend.Domain.Models.Game;
 
 namespace Backend.Application.DTO.Entities.Game;
 
-public class GameStateDto : BaseDto
+public class GameStateDto
 {
     public Field[][]? Board { get; set; }
     public Winner Winner { get; set; }

@@ -25,12 +25,15 @@ export async function sendInfo() {
     const response = await fetch(`${url}/signin`, requestData);
     const result = await response.json();
 
+    console.log(result);
+    console.log(result.data.sessionId);
+
     if (!result.isSuccess) {
         drawSomethingWrong(IdentityStatusCodeHelper.getCode(result));
         throw new Error(result.message);
     } else {
-        const userSessionId = JSON.stringify(result.sessionId);
-        addSessionId("userSessionId", userSessionId, 5);
+        const userSessionId = JSON.stringify(result.data.sessionId);
+        addSessionId("userSessionId", userSessionId, 0.5);
 
         drawWasAuthorized();
         setTimeout(() => {
