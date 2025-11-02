@@ -3,10 +3,10 @@ using Backend.Application.DTO.Entities.Identity;
 using Backend.Application.DTO.Requests.Identity;
 using Backend.Application.DTO.Responses.Identity;
 using Backend.Application.Enums;
+using Backend.Application.Managers;
 using Backend.Application.Services.Interfaces;
 using Backend.DataAccess.Postgres.Context;
 using Backend.Domain.Models.App;
-using Backend.Services.Redis;
 
 
 namespace Backend.Application.Services;
@@ -14,12 +14,12 @@ namespace Backend.Application.Services;
 public class IdentityService : IIdentityService
 {
     private readonly UsersDbContext _usersDbContext;
-    private readonly RedisSessionService _redisSessionService;
+    private readonly UserSessionManager _userSessionManager;
 
-    public IdentityService(UsersDbContext usersDbContext, RedisSessionService redisSessionService)
+    public IdentityService(UsersDbContext usersDbContext, UserSessionManager userSessionManager)
     {
         _usersDbContext = usersDbContext;
-        _redisSessionService = redisSessionService;
+        _userSessionManager = userSessionManager;
     }
 
     public async Task<IdentityResponse> UpdateUserDataAsync(UpdateDataRequest request)
@@ -106,7 +106,7 @@ public class IdentityService : IIdentityService
 
         try
         {
-            UserRedisDto? userDto = await _redisSessionService.GetSessionAsync<UserRedisDto>(request.SessionId);
+            UserRedisDto? userDto = await _userSessionManager.GetSessionAsync<UserRedisDto>(request.SessionId);
             if (userDto is null)
                 return IdentityResponse.Fail(IdentityStatusCode.UserNotFound, "The user is not logged in");
 
@@ -136,7 +136,7 @@ public class IdentityService : IIdentityService
             string sessionId = Guid.NewGuid().ToString();
             UserRedisDto userDto = new() { Login = user.Login };
 
-            await _redisSessionService.SetSessionAsync(sessionId, userDto, TimeSpan.FromMinutes(5));
+            await _userSessionManager.SetSessionAsync(sessionId, userDto, TimeSpan.FromMinutes(5));
 
             return IdentityResponse.Success(new UserSessionDto { SessionId = sessionId });
         }
@@ -183,7 +183,7 @@ public class IdentityService : IIdentityService
 
         try
         {
-            bool isDelete = await _redisSessionService.DeleteSessionAsync(request.SessionId);
+            bool isDelete = await _userSessionManager.DeleteSessionAsync(request.SessionId);
             if (!isDelete)
                 return IdentityResponse.Fail(IdentityStatusCode.UnknownError, "The user has not been deleted");
         }

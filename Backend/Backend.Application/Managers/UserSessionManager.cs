@@ -1,15 +1,18 @@
-﻿using StackExchange.Redis;
-using System.Text.Json;
+﻿using System.Text.Json;
+using StackExchange.Redis;
+using Backend.Application.DTO.Entities.Identity;
+using Backend.DataAccess.Redis;
 
-namespace Backend.Services.Redis;
 
-public class RedisSessionService
+namespace Backend.Application.Managers;
+
+public class UserSessionManager
 {
     private readonly IDatabase _database;
 
-    public RedisSessionService(IConnectionMultiplexer redis)
+    public UserSessionManager(IRedisContext redis)
     {
-        _database = redis.GetDatabase();
+        _database = redis.UserSessions;
     }
 
     public async Task SetSessionAsync(string sessionId, UserRedisDto userDto, TimeSpan expiry)

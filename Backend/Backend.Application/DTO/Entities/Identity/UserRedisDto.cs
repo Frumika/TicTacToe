@@ -1,4 +1,4 @@
-﻿namespace Backend.Services.Redis;
+﻿namespace Backend.Application.DTO.Entities.Identity;
 
 public class UserRedisDto
 {

@@ -5,7 +5,7 @@ using StackExchange.Redis;
 using Backend.Application.Services;
 using Backend.Application.Services.Interfaces;
 using Backend.DataAccess.Postgres.Context;
-using Backend.Services.Redis;
+using Backend.DataAccess.Redis;
 
 
 namespace Backend.API.Extensions;
@@ -34,11 +34,15 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection ConnectRedis(this IServiceCollection services, AppConfiguration config)
     {
-        var redisHost = config.Configuration["RedisUsers:Host"];
-        var redisPort = config.Configuration["RedisUsers:Port"];
+        var gameConnectionString = config.Configuration["Redis:GameSessions"] ?? string.Empty;
+        var userConnectionString = config.Configuration["Redis:UserSessions"] ?? string.Empty;
 
-        var connectionString = $"{redisHost}:{redisPort}";
-        services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(connectionString));
+        var gameConnection = ConnectionMultiplexer.Connect(gameConnectionString);
+        var userConnection = ConnectionMultiplexer.Connect(userConnectionString);
+
+        services.AddSingleton(gameConnection);
+        services.AddSingleton(userConnection);
+        services.AddSingleton<IRedisContext, RedisContext>();
 
         return services;
     }
@@ -58,11 +62,11 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddSingleton<GameSessionsManager>();
-        services.AddSingleton<RedisSessionService>();
-        
+        services.AddSingleton<UserSessionManager>();
+
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<IGameService, GameService>();
-        
+
         return services;
     }
 
