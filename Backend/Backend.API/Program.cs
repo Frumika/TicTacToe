@@ -8,6 +8,9 @@ builder.Services.AddApplicationServices(configuration);
 
 var app = builder.Build();
 app.UseApplicationPipeline();
-app.WarmupDatabase();
 
+// Закоментить, если не нужен swagger
+app.AddSwagger();
+
+app.WarmupDatabase();
 app.Run();

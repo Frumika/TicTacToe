@@ -7,6 +7,7 @@ using Backend.Application.Services.Interfaces;
 
 namespace Backend.API.Controllers;
 
+// Todo: Использовать корректные методы для HTTP
 [ApiController]
 [Route("api/game")]
 public class GameController : ControllerBase

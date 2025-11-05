@@ -61,6 +61,8 @@ public static class ServiceCollectionExtensions
 
     private static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
+        services.AddSwaggerGen();
+        
         services.AddSingleton<GameSessionsManager>();
         services.AddSingleton<UserSessionManager>();
 

@@ -19,4 +19,13 @@ public static class ApplicationBuilderExtensions
         var dbContext = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
         var any = dbContext.Users.Any();
     }
+
+    public static void AddSwagger(this WebApplication app)
+    {
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+    }
 }

@@ -7,12 +7,13 @@ using Backend.Application.Services.Interfaces;
 
 namespace Backend.API.Controllers;
 
+// Todo: Использовать корректные методы для HTTP
 [ApiController]
 [Route("api/identity")]
 public class IdentityController : ControllerBase
 {
     private readonly IIdentityService _identityService;
-    
+
     public IdentityController(IIdentityService identityService)
     {
         _identityService = identityService;
@@ -52,14 +53,14 @@ public class IdentityController : ControllerBase
         var response = await _identityService.SignUpUserAsync(request);
         return ToHttpRequest(response);
     }
-    
+
     [HttpPost("signout")]
     public async Task<IActionResult> SignOutUser([FromBody] SignOutRequest request)
     {
         var response = await _identityService.SignOutUserAsync(request);
         return ToHttpRequest(response);
     }
-    
+
     private IActionResult ToHttpRequest(IdentityResponse response)
     {
         return response.Code switch
