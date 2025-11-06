@@ -7,7 +7,7 @@ export async function sendUpdate(login, isWin) {
     const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
 
     const requestData = {
-        method: "POST",
+        method: "PATCH",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             login: login,

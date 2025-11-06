@@ -7,7 +7,6 @@ using Backend.Application.Services.Interfaces;
 
 namespace Backend.API.Controllers;
 
-// Todo: Использовать корректные методы для HTTP
 [ApiController]
 [Route("api/game")]
 public class GameController : ControllerBase
@@ -19,9 +18,8 @@ public class GameController : ControllerBase
         _gameService = gameService;
     }
 
-
     [HttpPost("check")]
-    public async Task<IActionResult> CheckSession(CheckSessionRequest request)
+    public async Task<IActionResult> CheckSession([FromBody] CheckSessionRequest request)
     {
         var response = await _gameService.CheckSessionAsync(request);
         return ToHttpResponse(response);
@@ -42,21 +40,21 @@ public class GameController : ControllerBase
     }
 
     [HttpPost("state")]
-    public async Task<IActionResult> GetGameState(GetBoardStateRequest request)
+    public async Task<IActionResult> GetGameState([FromBody] GetBoardStateRequest request)
     {
         var response = await _gameService.GetGameStateAsync(request);
         return ToHttpResponse(response);
     }
 
-    [HttpPost("reset")]
-    public async Task<IActionResult> ResetSession(ResetSessionRequest request)
+    [HttpPut("reset")]
+    public async Task<IActionResult> ResetSession([FromBody] ResetSessionRequest request)
     {
         var response = await _gameService.ResetSessionAsync(request);
         return ToHttpResponse(response);
     }
 
-    [HttpPost("end")]
-    public async Task<IActionResult> EndSession(EndSessionRequest request)
+    [HttpDelete("end")]
+    public async Task<IActionResult> EndSession([FromBody] EndSessionRequest request)
     {
         var response = await _gameService.EndSessionAsync(request);
         return ToHttpResponse(response);

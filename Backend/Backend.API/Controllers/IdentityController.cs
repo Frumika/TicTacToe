@@ -7,7 +7,6 @@ using Backend.Application.Services.Interfaces;
 
 namespace Backend.API.Controllers;
 
-// Todo: Использовать корректные методы для HTTP
 [ApiController]
 [Route("api/identity")]
 public class IdentityController : ControllerBase
@@ -19,7 +18,7 @@ public class IdentityController : ControllerBase
         _identityService = identityService;
     }
 
-    [HttpPost("update")]
+    [HttpPatch("update")]
     public async Task<IActionResult> UpdateUserData([FromBody] UpdateDataRequest request)
     {
         var response = await _identityService.UpdateUserDataAsync(request);
@@ -54,7 +53,7 @@ public class IdentityController : ControllerBase
         return ToHttpRequest(response);
     }
 
-    [HttpPost("signout")]
+    [HttpDelete("signout")]
     public async Task<IActionResult> SignOutUser([FromBody] SignOutRequest request)
     {
         var response = await _identityService.SignOutUserAsync(request);

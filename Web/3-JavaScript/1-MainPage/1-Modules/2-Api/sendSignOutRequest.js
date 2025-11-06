@@ -14,7 +14,7 @@ export async function sendSignOutRequest() {
     }
 
     const requestData = {
-        method: "POST",
+        method: "DELETE",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             sessionId: userSessionId

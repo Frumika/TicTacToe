@@ -17,7 +17,7 @@ export async function sendResetRequest() {
 
     // Данные, которые будут отправлены на сервер в запросе
     const requestData = {
-        method: "POST",
+        method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             sessionId: gameSessionId,
