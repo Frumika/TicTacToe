@@ -4,9 +4,10 @@ namespace Backend.Application.Managers.Interfaces;
 
 public interface IGameSessionsManager
 {
-    bool CreateSession(string sessionId, string gameMode, string botMode);
-    bool ResetSession(string sessionId, string gameMode, string botMode);
-    Session GetOrCreateSession(string sessionId, string gameMode, string botMode);
-    Session? GetSession(string sessionId);
-    bool RemoveSession(string sessionId);
+    Task<Session?> CreateSessionAsync(string sessionId, string gameMode, string botMode);
+    Task<Session?> GetSessionAsync(string sessionId);
+    Task<bool> SetSessionAsync(string sessionId, Session session);
+    Task<bool> ResetSessionAsync(string sessionId, string gameMode, string botMode);
+    Task<Session?> GetOrCreateSessionAsync(string sessionId, string gameMode, string botMode);
+    Task<bool> RemoveSessionAsync(string sessionId);
 }

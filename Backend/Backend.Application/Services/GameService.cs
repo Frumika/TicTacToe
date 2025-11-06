@@ -2,18 +2,18 @@
 using Backend.Application.DTO.Requests.Game;
 using Backend.Application.DTO.Responses.Game;
 using Backend.Application.Enums;
-using Backend.Application.Managers;
+using Backend.Application.Managers.Interfaces;
 using Backend.Application.Services.Interfaces;
 
 namespace Backend.Application.Services;
 
 public class GameService : IGameService
 {
-    private readonly GameSessionsManager _gameSessionsManager;
+    private readonly IGameSessionsManager _manager;
 
-    public GameService(GameSessionsManager gameSessionsManager)
+    public GameService(IGameSessionsManager manager)
     {
-        _gameSessionsManager = gameSessionsManager;
+        _manager = manager;
     }
 
     public async Task<GameResponse> CheckSessionAsync(CheckSessionRequest request)
@@ -21,7 +21,7 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        var session = _gameSessionsManager.GetSession(request.SessionId);
+        var session = await _manager.GetSessionAsync(request.SessionId);
         if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
         return GameResponse.Success("Session was found");
@@ -32,10 +32,10 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        var session = _gameSessionsManager.CreateSession(request.SessionId, request.GameMode, request.BotMode);
-        if (!session) return GameResponse.Fail(GameStatusCode.SessionAlreadyExists, "Session already exists");
-
-        return GameResponse.Success("Session was created");
+        var session = await _manager.CreateSessionAsync(request.SessionId, request.GameMode, request.BotMode);
+        return session is null
+            ? GameResponse.Fail(GameStatusCode.SessionAlreadyExists, "Session already exists")
+            : GameResponse.Success("Session was created");
     }
 
     public async Task<GameResponse> MakeMoveAsync(MakeMoveRequest request)
@@ -43,11 +43,13 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        var session = _gameSessionsManager.GetSession(request.SessionId);
+        var session = await _manager.GetSessionAsync(request.SessionId);
         if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
         bool moveSuccess = session.MakeMove(request.Row, request.Column);
         if (!moveSuccess) return GameResponse.Fail(GameStatusCode.InvalidMove, "Invalid Move");
+        
+        await _manager.SetSessionAsync(request.SessionId, session);
 
         return GameResponse.Success("Successful move");
     }
@@ -57,7 +59,7 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        var session = _gameSessionsManager.GetSession(request.SessionId);
+        var session = await _manager.GetSessionAsync(request.SessionId);
         if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
         return GameResponse.Success(new GameStateDto(session), "Current state of the game");
@@ -68,7 +70,7 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        bool success = _gameSessionsManager.ResetSession(request.SessionId, request.GameMode, request.BotMode);
+        bool success = await _manager.ResetSessionAsync(request.SessionId, request.GameMode, request.BotMode);
         if (!success) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
         return GameResponse.Success("Session was reset");
@@ -79,7 +81,7 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        bool success = _gameSessionsManager.RemoveSession(request.SessionId);
+        bool success = await _manager.RemoveSessionAsync(request.SessionId);
         if (!success) return GameResponse.Fail(GameStatusCode.SessionResetFailed, "Session reset failed");
 
         return GameResponse.Success("Session was ended");

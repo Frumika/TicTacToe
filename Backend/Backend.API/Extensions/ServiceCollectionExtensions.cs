@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Backend.Application.Managers;
+using Backend.Application.Managers.Interfaces;
 using StackExchange.Redis;
 using Backend.Application.Services;
 using Backend.Application.Services.Interfaces;
@@ -63,7 +64,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSwaggerGen();
         
-        services.AddSingleton<GameSessionsManager>();
+        services.AddSingleton<IGameSessionsManager, GameSessionsManager>();
         services.AddSingleton<UserSessionManager>();
 
         services.AddScoped<IIdentityService, IdentityService>();

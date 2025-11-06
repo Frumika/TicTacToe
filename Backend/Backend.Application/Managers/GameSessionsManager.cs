@@ -1,35 +1,70 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Text.Json;
+using StackExchange.Redis;
 using Backend.Application.Managers.Interfaces;
+using Backend.DataAccess.Redis;
 using Backend.Domain.Models.Game;
+
 
 namespace Backend.Application.Managers;
 
 public class GameSessionsManager : IGameSessionsManager
 {
-    private ConcurrentDictionary<string, Session> _sessions = new();
+    private readonly IDatabase _database;
 
-    public bool CreateSession(string sessionId, string gameMode, string botMode)
+    private static readonly JsonSerializerOptions JsonOptions = new()
     {
-        var success = _sessions.TryAdd(sessionId, new Session(gameMode, botMode));
-        return success;
+        PropertyNameCaseInsensitive = true
+    };
+
+    public GameSessionsManager(IRedisContext redis)
+    {
+        _database = redis.GameSessions;
     }
 
-    public Session GetOrCreateSession(string sessionId, string gameMode, string botMode)
+    public async Task<Session?> CreateSessionAsync(string sessionId, string gameMode, string botMode)
     {
-        var session = _sessions.GetOrAdd(sessionId, _ => new Session(gameMode, botMode));
-        return session;
+        var session = new Session(gameMode, botMode);
+        string json = JsonSerializer.Serialize(session, JsonOptions);
+
+        bool isCreated = await _database.StringSetAsync(sessionId, json, when: When.NotExists);
+        return isCreated ? session : null;
     }
 
-    public Session? GetSession(string sessionId) => _sessions.GetValueOrDefault(sessionId);
-
-    public bool RemoveSession(string sessionId) => _sessions.TryRemove(sessionId, out _);
-
-    public bool ResetSession(string sessionId, string gameMode, string botMode)
+    public async Task<bool> SetSessionAsync(string sessionId, Session session)
     {
-        var session = GetSession(sessionId);
+        string json = JsonSerializer.Serialize(session, JsonOptions);
+        return await _database.StringSetAsync(sessionId, json, when: When.Exists);
+    }
+
+    public async Task<Session?> GetSessionAsync(string sessionId)
+    {
+        string? json = await _database.StringGetAsync(sessionId);
+        return string.IsNullOrEmpty(json) ? null : JsonSerializer.Deserialize<Session>(json, JsonOptions);
+    }
+
+    public async Task<bool> ResetSessionAsync(string sessionId, string gameMode, string botMode)
+    {
+        string? json = await _database.StringGetAsync(sessionId);
+        if (string.IsNullOrEmpty(json)) return false;
+
+        var session = JsonSerializer.Deserialize<Session>(json, JsonOptions);
         if (session is null) return false;
-
         session.Reset(gameMode, botMode);
-        return true;
+        
+        return await SetSessionAsync(sessionId, session);
+    }
+
+    public async Task<Session?> GetOrCreateSessionAsync(string sessionId, string gameMode, string botMode)
+    {
+        var createdSession = await CreateSessionAsync(sessionId, gameMode, botMode);
+        if (createdSession is not null) return createdSession;
+
+        return await GetSessionAsync(sessionId);
+    }
+
+    public async Task<bool> RemoveSessionAsync(string sessionId)
+    {
+        bool isSessionExists = await _database.KeyExistsAsync(sessionId);
+        return isSessionExists && await _database.KeyDeleteAsync(sessionId);
     }
 }
