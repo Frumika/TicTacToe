@@ -3,7 +3,8 @@ using StackExchange.Redis;
 using Backend.Application.Managers.Interfaces;
 using Backend.DataAccess.Redis;
 using Backend.Domain.Models.Game;
-
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Backend.Application.Managers;
 
@@ -24,7 +25,7 @@ public class GameSessionsManager : IGameSessionsManager
     public async Task<Session?> CreateSessionAsync(string sessionId, string gameMode, string botMode)
     {
         var session = new Session(gameMode, botMode);
-        string json = JsonSerializer.Serialize(session, JsonOptions);
+        string json = JsonConvert.SerializeObject(session);
 
         bool isCreated = await _database.StringSetAsync(sessionId, json, when: When.NotExists);
         return isCreated ? session : null;
@@ -32,14 +33,15 @@ public class GameSessionsManager : IGameSessionsManager
 
     public async Task<bool> SetSessionAsync(string sessionId, Session session)
     {
-        string json = JsonSerializer.Serialize(session, JsonOptions);
+        string json = JsonConvert.SerializeObject(session);
         return await _database.StringSetAsync(sessionId, json, when: When.Exists);
     }
 
     public async Task<Session?> GetSessionAsync(string sessionId)
     {
         string? json = await _database.StringGetAsync(sessionId);
-        return string.IsNullOrEmpty(json) ? null : JsonSerializer.Deserialize<Session>(json, JsonOptions);
+        
+        return string.IsNullOrEmpty(json) ? null : JsonConvert.DeserializeObject<Session>(json);
     }
 
     public async Task<bool> ResetSessionAsync(string sessionId, string gameMode, string botMode)
@@ -47,7 +49,7 @@ public class GameSessionsManager : IGameSessionsManager
         string? json = await _database.StringGetAsync(sessionId);
         if (string.IsNullOrEmpty(json)) return false;
 
-        var session = JsonSerializer.Deserialize<Session>(json, JsonOptions);
+        var session = JsonConvert.DeserializeObject<Session>(json);
         if (session is null) return false;
         session.Reset(gameMode, botMode);
         

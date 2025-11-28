@@ -5,16 +5,20 @@ namespace Backend.Domain.Models.Game;
 
 public class Board
 {
-    private Field[,] _board = null!;
+    private Field[,] _board;
     private int _emptyFields;
 
     public int Rows { get; init; }
     public int Columns { get; init; }
     private int Size { get; init; }
     public bool HasEmptyFields => _emptyFields > 0;
-    public Field[][] BoardState => ToJaggedArray();
-   
-    
+    public Field[][] BoardState
+    {
+        get => ToJaggedArray();
+        set => SetBoard(value);
+    }
+
+
     public Board(int size = 3)
     {
         if (size <= 0) throw new BoardExceptionNotNatural("Введено не натуральное число.");
@@ -193,5 +197,16 @@ public class Board
         }
 
         return result;
+    }
+
+    private void SetBoard(Field[][] board)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                _board[i, j] = board[i][j];
+            }
+        }
     }
 }

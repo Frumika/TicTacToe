@@ -1,4 +1,5 @@
 ﻿using Backend.Domain.Enums;
+using Newtonsoft.Json;
 using static Backend.Domain.Enums.FieldItem;
 using static Backend.Domain.Enums.GameMode;
 
@@ -15,9 +16,13 @@ public class GameModel
     
     public FieldItem CurrentItem => _currentItem;
     public Winner Winner => _winner;
-    public Field[][] Board => _board.BoardState;
+    public Field[][] Board
+    {
+        get { return _board.BoardState; }
+        set { _board.BoardState = value; }
+    }
 
-    
+
     public GameModel(int size, GameMode gameMode, BotMode botMode)
     {
         _board = new Board(size);
