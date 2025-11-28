@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Backend.Domain.Enums;
 
 namespace Backend.Domain.Models.Game;

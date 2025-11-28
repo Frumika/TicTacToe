@@ -15,6 +15,8 @@ public class GameModel
 
     
     public FieldItem CurrentItem => _currentItem;
+    
+    // Todo: Реализовать установку значения для Winner для сериализации
     public Winner Winner => _winner;
     public Field[][] Board
     {
