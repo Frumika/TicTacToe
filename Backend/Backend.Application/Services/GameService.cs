@@ -21,10 +21,17 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        var session = await _manager.GetSessionAsync(request.SessionId);
-        if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
+        try
+        {
+            var session = await _manager.GetSessionAsync(request.SessionId);
+            if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
-        return GameResponse.Success("Session was found");
+            return GameResponse.Success("Session was found");
+        }
+        catch (Exception _)
+        {
+            return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
+        }
     }
 
     public async Task<GameResponse> StartSessionAsync(StartSessionRequest request)
@@ -32,10 +39,17 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        var session = await _manager.CreateSessionAsync(request.SessionId, request.GameMode, request.BotMode);
-        return session is null
-            ? GameResponse.Fail(GameStatusCode.SessionAlreadyExists, "Session already exists")
-            : GameResponse.Success("Session was created");
+        try
+        {
+            var session = await _manager.CreateSessionAsync(request.SessionId, request.GameMode, request.BotMode);
+            return session is null
+                ? GameResponse.Fail(GameStatusCode.SessionAlreadyExists, "Session already exists")
+                : GameResponse.Success("Session was created");
+        }
+        catch (Exception _)
+        {
+            return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
+        }
     }
 
     public async Task<GameResponse> MakeMoveAsync(MakeMoveRequest request)
@@ -43,15 +57,22 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        var session = await _manager.GetSessionAsync(request.SessionId);
-        if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
+        try
+        {
+            var session = await _manager.GetSessionAsync(request.SessionId);
+            if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
-        bool moveSuccess = session.MakeMove(request.Row, request.Column);
-        if (!moveSuccess) return GameResponse.Fail(GameStatusCode.InvalidMove, "Invalid Move");
-        
-        await _manager.SetSessionAsync(request.SessionId, session);
+            bool moveSuccess = session.MakeMove(request.Row, request.Column);
+            if (!moveSuccess) return GameResponse.Fail(GameStatusCode.InvalidMove, "Invalid Move");
 
-        return GameResponse.Success("Successful move");
+            await _manager.SetSessionAsync(request.SessionId, session);
+
+            return GameResponse.Success("Successful move");
+        }
+        catch (Exception _)
+        {
+            return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
+        }
     }
 
     public async Task<GameResponse> GetGameStateAsync(GetBoardStateRequest request)
@@ -59,10 +80,17 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        var session = await _manager.GetSessionAsync(request.SessionId);
-        if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
+        try
+        {
+            var session = await _manager.GetSessionAsync(request.SessionId);
+            if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
-        return GameResponse.Success(new GameStateDto(session), "Current state of the game");
+            return GameResponse.Success(new GameStateDto(session), "Current state of the game");
+        }
+        catch (Exception _)
+        {
+            return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
+        }
     }
 
     public async Task<GameResponse> ResetSessionAsync(ResetSessionRequest request)
@@ -70,10 +98,17 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        bool success = await _manager.ResetSessionAsync(request.SessionId, request.GameMode, request.BotMode);
-        if (!success) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
+        try
+        {
+            bool success = await _manager.ResetSessionAsync(request.SessionId, request.GameMode, request.BotMode);
+            if (!success) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
-        return GameResponse.Success("Session was reset");
+            return GameResponse.Success("Session was reset");
+        }
+        catch (Exception _)
+        {
+            return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
+        }
     }
 
     public async Task<GameResponse> EndSessionAsync(EndSessionRequest request)
@@ -81,9 +116,16 @@ public class GameService : IGameService
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
 
-        bool success = await _manager.RemoveSessionAsync(request.SessionId);
-        if (!success) return GameResponse.Fail(GameStatusCode.SessionResetFailed, "Session reset failed");
+        try
+        {
+            bool success = await _manager.RemoveSessionAsync(request.SessionId);
+            if (!success) return GameResponse.Fail(GameStatusCode.SessionResetFailed, "Session reset failed");
 
-        return GameResponse.Success("Session was ended");
+            return GameResponse.Success("Session was ended");
+        }
+        catch (Exception _)
+        {
+            return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
+        }
     }
 }
