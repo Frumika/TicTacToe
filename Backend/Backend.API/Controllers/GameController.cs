@@ -34,7 +34,7 @@ public class GameController : ControllerBase
 
     [HttpPost("move")]
     public async Task<IActionResult> MakeMove([FromBody] MakeMoveRequest request)
-    { 
+    {
         var response = await _gameService.MakeMoveAsync(request);
         return ToHttpResponse(response);
     }
@@ -48,14 +48,14 @@ public class GameController : ControllerBase
 
     [HttpPut("reset")]
     public async Task<IActionResult> ResetSession([FromBody] ResetSessionRequest request)
-    { 
+    {
         var response = await _gameService.ResetSessionAsync(request);
         return ToHttpResponse(response);
     }
 
     [HttpDelete("end")]
     public async Task<IActionResult> EndSession([FromBody] EndSessionRequest request)
-    { 
+    {
         var response = await _gameService.EndSessionAsync(request);
         return ToHttpResponse(response);
     }

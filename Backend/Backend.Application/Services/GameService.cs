@@ -25,7 +25,6 @@ public class GameService : IGameService
         {
             var session = await _manager.GetSessionAsync(request.SessionId);
             if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
-
             return GameResponse.Success("Session was found");
         }
         catch (Exception _)
@@ -66,7 +65,6 @@ public class GameService : IGameService
             if (!moveSuccess) return GameResponse.Fail(GameStatusCode.InvalidMove, "Invalid Move");
 
             await _manager.SetSessionAsync(request.SessionId, session);
-
             return GameResponse.Success("Successful move");
         }
         catch (Exception _)

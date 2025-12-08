@@ -37,11 +37,13 @@ public static class ServiceCollectionExtensions
     {
         var gameConnectionString = config.Configuration["Redis:GameSessions"] ?? string.Empty;
         var userConnectionString = config.Configuration["Redis:UserSessions"] ?? string.Empty;
-        
+
         var gameConnection = ConnectionMultiplexer.Connect(gameConnectionString);
         var userConnection = ConnectionMultiplexer.Connect(userConnectionString);
 
-        services.AddSingleton<IRedisContext>(_ => new RedisContext(gameConnection, userConnection));
+        services.AddSingleton(gameConnection);
+        services.AddSingleton(userConnection);
+        services.AddSingleton<IRedisContext, RedisContext>();
 
         return services;
     }
