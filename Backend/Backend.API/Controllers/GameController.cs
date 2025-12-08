@@ -21,72 +21,42 @@ public class GameController : ControllerBase
     [HttpPost("check")]
     public async Task<IActionResult> CheckSession([FromBody] CheckSessionRequest request)
     {
-        Console.WriteLine($"Check request: {request.SessionId}");
-        
         var response = await _gameService.CheckSessionAsync(request);
-        
-        Console.WriteLine($"Check response: {response.Code} - {response.Message}");
-        
         return ToHttpResponse(response);
     }
 
     [HttpPost("start")]
     public async Task<IActionResult> StartSession([FromBody] StartSessionRequest request)
     {
-        Console.WriteLine($"Start request: {request.SessionId}");
-
         var response = await _gameService.StartSessionAsync(request);
-        
-        Console.WriteLine($"Start response: {response.Code} - {response.Message}");
-        
         return ToHttpResponse(response);
     }
 
     [HttpPost("move")]
     public async Task<IActionResult> MakeMove([FromBody] MakeMoveRequest request)
     {
-        Console.WriteLine($"Move request: {request.SessionId}");
-        
         var response = await _gameService.MakeMoveAsync(request);
-        
-        Console.WriteLine($"Move response: {response.Code} - {response.Message}");
-        
         return ToHttpResponse(response);
     }
 
     [HttpPost("state")]
     public async Task<IActionResult> GetGameState([FromBody] GetBoardStateRequest request)
     {
-        Console.WriteLine($"State request: {request.SessionId}");
-        
         var response = await _gameService.GetGameStateAsync(request);
-        
-        Console.WriteLine($"State response: {response.Code} - {response.Message}");
-        
         return ToHttpResponse(response);
     }
 
     [HttpPut("reset")]
     public async Task<IActionResult> ResetSession([FromBody] ResetSessionRequest request)
     {
-        Console.WriteLine($"Reset request: {request.SessionId}");
-        
         var response = await _gameService.ResetSessionAsync(request);
-        
-        Console.WriteLine($"Reset response: {response.Code} - {response.Message}");
-        
         return ToHttpResponse(response);
     }
 
     [HttpDelete("end")]
     public async Task<IActionResult> EndSession([FromBody] EndSessionRequest request)
     {
-        Console.WriteLine($"End request: {request.SessionId}");
-        
         var response = await _gameService.EndSessionAsync(request);
-        
-        Console.WriteLine($"End response: {response.Code} - {response.Message}");
-        
         return ToHttpResponse(response);
     }
 
