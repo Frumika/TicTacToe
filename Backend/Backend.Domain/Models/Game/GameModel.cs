@@ -1,5 +1,4 @@
 ﻿using Backend.Domain.Enums;
-using Newtonsoft.Json;
 using static Backend.Domain.Enums.FieldItem;
 using static Backend.Domain.Enums.GameMode;
 
@@ -13,16 +12,11 @@ public class GameModel
     private GameMode _gameMode;
     private Bot? _bot = null;
 
-    
+
     public FieldItem CurrentItem => _currentItem;
-    
-    // Todo: Реализовать установку значения для Winner для сериализации
+
     public Winner Winner => _winner;
-    public Field[][] Board
-    {
-        get { return _board.BoardState; }
-        set { _board.BoardState = value; }
-    }
+    public Field[][] Board => _board.BoardState;
 
 
     public GameModel(int size, GameMode gameMode, BotMode botMode)
@@ -31,7 +25,6 @@ public class GameModel
         _gameMode = gameMode;
         if (_gameMode == PvE) _bot = new Bot(_currentItem == Cross ? Zero : Cross, botMode);
     }
-    
     
     public bool MakeMove(int row, int column)
     {
@@ -81,6 +74,6 @@ public class GameModel
 
         return false;
     }
-    
+
     private void SwitchTurn() => _currentItem = _currentItem == Cross ? Zero : Cross;
 }

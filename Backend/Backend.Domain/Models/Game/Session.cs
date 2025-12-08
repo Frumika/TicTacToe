@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
-using Backend.Domain.Enums;
+﻿using Backend.Domain.Enums;
+
 
 namespace Backend.Domain.Models.Game;
 
 public class Session
 {
-    [JsonProperty("GameModel")]
     private GameModel _gameModel;
 
     public Field[][] Board => _gameModel.Board;

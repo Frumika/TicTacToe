@@ -12,11 +12,7 @@ public class Board
     public int Columns { get; init; }
     private int Size { get; init; }
     public bool HasEmptyFields => _emptyFields > 0;
-    public Field[][] BoardState
-    {
-        get => ToJaggedArray();
-        set => SetBoard(value);
-    }
+    public Field[][] BoardState => ToJaggedArray();
 
 
     public Board(int size = 3)
@@ -57,7 +53,7 @@ public class Board
             }
         }
     }
-    
+
     public bool SetField(int row, int column, FieldItem item)
     {
         if (IsFieldEmpty(row, column))
@@ -133,7 +129,7 @@ public class Board
 
         return rowWin || colWin || mainDiagWin || antiDiagWin;
     }
-    
+
     public List<(int row, int column)> GetFieldsCoordinates(FieldItem item)
     {
         List<(int row, int column)> coordinates = new();
@@ -182,7 +178,7 @@ public class Board
 
         _emptyFields = Rows * Columns;
     }
-    
+
     private Field[][] ToJaggedArray()
     {
         Field[][] result = new Field[Rows][];
@@ -197,16 +193,5 @@ public class Board
         }
 
         return result;
-    }
-
-    private void SetBoard(Field[][] board)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                _board[i, j] = board[i][j];
-            }
-        }
     }
 }
