@@ -1,4 +1,5 @@
-﻿using Backend.Domain.Enums;
+﻿using Backend.Domain.DTO;
+using Backend.Domain.Enums;
 
 
 namespace Backend.Domain.Models.Game;
@@ -38,6 +39,27 @@ public class Session
         _gameModel = new GameModel(3, gMode, bMode);
     }
 
+    public SessionState ToState()
+    {
+        return new SessionState
+        {
+            Board = Board,
+            CurrentItem = _gameModel.CurrentItem,
+            Winner = Winner,
+            GameMode = _gameModel.GameMode,
+            BotMode = _gameModel.BotMode
+        };
+    }
+
+    public static SessionState ToState(Session session) => session.ToState();
+    
+    public static Session FromState(SessionState state)
+    {
+        var session = new Session(state.GameMode.ToString(), state.BotMode.ToString());
+        session._gameModel.LoadState(state);
+
+        return session;
+    }
 
     private (GameMode, BotMode) SettingsToObjects(string gameMode, string botMode)
     {

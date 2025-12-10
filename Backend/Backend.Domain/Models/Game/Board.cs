@@ -1,4 +1,5 @@
-﻿using Backend.Domain.Enums;
+﻿using Backend.Domain.DTO;
+using Backend.Domain.Enums;
 using Backend.Domain.Exceptions;
 
 namespace Backend.Domain.Models.Game;
@@ -70,6 +71,19 @@ public class Board
     {
         if (row >= Rows || column >= Columns || row < 0 || column < 0) return false;
         return _board[row, column].IsEmpty();
+    }
+
+    public void LoadState(SessionState state)
+    {
+        for (int i = 0; i < Rows; i++)
+        {
+            for (int j = 0; j < Columns; j++)
+            {
+                _board[i, j].Item = state.Board?[i][j].Item == null ? FieldItem.Empty : state.Board[i][j].Item;
+                
+                if (_board[i, j].Item != FieldItem.Empty) _emptyFields -= 1;
+            }
+        }
     }
 
     public FieldItem FindWinner()

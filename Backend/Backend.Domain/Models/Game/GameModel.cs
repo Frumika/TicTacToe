@@ -1,4 +1,5 @@
-﻿using Backend.Domain.Enums;
+﻿using Backend.Domain.DTO;
+using Backend.Domain.Enums;
 using static Backend.Domain.Enums.FieldItem;
 using static Backend.Domain.Enums.GameMode;
 
@@ -7,9 +8,9 @@ namespace Backend.Domain.Models.Game;
 public class GameModel
 {
     private Board _board;
-    private FieldItem _currentItem = FieldItem.Cross;
+    private FieldItem _currentItem = Cross;
     private Winner _winner = Winner.Undefined;
-    private GameMode _gameMode;
+
     private Bot? _bot = null;
 
 
@@ -17,15 +18,20 @@ public class GameModel
 
     public Winner Winner => _winner;
     public Field[][] Board => _board.BoardState;
+    public GameMode GameMode { get; }
+    public BotMode BotMode { get; }
 
 
     public GameModel(int size, GameMode gameMode, BotMode botMode)
     {
         _board = new Board(size);
-        _gameMode = gameMode;
-        if (_gameMode == PvE) _bot = new Bot(_currentItem == Cross ? Zero : Cross, botMode);
+
+        GameMode = gameMode;
+        BotMode = botMode;
+
+        if (GameMode == PvE) _bot = new Bot(_currentItem == Cross ? Zero : Cross, BotMode);
     }
-    
+
     public bool MakeMove(int row, int column)
     {
         bool? playerMove = null;
@@ -35,13 +41,20 @@ public class GameModel
         playerMove = IsSuccessfulMove(row, column);
 
         // ХОД БОТА
-        if (_gameMode == PvE && playerMove != false && Winner == Winner.Undefined)
+        if (GameMode == PvE && playerMove != false && Winner == Winner.Undefined)
         {
             var position = _bot!.Move(_board);
             botMove = IsSuccessfulMove(position.row, position.column);
         }
 
         return (playerMove ?? false) && (botMove ?? true);
+    }
+
+    public void LoadState(SessionState state)
+    {
+        _winner = state.Winner;
+        _currentItem = state.CurrentItem;
+        _board.LoadState(state);
     }
 
     public void ResetGame()

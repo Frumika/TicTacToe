@@ -136,7 +136,7 @@ public class IdentityService : IIdentityService
             string sessionId = Guid.NewGuid().ToString();
             UserRedisDto userDto = new() { Login = user.Login };
 
-            await _userSessionManager.SetSessionAsync(sessionId, userDto, TimeSpan.FromMinutes(5));
+            await _userSessionManager.SetSessionAsync(sessionId, userDto, TimeSpan.FromMinutes(15));
 
             return IdentityResponse.Success(new UserSessionDto { SessionId = sessionId });
         }

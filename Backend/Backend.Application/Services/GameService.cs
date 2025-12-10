@@ -10,7 +10,8 @@ namespace Backend.Application.Services;
 public class GameService : IGameService
 {
     private readonly IGameSessionsManager _manager;
-
+    private readonly TimeSpan _expirationTime = TimeSpan.FromMinutes(10);
+    
     public GameService(IGameSessionsManager manager)
     {
         _manager = manager;
