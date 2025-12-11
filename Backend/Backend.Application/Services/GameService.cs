@@ -10,7 +10,7 @@ namespace Backend.Application.Services;
 public class GameService : IGameService
 {
     private readonly IGameSessionsManager _manager;
-    
+
     public GameService(IGameSessionsManager manager)
     {
         _manager = manager;
@@ -37,13 +37,15 @@ public class GameService : IGameService
     {
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
-
+        
         try
         {
-            var session = await _manager.CreateSessionAsync(request.SessionId, request.GameMode, request.BotMode);
+            string sessionId = Guid.NewGuid().ToString();
+            
+            var session = await _manager.CreateSessionAsync(sessionId, request.GameMode, request.BotMode);
             return session is null
                 ? GameResponse.Fail(GameStatusCode.SessionAlreadyExists, "Session already exists")
-                : GameResponse.Success("Session was created");
+                : GameResponse.Success(new { sessionId }, "Session was created");
         }
         catch (Exception)
         {
