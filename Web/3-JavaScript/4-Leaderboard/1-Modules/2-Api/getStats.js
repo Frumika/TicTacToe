@@ -23,5 +23,5 @@ export async function getStats(sortType, count, page) {
         throw new Error(result.message)
     }
 
-    return result;
+    return result.data;
 }

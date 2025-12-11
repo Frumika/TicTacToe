@@ -18,7 +18,29 @@ public class IdentityController : ControllerBase
         _identityService = identityService;
     }
 
-    [HttpPatch("update")]
+
+    [HttpGet("user/{login}")]
+    public async Task<IActionResult> GetUserByLogin([FromRoute] string login)
+    {
+        var response = await _identityService.GetUserByLoginAsync(login);
+        return ToHttpRequest(response);
+    }
+
+    [HttpPost("list")]
+    public async Task<IActionResult> GetUsersList([FromBody] GetUsersListRequest request)
+    {
+        var response = await _identityService.GetUsersListAsync(request);
+        return ToHttpRequest(response);
+    }
+
+    [HttpPatch("change_data")]
+    public async Task<IActionResult> ChangeUserData([FromBody] ChangeUserDataRequest request)
+    {
+        var response = await _identityService.ChangeUserDataAsync(request);
+        return ToHttpRequest(response);
+    }
+
+    [HttpPatch("update_stats")]
     public async Task<IActionResult> UpdateUserStats([FromBody] UpdateUserStatsRequest request)
     {
         var response = await _identityService.UpdateUserStatsAsync(request);
@@ -28,14 +50,14 @@ public class IdentityController : ControllerBase
     [HttpPost("statistics")]
     public async Task<IActionResult> GetUsersStatistics([FromBody] GetUsersStatisticsRequest request)
     {
-        var response = await _identityService.GetUsersStatisticsAsync(request);
+        var response = await _identityService.GetUsersStatsAsync(request);
         return ToHttpRequest(response);
     }
 
-    [HttpPost("info")]
+    [HttpPost("session_info")]
     public async Task<IActionResult> GetUserData([FromBody] GetUserDataRequest request)
     {
-        var response = await _identityService.GetUserDataAsync(request);
+        var response = await _identityService.GetUserDataAsyncBySessionId(request);
         return ToHttpRequest(response);
     }
 

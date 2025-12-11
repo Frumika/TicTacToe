@@ -22,6 +22,82 @@ public class IdentityService : IIdentityService
         _userSessionManager = userSessionManager;
     }
 
+    public async Task<IdentityResponse> GetUserByLoginAsync(string login)
+    {
+        if (string.IsNullOrWhiteSpace(login))
+            return IdentityResponse.Fail(IdentityStatusCode.InvalidLogin, "Login cannot be null or empty");
+
+        try
+        {
+            User? user = await _usersDbContext.Users.FirstOrDefaultAsync(user => user.Login == login);
+
+            return user is null
+                ? IdentityResponse.Fail(IdentityStatusCode.UserNotFound, "User not found")
+                : IdentityResponse.Success(new UserDto(user));
+        }
+        catch (Exception)
+        {
+            return IdentityResponse.Fail(IdentityStatusCode.UnknownError, "Internal server error");
+        }
+    }
+
+    public async Task<IdentityResponse> GetUsersListAsync(GetUsersListRequest request)
+    {
+        var result = request.Validate();
+        if (!result.IsValid) return IdentityResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);
+
+        try
+        {
+            var users = await _usersDbContext.Users.AsNoTracking()
+                .OrderBy(user => user.Login)
+                .Skip(request.SkipModifier * request.UsersCount)
+                .Take(request.UsersCount + 1)
+                .Select(user => new UserDto(user))
+                .ToListAsync();
+
+            bool isLastPage = users.Count <= request.UsersCount;
+            if (!isLastPage) users.RemoveAt(users.Count - 1);
+
+            return IdentityResponse.Success(new UsersListDto { Users = users, IsLastPage = isLastPage });
+        }
+        catch (Exception)
+        {
+            return IdentityResponse.Fail(IdentityStatusCode.UnknownError, "Internal server error");
+        }
+    }
+
+    public async Task<IdentityResponse> ChangeUserDataAsync(ChangeUserDataRequest request)
+    {
+        var result = request.Validate();
+        if (!result.IsValid) return IdentityResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);
+
+        try
+        {
+            var user = await _usersDbContext.Users.FirstOrDefaultAsync(u => u.Login == request.OldLogin);
+            if (user is null) return IdentityResponse.Fail(IdentityStatusCode.UserNotFound, "User not found");
+
+            var existing = await _usersDbContext.Users.FirstOrDefaultAsync(u => u.Login == request.NewLogin);
+            if (existing is not null && request.NewLogin != user.Login)
+                return IdentityResponse
+                    .Fail(IdentityStatusCode.UserAlreadyExists, "User with this login already exists");
+
+            user.Login = request.NewLogin;
+            user.Wins = request.Wins;
+            user.Losses = request.Losses;
+            user.Draws = request.Draws;
+            user.Matches = request.Wins + request.Losses + request.Draws;
+
+            _usersDbContext.Users.Update(user);
+            await _usersDbContext.SaveChangesAsync();
+
+            return IdentityResponse.Success(new UserDto(user), "The user data was updated");
+        }
+        catch (Exception)
+        {
+            return IdentityResponse.Fail(IdentityStatusCode.UnknownError, "Internal server error");
+        }
+    }
+
     public async Task<IdentityResponse> UpdateUserStatsAsync(UpdateUserStatsRequest request)
     {
         var result = request.Validate();
@@ -69,7 +145,7 @@ public class IdentityService : IIdentityService
         return IdentityResponse.Success("The user data was updated");
     }
 
-    public async Task<IdentityResponse> GetUsersStatisticsAsync(GetUsersStatisticsRequest request)
+    public async Task<IdentityResponse> GetUsersStatsAsync(GetUsersStatisticsRequest request)
     {
         var result = request.Validate();
         if (!result.IsValid) return IdentityResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);
@@ -120,7 +196,7 @@ public class IdentityService : IIdentityService
         }
     }
 
-    public async Task<IdentityResponse> GetUserDataAsync(GetUserDataRequest request)
+    public async Task<IdentityResponse> GetUserDataAsyncBySessionId(GetUserDataRequest request)
     {
         var result = request.Validate();
         if (!result.IsValid) return IdentityResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);

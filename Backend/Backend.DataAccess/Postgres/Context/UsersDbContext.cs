@@ -27,11 +27,16 @@ public class UsersDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(user => user.Login);
+            entity.HasKey(user => user.Id);
+
+            entity.Property(user => user.Id).ValueGeneratedOnAdd();
+
             entity.Property(user => user.Login)
                 .IsRequired()
                 .HasMaxLength(LoginLength)
                 .HasColumnType($"VARCHAR({LoginLength})");
+
+            entity.HasIndex(user => user.Login).IsUnique();
 
             entity.Property(user => user.Matches).HasDefaultValue(0);
             entity.Property(user => user.Wins).HasDefaultValue(0);

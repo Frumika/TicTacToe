@@ -15,7 +15,7 @@ export async function sendUpdate(login, endGameType) {
         })
     };
 
-    const response = await fetch(`${url}/update`, requestData);
+    const response = await fetch(`${url}/update_stats`, requestData);
     const result = await response.json();
 
     if (IdentityStatusCodeHelper.isFailure(result)) {

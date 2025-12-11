@@ -21,12 +21,12 @@ export async function getUserLogin() {
         })
     }
 
-    const response = await fetch(`${url}/info`, requestData);
+    const response = await fetch(`${url}/session_info`, requestData);
     const result = await response.json();
 
     if (!result.isSuccess) {
         throw new Error(result.message);
     }
-    
+
     return result.data.login;
 }
