@@ -5,6 +5,7 @@ import {addSessionId} from "../../../0-Common/sessionId.js";
 import {drawWasAuthorized} from "../3-Ui/drawSuccesses.js";
 import {drawSomethingWrong} from "../3-Ui/drawErrors.js";
 import {IdentityStatusCodeHelper} from "../../../0-Common/Helpers/IdentityStatusCodeHelper.js";
+import {APP_PARAMS} from "../../../0-Common/Helpers/appParameters.js";
 
 
 export async function sendInfo() {
@@ -33,7 +34,7 @@ export async function sendInfo() {
         throw new Error(result.message);
     } else {
         const userSessionId = JSON.stringify(result.data.sessionId);
-        addSessionId("userSessionId", userSessionId, 0.5);
+        addSessionId("userSessionId", userSessionId, APP_PARAMS.USER_SESSIONS_LIFE_TIME);
 
         drawWasAuthorized();
         setTimeout(() => {

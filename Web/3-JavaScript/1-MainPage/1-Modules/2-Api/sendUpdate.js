@@ -3,7 +3,7 @@
 import {URL} from "../../../0-Common/url.js";
 import {IdentityStatusCodeHelper} from "../../../0-Common/Helpers/IdentityStatusCodeHelper.js";
 
-export async function sendUpdate(login, isWin) {
+export async function sendUpdate(login, endGameType) {
     const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
 
     const requestData = {
@@ -11,7 +11,7 @@ export async function sendUpdate(login, isWin) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             login: login,
-            isWin: isWin
+            type: endGameType
         })
     };
 

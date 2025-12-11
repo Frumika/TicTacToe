@@ -34,8 +34,9 @@ public class UsersDbContext : DbContext
                 .HasColumnType($"VARCHAR({LoginLength})");
 
             entity.Property(user => user.Matches).HasDefaultValue(0);
-
             entity.Property(user => user.Wins).HasDefaultValue(0);
+            entity.Property(user => user.Losses).HasDefaultValue(0);
+            entity.Property(user => user.Draws).HasDefaultValue(0);
 
             entity.Property(user => user.HashPassword).IsRequired()
                 .HasMaxLength(PasswordLength)

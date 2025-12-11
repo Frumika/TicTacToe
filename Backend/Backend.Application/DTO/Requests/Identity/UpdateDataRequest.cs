@@ -1,4 +1,5 @@
 ﻿using Backend.Application.DTO.Requests.Base;
+using Backend.Application.Enums;
 
 
 namespace Backend.Application.DTO.Requests.Identity;
@@ -6,15 +7,19 @@ namespace Backend.Application.DTO.Requests.Identity;
 public class UpdateDataRequest : IValidatableRequest
 {
     public string Login { get; set; } = string.Empty;
-    public bool IsWin { get; set; } = false;
+    public EndGameType Type { get; set; }
 
     public ValidationResult Validate()
     {
         string? message = null;
         bool isLoginValid = !string.IsNullOrWhiteSpace(Login);
+        bool isTypeValid = Type != EndGameType.Undefined;
 
-        if (!isLoginValid) message += "Login is required";
+        if (!isLoginValid) message += "Login must be required";
+        if (!isTypeValid) message += "Type is undefined";
+        
+        bool isValid = isLoginValid && isTypeValid;
 
-        return isLoginValid ? ValidationResult.Success() : ValidationResult.Fail(message);
+        return isValid ? ValidationResult.Success() : ValidationResult.Fail(message);
     }
 }

@@ -35,7 +35,28 @@ public class IdentityService : IIdentityService
                 return IdentityResponse.Fail(IdentityStatusCode.UserNotFound, "The user is not logged in");
 
             user.Matches++;
-            if (request.IsWin) user.Wins++;
+
+            switch (request.Type)
+            {
+                case EndGameType.Win:
+                {
+                    user.Wins++;
+                    break;
+                }
+                
+                case EndGameType.Lose:
+                {
+                    user.Losses++;
+                    break;
+                }
+                
+                case EndGameType.Draw:
+                {
+                    user.Draws++;
+                    break;
+                }
+            }
+
             _usersDbContext.Users.Update(user);
 
             await _usersDbContext.SaveChangesAsync();
@@ -45,7 +66,7 @@ public class IdentityService : IIdentityService
             return IdentityResponse.Fail(IdentityStatusCode.UnknownError, exception.Message);
         }
 
-        return IdentityResponse.Success( "The user data was updated");
+        return IdentityResponse.Success("The user data was updated");
     }
 
     public async Task<IdentityResponse> GetUsersStatisticsAsync(GetUsersStatisticsRequest request)
@@ -69,7 +90,7 @@ public class IdentityService : IIdentityService
             }
             case StatisticType.ByLosses:
             {
-                query = query.OrderByDescending(user => user.Matches - user.Wins);
+                query = query.OrderByDescending(user => user.Losses);
                 break;
             }
             default:
