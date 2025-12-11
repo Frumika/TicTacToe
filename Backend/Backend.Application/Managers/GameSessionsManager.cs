@@ -9,6 +9,7 @@ namespace Backend.Application.Managers;
 
 public class GameSessionsManager : IGameSessionsManager
 {
+    private readonly TimeSpan? _expiryTime = TimeSpan.FromMinutes(15);
     private readonly IDatabase _database;
 
     private static readonly JsonSerializerOptions JsonOptions = new()
@@ -26,14 +27,14 @@ public class GameSessionsManager : IGameSessionsManager
         var session = new Session(gameMode, botMode);
         string json = JsonSerializer.Serialize(session.ToState(), JsonOptions);
 
-        bool isCreated = await _database.StringSetAsync(sessionId, json, when: When.NotExists);
+        bool isCreated = await _database.StringSetAsync(sessionId, json, expiry: _expiryTime, when: When.NotExists);
         return isCreated ? session : null;
     }
 
     public async Task<bool> SetSessionAsync(string sessionId, Session session)
     {
         string json = JsonSerializer.Serialize(session.ToState(), JsonOptions);
-        return await _database.StringSetAsync(sessionId, json, when: When.Exists);
+        return await _database.StringSetAsync(sessionId, json, expiry: _expiryTime, when: When.Exists);
     }
 
     public async Task<Session?> GetSessionAsync(string sessionId)
@@ -58,7 +59,7 @@ public class GameSessionsManager : IGameSessionsManager
             ? null
             : JsonSerializer.Deserialize<SessionState>(json, JsonOptions);
         if (state is null) return false;
-        
+
         Session session = Session.FromState(state);
         session.Reset(gameMode, botMode);
 

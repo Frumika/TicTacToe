@@ -9,13 +9,14 @@ namespace Backend.Application.Managers;
 public class UserSessionManager
 {
     private readonly IDatabase _database;
+    private readonly TimeSpan _expiryTime = TimeSpan.FromMinutes(15);
 
     public UserSessionManager(IRedisContext redis)
     {
         _database = redis.UserSessions;
     }
 
-    public async Task SetSessionAsync(string sessionId, UserRedisDto userDto, TimeSpan expiry)
+    public async Task SetSessionAsync(string sessionId, UserRedisDto userDto)
     {
         if (string.IsNullOrWhiteSpace(sessionId)) throw new ArgumentException("Session ID cannot be null or empty");
 
@@ -24,7 +25,7 @@ public class UserSessionManager
         try
         {
             string json = JsonSerializer.Serialize(userDto);
-            bool isSet = await _database.StringSetAsync($"session:{sessionId}", json, expiry);
+            bool isSet = await _database.StringSetAsync($"session:{sessionId}", json, _expiryTime);
 
             if (!isSet) throw new InvalidOperationException("Failed to set session for sessionId");
         }

@@ -10,7 +10,6 @@ namespace Backend.Application.Services;
 public class GameService : IGameService
 {
     private readonly IGameSessionsManager _manager;
-    private readonly TimeSpan _expirationTime = TimeSpan.FromMinutes(10);
     
     public GameService(IGameSessionsManager manager)
     {
@@ -28,7 +27,7 @@ public class GameService : IGameService
             if (session is null) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
             return GameResponse.Success("Session was found");
         }
-        catch (Exception _)
+        catch (Exception)
         {
             return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
         }
@@ -46,7 +45,7 @@ public class GameService : IGameService
                 ? GameResponse.Fail(GameStatusCode.SessionAlreadyExists, "Session already exists")
                 : GameResponse.Success("Session was created");
         }
-        catch (Exception _)
+        catch (Exception)
         {
             return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
         }
@@ -68,7 +67,7 @@ public class GameService : IGameService
             await _manager.SetSessionAsync(request.SessionId, session);
             return GameResponse.Success("Successful move");
         }
-        catch (Exception _)
+        catch (Exception)
         {
             return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
         }
@@ -86,7 +85,7 @@ public class GameService : IGameService
 
             return GameResponse.Success(new GameStateDto(session), "Current state of the game");
         }
-        catch (Exception _)
+        catch (Exception)
         {
             return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
         }
@@ -104,7 +103,7 @@ public class GameService : IGameService
 
             return GameResponse.Success("Session was reset");
         }
-        catch (Exception _)
+        catch (Exception)
         {
             return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
         }
@@ -122,7 +121,7 @@ public class GameService : IGameService
 
             return GameResponse.Success("Session was ended");
         }
-        catch (Exception _)
+        catch (Exception)
         {
             return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
         }
