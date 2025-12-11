@@ -38,12 +38,13 @@ public static class ServiceCollectionExtensions
         var gameConnectionString = config.Configuration["Redis:GameSessions"] ?? string.Empty;
         var userConnectionString = config.Configuration["Redis:UserSessions"] ?? string.Empty;
 
-        var gameConnection = ConnectionMultiplexer.Connect(gameConnectionString);
-        var userConnection = ConnectionMultiplexer.Connect(userConnectionString);
+        services.AddSingleton<IRedisContext, RedisContext>(rc =>
+        {
+            var gameConnection = ConnectionMultiplexer.Connect(gameConnectionString);
+            var userConnection = ConnectionMultiplexer.Connect(userConnectionString);
 
-        services.AddSingleton(gameConnection);
-        services.AddSingleton(userConnection);
-        services.AddSingleton<IRedisContext, RedisContext>();
+            return new RedisContext(gameConnection, userConnection);
+        });
 
         return services;
     }
@@ -63,7 +64,7 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddSwaggerGen();
-        
+
         services.AddSingleton<IGameSessionsManager, GameSessionsManager>();
         services.AddSingleton<UserSessionManager>();
 
