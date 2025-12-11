@@ -22,7 +22,7 @@ public class IdentityService : IIdentityService
         _userSessionManager = userSessionManager;
     }
 
-    public async Task<IdentityResponse> UpdateUserDataAsync(UpdateDataRequest request)
+    public async Task<IdentityResponse> UpdateUserStatsAsync(UpdateUserStatsRequest request)
     {
         var result = request.Validate();
         if (!result.IsValid) return IdentityResponse.Fail(IdentityStatusCode.IncorrectData, result.Message);
@@ -43,13 +43,13 @@ public class IdentityService : IIdentityService
                     user.Wins++;
                     break;
                 }
-                
+
                 case EndGameType.Lose:
                 {
                     user.Losses++;
                     break;
                 }
-                
+
                 case EndGameType.Draw:
                 {
                     user.Draws++;
@@ -127,7 +127,7 @@ public class IdentityService : IIdentityService
 
         try
         {
-            UserRedisDto? userDto = await _userSessionManager.GetSessionAsync<UserRedisDto>(request.SessionId);
+            UserRedisDto? userDto = await _userSessionManager.GetSessionAsync(request.SessionId);
             if (userDto is null)
                 return IdentityResponse.Fail(IdentityStatusCode.UserNotFound, "The user is not logged in");
 

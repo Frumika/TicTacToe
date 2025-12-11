@@ -5,7 +5,7 @@ namespace Backend.Application.Services.Interfaces;
 
 public interface IIdentityService
 {
-    Task<IdentityResponse> UpdateUserDataAsync(UpdateDataRequest request);
+    Task<IdentityResponse> UpdateUserStatsAsync(UpdateUserStatsRequest request);
     Task<IdentityResponse> GetUsersStatisticsAsync(GetUsersStatisticsRequest request);
     Task<IdentityResponse> GetUserDataAsync(GetUserDataRequest request);
     Task<IdentityResponse> SignInUserAsync(IdentityRequest request);

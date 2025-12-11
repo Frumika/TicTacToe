@@ -35,7 +35,7 @@ public class UserSessionManager
         }
     }
 
-    public async Task<UserRedisDto?> GetSessionAsync<T>(string sessionId)
+    public async Task<UserRedisDto?> GetSessionAsync(string sessionId)
     {
         if (string.IsNullOrWhiteSpace(sessionId)) throw new ArgumentException("Session ID cannot be null or empty");
 

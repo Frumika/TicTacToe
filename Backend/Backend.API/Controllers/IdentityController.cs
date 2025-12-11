@@ -19,9 +19,9 @@ public class IdentityController : ControllerBase
     }
 
     [HttpPatch("update")]
-    public async Task<IActionResult> UpdateUserData([FromBody] UpdateDataRequest request)
+    public async Task<IActionResult> UpdateUserData([FromBody] UpdateUserStatsRequest request)
     {
-        var response = await _identityService.UpdateUserDataAsync(request);
+        var response = await _identityService.UpdateUserStatsAsync(request);
         return ToHttpRequest(response);
     }
 

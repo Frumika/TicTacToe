@@ -4,7 +4,7 @@ using Backend.Application.Enums;
 
 namespace Backend.Application.DTO.Requests.Identity;
 
-public class UpdateDataRequest : IValidatableRequest
+public class UpdateUserStatsRequest : IValidatableRequest
 {
     public string Login { get; set; } = string.Empty;
     public EndGameType Type { get; set; }
