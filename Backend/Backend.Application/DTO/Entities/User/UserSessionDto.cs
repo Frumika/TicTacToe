@@ -1,4 +1,4 @@
-﻿namespace Backend.Application.DTO.Entities.Identity;
+﻿namespace Backend.Application.DTO.Entities.User;
 
 public class UserSessionDto
 {

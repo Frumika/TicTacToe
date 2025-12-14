@@ -1,4 +1,4 @@
-﻿using Backend.Application.DTO.Entities.Identity;
+﻿using Backend.Application.DTO.Entities.User;
 using Backend.Application.DTO.Requests.Admin;
 using Backend.Application.DTO.Responses;
 using Backend.Application.Enums;

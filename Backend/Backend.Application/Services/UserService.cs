@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Backend.Application.DTO.Entities.Identity;
-using Backend.Application.DTO.Requests.Identity;
+﻿using Backend.Application.DTO.Entities.User;
+using Backend.Application.DTO.Requests.User;
+using Microsoft.EntityFrameworkCore;
 using Backend.Application.DTO.Responses;
 using Backend.Application.Enums;
 using Backend.Application.Managers;

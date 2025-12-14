@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
+using Backend.Application.DTO.Entities.User;
 using StackExchange.Redis;
-using Backend.Application.DTO.Entities.Identity;
 using Backend.DataAccess.Redis;
 
 

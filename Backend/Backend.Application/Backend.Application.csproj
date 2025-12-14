@@ -10,9 +10,4 @@
       <ProjectReference Include="..\Backend.DataAccess\Backend.DataAccess.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="DTO\Responses\Game\" />
-      <Folder Include="DTO\Responses\Identity\" />
-    </ItemGroup>
-
 </Project>

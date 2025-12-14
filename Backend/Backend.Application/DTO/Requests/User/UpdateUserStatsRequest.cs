@@ -1,8 +1,7 @@
 ﻿using Backend.Application.DTO.Requests.Base;
 using Backend.Application.Enums;
 
-
-namespace Backend.Application.DTO.Requests.Identity;
+namespace Backend.Application.DTO.Requests.User;
 
 public class UpdateUserStatsRequest : IValidatableRequest
 {

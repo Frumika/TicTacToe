@@ -1,7 +1,6 @@
 ﻿using Backend.Application.DTO.Requests.Base;
 
-
-namespace Backend.Application.DTO.Requests.Identity;
+namespace Backend.Application.DTO.Requests.User;
 
 public class GetUserDataRequest : IValidatableRequest
 {

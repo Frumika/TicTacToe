@@ -1,4 +1,4 @@
-﻿using Backend.Application.DTO.Requests.Identity;
+﻿using Backend.Application.DTO.Requests.User;
 using Backend.Application.DTO.Responses;
 
 namespace Backend.Application.Services.Interfaces;

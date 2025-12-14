@@ -1,6 +1,6 @@
-﻿namespace Backend.Application.DTO.Entities.Identity;
+﻿namespace Backend.Application.DTO.Entities.User;
 
-public class UsersListDto
+public class UsersStatisticDto
 {
     public IEnumerable<UserDto>? Users { get; set; }
     public bool IsLastPage { get; set; }

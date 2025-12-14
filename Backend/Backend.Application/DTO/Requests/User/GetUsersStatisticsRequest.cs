@@ -3,7 +3,7 @@ using Backend.Application.Enums;
 using static Backend.Application.Enums.StatisticType;
 
 
-namespace Backend.Application.DTO.Requests.Identity;
+namespace Backend.Application.DTO.Requests.User;
 
 public class GetUsersStatisticsRequest : IValidatableRequest
 {

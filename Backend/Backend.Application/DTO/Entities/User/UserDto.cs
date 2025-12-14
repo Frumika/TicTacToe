@@ -1,6 +1,4 @@
-﻿using Backend.Domain.Models.App;
-
-namespace Backend.Application.DTO.Entities.Identity;
+﻿namespace Backend.Application.DTO.Entities.User;
 
 public class UserDto
 {
@@ -14,7 +12,7 @@ public class UserDto
     {
     }
 
-    public UserDto(User user)
+    public UserDto(Domain.Models.App.User user)
     {
         Login = user.Login;
         Matches = user.Matches;
