@@ -21,7 +21,7 @@ export async function sendSignOutRequest() {
         })
     };
 
-    const response = await fetch(`${url}/signout`, requestData);
+    const response = await fetch(`${url}/logout`, requestData);
     const result = await response.json();
 
     if (!result.isSuccess) {

@@ -19,8 +19,6 @@ public class UserController : ControllerBase
     }
 
 
-   
-
     [HttpPatch("update_stats")]
     public async Task<IActionResult> UpdateUserStats([FromBody] UpdateUserStatsRequest request)
     {
@@ -56,10 +54,17 @@ public class UserController : ControllerBase
         return ToHttpRequest(response);
     }
 
-    [HttpDelete("signout")]
-    public async Task<IActionResult> SignOutUser([FromBody] SignOutRequest request)
+    [HttpDelete("logout")]
+    public async Task<IActionResult> LogoutUserSession([FromBody] LogoutUserSessionRequest request)
     {
-        var response = await _userService.SignOutUserAsync(request);
+        var response = await _userService.LogoutUserSessionAsync(request);
+        return ToHttpRequest(response);
+    }
+
+    [HttpDelete("logout_all/{userId}")]
+    public async Task<IActionResult> LogoutAllUserSessions([FromRoute] int userId)
+    {
+        var response = await _userService.LogoutAllUserSessionsAsync(userId);
         return ToHttpRequest(response);
     }
 

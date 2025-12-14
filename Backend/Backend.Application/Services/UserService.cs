@@ -22,7 +22,6 @@ public class UserService : IUserService
         _userSessionManager = userSessionManager;
     }
 
-    
 
     public async Task<UserResponse> UpdateUserStatsAsync(UpdateUserStatsRequest request)
     {
@@ -129,11 +128,11 @@ public class UserService : IUserService
 
         try
         {
-            UserRedisDto? userDto = await _userSessionManager.GetSessionAsync(request.SessionId);
-            if (userDto is null)
+            var state = await _userSessionManager.GetSessionAsync(request.SessionId);
+            if (state is null)
                 return UserResponse.Fail(UserStatusCode.UserNotFound, "The user is not logged in");
 
-            return UserResponse.Success(new UserDto { Login = userDto.Login });
+            return UserResponse.Success(new UserDto { Login = state.Login });
         }
         catch (Exception exception)
         {
@@ -157,10 +156,14 @@ public class UserService : IUserService
             }
 
             string sessionId = Guid.NewGuid().ToString();
-            UserRedisDto userDto = new() { Login = user.Login };
+            var sessionState = new UserSessionStateDto
+            {
+                UserId = user.Id,
+                Login = user.Login,
+                CreatedAt = DateTime.UtcNow
+            };
 
-            await _userSessionManager.SetSessionAsync(sessionId, userDto);
-
+            await _userSessionManager.SetSessionAsync(sessionId, sessionState);
             return UserResponse.Success(new UserSessionDto { SessionId = sessionId });
         }
         catch (Exception exception)
@@ -199,24 +202,44 @@ public class UserService : IUserService
         return UserResponse.Success("The user was registered");
     }
 
-    public async Task<UserResponse> SignOutUserAsync(SignOutRequest request)
+    public async Task<UserResponse> LogoutUserSessionAsync(LogoutUserSessionRequest request)
     {
         var result = request.Validate();
         if (!result.IsValid) return UserResponse.Fail(UserStatusCode.IncorrectData, result.Message);
 
         try
         {
-            bool isDelete = await _userSessionManager.DeleteSessionAsync(request.SessionId);
-            if (!isDelete)
-                return UserResponse.Fail(UserStatusCode.UnknownError, "The user has not been deleted");
+            bool isLogout = await _userSessionManager.LogoutSessionAsync(request.SessionId);
+            
+            return isLogout
+                ? UserResponse.Success("The user was logged out")
+                : UserResponse.Fail(UserStatusCode.UnknownError, "The user has not been deleted");
         }
         catch (Exception)
         {
             return UserResponse.Fail(UserStatusCode.UnknownError, "Error while deleting user");
         }
-
-        return UserResponse.Success("The user was logged out");
     }
+
+    public async Task<UserResponse> LogoutAllUserSessionsAsync(int userId)
+    {
+        if (userId <= 0)
+            return UserResponse.Fail(UserStatusCode.IncorrectData, "User ID must be greater than 0");
+
+        try
+        {
+            bool isLogout = await _userSessionManager.LogoutAllSessionsAsync(userId);
+
+            return isLogout
+                ? UserResponse.Success("All user sessions were deleted")
+                : UserResponse.Fail(UserStatusCode.UnknownError, "The user has not been deleted");
+        }
+        catch (Exception)
+        {
+            return UserResponse.Fail(UserStatusCode.UnknownError, "Error while deleting user");
+        }
+    }
+
 
     private static string HashPassword(string password) => BCrypt.Net.BCrypt.HashPassword(password, 10);
 
