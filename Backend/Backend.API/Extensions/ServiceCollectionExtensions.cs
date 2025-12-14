@@ -68,8 +68,9 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IGameSessionsManager, GameSessionsManager>();
         services.AddSingleton<UserSessionManager>();
 
-        services.AddScoped<IIdentityService, IdentityService>();
+        services.AddScoped<IUserService, UserService>();
         services.AddScoped<IGameService, GameService>();
+        services.AddScoped<IAdminService, AdminService>();
 
         return services;
     }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Backend.Application.DTO.Requests.Game;
-using Backend.Application.DTO.Responses.Game;
+using Backend.Application.DTO.Responses;
 using Backend.Application.Enums;
 using Backend.Application.Services.Interfaces;
 

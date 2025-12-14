@@ -1,6 +1,6 @@
 ﻿namespace Backend.Application.Enums;
 
-public enum IdentityStatusCode
+public enum UserStatusCode
 {
     Success,
     InvalidLogin,

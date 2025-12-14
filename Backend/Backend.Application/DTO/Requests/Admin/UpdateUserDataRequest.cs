@@ -1,8 +1,8 @@
 ﻿using Backend.Application.DTO.Requests.Base;
 
-namespace Backend.Application.DTO.Requests.Identity;
+namespace Backend.Application.DTO.Requests.Admin;
 
-public class ChangeUserDataRequest : IValidatableRequest
+public class UpdateUserDataRequest : IValidatableRequest
 {
     public string OldLogin { get; set; } = string.Empty;
     public string NewLogin { get; set; } = string.Empty;

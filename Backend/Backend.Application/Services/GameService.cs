@@ -1,6 +1,6 @@
 ﻿using Backend.Application.DTO.Entities.Game;
 using Backend.Application.DTO.Requests.Game;
-using Backend.Application.DTO.Responses.Game;
+using Backend.Application.DTO.Responses;
 using Backend.Application.Enums;
 using Backend.Application.Managers.Interfaces;
 using Backend.Application.Services.Interfaces;

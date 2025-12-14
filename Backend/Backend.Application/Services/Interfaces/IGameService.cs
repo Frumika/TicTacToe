@@ -1,5 +1,5 @@
 ﻿using Backend.Application.DTO.Requests.Game;
-using Backend.Application.DTO.Responses.Game;
+using Backend.Application.DTO.Responses;
 
 namespace Backend.Application.Services.Interfaces;
 

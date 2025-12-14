@@ -3,7 +3,7 @@
 
 namespace Backend.Application.DTO.Requests.Identity;
 
-public class IdentityRequest : IValidatableRequest
+public class UserRequest : IValidatableRequest
 {
     public string Login { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
