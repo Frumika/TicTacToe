@@ -1,18 +1,31 @@
 "use strict"
 
 
-import {getSessionId} from "../../../0-Common/sessionId.js";
+import {deleteSession, getSessionId} from "../../../0-Common/sessionId.js";
+import {URL} from "../../../0-Common/url.js";
 
-export function checkUserSessionId() {
-    const userSessionId = getSessionId("userSessionId");
+export async function checkUserSessionId() {
+    const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
+    const userSessionId = getSessionId("userSessionId")?.replace(/^"|"$/g, '');
 
-
-    if (userSessionId !== "" && userSessionId !== null) {
-        const showEvent = new CustomEvent("authorized-show");
-        document.dispatchEvent(showEvent);
+    const requestData = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            sessionId: userSessionId
+        })
     }
 
-    else{
+    const response = await fetch(`${url}/session_info`, requestData);
+    const result = await response.json();
+
+    if (result.isSuccess) {
+        const showEvent = new CustomEvent("authorized-show");
+        document.dispatchEvent(showEvent);
+
+    } else {
+        if (userSessionId !== null && userSessionId !== "") deleteSession("userSessionId");
+
         const hideEvent = new CustomEvent("authorized-hide");
         document.dispatchEvent(hideEvent);
     }

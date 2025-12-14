@@ -1,6 +1,6 @@
 "use strict"
 
-export {listenAccountInfo, listenSignOutButton, listenModalWindow};
+export {listenAccountInfo, listenSignOutButton, listenModalWindow, listenLogoutAllButton};
 
 
 function listenAccountInfo() {
@@ -18,6 +18,21 @@ function listenSignOutButton() {
     const text = document.getElementById("sign-out-text");
 
     const signOutEvent = new CustomEvent("sign-out");
+
+    image.addEventListener("click", () => {
+        document.dispatchEvent(signOutEvent);
+    });
+
+    text.addEventListener("click", () => {
+        document.dispatchEvent(signOutEvent);
+    });
+}
+
+function listenLogoutAllButton() {
+    const image = document.getElementById("logout-all-image");
+    const text = document.getElementById("logout-all-text");
+
+    const signOutEvent = new CustomEvent("logout-all");
 
     image.addEventListener("click", () => {
         document.dispatchEvent(signOutEvent);

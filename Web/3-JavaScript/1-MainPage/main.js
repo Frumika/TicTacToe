@@ -29,10 +29,11 @@ import {listenFields} from "./1-Modules/4-Events/listenFields.js"; // Полей
 import {listenResetButton} from "./1-Modules/4-Events/listenResetButton.js"; // Кнопки сброса
 import {listenGameModeSelection, listenBotModeSelection} from "./1-Modules/4-Events/listenGameSettings.js"; // Выбор игрового режима
 import {
-    listenAccountInfo,
+    listenAccountInfo, listenLogoutAllButton,
     listenModalWindow,
     listenSignOutButton
 } from "./1-Modules/4-Events/listenIAuthorizeButtons.js";
+import {sendLogoutAllRequest} from "./1-Modules/2-Api/sendLogoutAllRequest.js";
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -50,10 +51,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     setBaseBotMode();
     listenBotModeSelection();
 
-    checkUserSessionId();
+    await checkUserSessionId();
 
     listenAccountInfo();
     listenSignOutButton();
+    listenLogoutAllButton();
 
     listenModalWindow();
 
@@ -138,6 +140,14 @@ document.addEventListener("sign-out", async () => {
         await sendSignOutRequest();
     } catch (error) {
         console.error(`Error while deleting user: ${error.message}`);
+    }
+});
+
+document.addEventListener("logout-all", async () => {
+    try {
+        await sendLogoutAllRequest();
+    } catch (error) {
+        console.error(`Error while closing all user sessions: ${error.message}`);
     }
 });
 

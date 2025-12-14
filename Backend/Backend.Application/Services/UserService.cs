@@ -132,7 +132,11 @@ public class UserService : IUserService
             if (state is null)
                 return UserResponse.Fail(UserStatusCode.UserNotFound, "The user is not logged in");
 
-            return UserResponse.Success(new UserDto { Login = state.Login });
+            var user = await _usersDbContext.Users.FirstOrDefaultAsync(user => user.Id == state.UserId);
+            if (user is null) 
+                return UserResponse.Fail(UserStatusCode.UserNotFound, "The user is not logged in");
+
+            return UserResponse.Success(new UserDto(user));
         }
         catch (Exception exception)
         {
@@ -210,7 +214,7 @@ public class UserService : IUserService
         try
         {
             bool isLogout = await _userSessionManager.LogoutSessionAsync(request.SessionId);
-            
+
             return isLogout
                 ? UserResponse.Success("The user was logged out")
                 : UserResponse.Fail(UserStatusCode.UnknownError, "The user has not been deleted");
