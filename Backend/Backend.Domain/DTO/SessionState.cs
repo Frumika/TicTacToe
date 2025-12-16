@@ -11,6 +11,7 @@ public class SessionState
     public Field[][]? Board { get; set; }
     public FieldItem CurrentItem { get; set; }
     public Winner Winner { get; set; }
+    public int ResetCount { get; set; }
 
     public GameMode GameMode { get; set; }
     public BotMode BotMode { get; set; }

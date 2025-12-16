@@ -53,6 +53,7 @@ public class Session
             Board = Board,
             CurrentItem = _gameModel.CurrentItem,
             Winner = Winner,
+            ResetCount = ResetCount,
             GameMode = _gameModel.GameMode,
             BotMode = _gameModel.BotMode
         };
@@ -64,6 +65,7 @@ public class Session
     {
         var session = new Session(state.GameMode.ToString(), state.BotMode.ToString());
         session.UserId = state.UserId;
+        session.ResetCount = state.ResetCount;
         session._gameModel.LoadState(state);
 
         return session;
