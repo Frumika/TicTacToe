@@ -11,15 +11,18 @@ public class Session
     public Field[][] Board => _gameModel.Board;
     public Winner Winner => _gameModel.Winner;
 
+    public int? UserId { get; set; }
+
     public Session()
     {
         _gameModel = new GameModel(3, GameMode.PvE, BotMode.Medium);
     }
 
-    public Session(string gameMode, string botMode)
+    public Session(string gameMode, string botMode, int? userId = null)
     {
         var (gMode, bMode) = SettingsToObjects(gameMode, botMode);
         _gameModel = new GameModel(3, gMode, bMode);
+        UserId = userId;
     }
 
     public bool MakeMove(int row, int column)
@@ -43,6 +46,7 @@ public class Session
     {
         return new SessionState
         {
+            UserId = UserId,
             Board = Board,
             CurrentItem = _gameModel.CurrentItem,
             Winner = Winner,
@@ -52,10 +56,11 @@ public class Session
     }
 
     public static SessionState ToState(Session session) => session.ToState();
-    
+
     public static Session FromState(SessionState state)
     {
         var session = new Session(state.GameMode.ToString(), state.BotMode.ToString());
+        session.UserId = state.UserId;
         session._gameModel.LoadState(state);
 
         return session;

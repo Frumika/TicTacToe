@@ -22,9 +22,9 @@ public class GameSessionsManager : IGameSessionsManager
         _database = redis.GameSessions;
     }
 
-    public async Task<Session?> CreateSessionAsync(string sessionId, string gameMode, string botMode)
+    public async Task<Session?> CreateSessionAsync(int? userId, string sessionId, string gameMode, string botMode)
     {
-        var session = new Session(gameMode, botMode);
+        var session = new Session( gameMode, botMode, userId);
         string json = JsonSerializer.Serialize(session.ToState(), JsonOptions);
 
         bool isCreated = await _database.StringSetAsync(sessionId, json, expiry: _expiryTime, when: When.NotExists);
@@ -50,7 +50,7 @@ public class GameSessionsManager : IGameSessionsManager
         return session;
     }
 
-    public async Task<bool> ResetSessionAsync(string sessionId, string gameMode, string botMode)
+    public async Task<bool> ResetSessionAsync(int? userId, string sessionId, string gameMode, string botMode)
     {
         string? json = await _database.StringGetAsync(sessionId);
         if (string.IsNullOrEmpty(json)) return false;
@@ -59,16 +59,17 @@ public class GameSessionsManager : IGameSessionsManager
             ? null
             : JsonSerializer.Deserialize<SessionState>(json, JsonOptions);
         if (state is null) return false;
-
+        state.UserId = userId;
+        
         Session session = Session.FromState(state);
         session.Reset(gameMode, botMode);
 
         return await SetSessionAsync(sessionId, session);
     }
 
-    public async Task<Session?> GetOrCreateSessionAsync(string sessionId, string gameMode, string botMode)
+    public async Task<Session?> GetOrCreateSessionAsync(int? userId, string sessionId, string gameMode, string botMode)
     {
-        var createdSession = await CreateSessionAsync(sessionId, gameMode, botMode);
+        var createdSession = await CreateSessionAsync(userId, sessionId, gameMode, botMode);
         if (createdSession is not null) return createdSession;
 
         return await GetSessionAsync(sessionId);

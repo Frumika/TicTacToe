@@ -32,17 +32,19 @@ public class GameService : IGameService
             return GameResponse.Fail(GameStatusCode.UnknownError, "Internal server error");
         }
     }
-
+    
     public async Task<GameResponse> StartSessionAsync(StartSessionRequest request)
     {
         var result = request.Validate();
         if (!result.IsValid) return GameResponse.Fail(GameStatusCode.IncorrectData, result.Message);
-        
+
         try
         {
             string sessionId = Guid.NewGuid().ToString();
-            
-            var session = await _manager.CreateSessionAsync(sessionId, request.GameMode, request.BotMode);
+
+            var session = await _manager
+                .CreateSessionAsync(request.UserId, sessionId, request.GameMode, request.BotMode);
+
             return session is null
                 ? GameResponse.Fail(GameStatusCode.SessionAlreadyExists, "Session already exists")
                 : GameResponse.Success(new { sessionId }, "Session was created");
@@ -100,7 +102,9 @@ public class GameService : IGameService
 
         try
         {
-            bool success = await _manager.ResetSessionAsync(request.SessionId, request.GameMode, request.BotMode);
+            bool success = await _manager
+                .ResetSessionAsync(request.UserId, request.SessionId, request.GameMode, request.BotMode);
+            
             if (!success) return GameResponse.Fail(GameStatusCode.SessionNotFound, "Session not found");
 
             return GameResponse.Success("Session was reset");

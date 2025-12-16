@@ -6,6 +6,8 @@ namespace Backend.Domain.DTO;
 
 public class SessionState
 {
+    public int? UserId { get; set; }
+    
     public Field[][]? Board { get; set; }
     public FieldItem CurrentItem { get; set; }
     public Winner Winner { get; set; }
