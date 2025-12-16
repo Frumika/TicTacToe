@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<link href="./../2-CSS/adminPanel.css" rel="stylesheet" type="text/css" />
 <body>
 <aside class="aside-container__authorized">
     <div class="authorized__account-info">
@@ -102,24 +103,24 @@
             <div class="form-stats">
                 <div class="input-container">
                     <label for="login">Login:</label>
-                    <input type="text" id="login">
+                    <input type="text" class="input-field" id="login">
                 </div>
                 <div class="input-container">
                     <label for="wins">Wins:</label>
-                    <input type="text" id="wins">
+                    <input type="text" class="input-field" id="wins">
                 </div>
                 <div class="input-container">
                     <label for="losses">Losses:</label>
-                    <input type="text" id="losses">
+                    <input type="text" class="input-field" id="losses">
                 </div>
                 <div class="input-container">
                     <label for="draws">Draws:</label>
-                    <input type="text" id="draws">
+                    <input type="text" class="input-field" id="draws">
                 </div>
             </div>
             <div class="button-container">
-                <button class="form__send-button" type="button">Delete</button>
-                <button class="form__send-button" type="button">Confirm</button>
+                <button class="form__send-button delete" type="button">Delete</button>
+                <button class="form__send-button confirm" type="button">Confirm</button>
             </div>
 
         </section>

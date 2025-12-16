@@ -1,0 +1,131 @@
+
+/*--------------------- main container -----------------------------------*/
+.main-container_admin{
+    display: flex;
+    justify-content: space-around !important;
+    margin: 50px;
+    align-items: center;
+}
+
+.main-container__user-list, .main-container__board-container {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    border: 4px solid white;
+    border-radius: 25px;
+
+    background: black;
+
+    padding: 36px;
+}
+
+.main-container__user-list .user-list {
+    list-style: none;
+}
+.main-container__user-list .user{
+    border: 4px solid white;
+    border-radius: 25px;
+    padding:10px 20px;
+    color: white;
+    font-size: 40px;
+}
+/*--------------------- board-container ----------------------------------*/
+.main-container__board-container .title {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 45px;
+    font-weight: bold;
+
+    padding: 0 50px 0 50px;
+
+    margin: 20px 40px 40px 40px;
+
+    letter-spacing: 3px;
+}
+
+.form-stats{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+}
+
+.input-container{
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    height: 40px;
+
+}
+
+.input-container label{
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-size: 24px;
+    color: white;
+}
+
+.input-field {
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    outline: none;
+
+    width: 100px;
+
+    border: 3px solid white;
+    border-radius: 25px;
+
+    flex: 1;
+
+    background: none;
+    color: white;
+
+    font-size: 24px;
+
+    padding: 14px;
+}
+
+.input-field::selection {
+    background: white;
+    color: black;
+}
+
+.button-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+.form__send-button{
+    width: 100px;
+}
+.delete{
+    background-color: red;
+    border-color: red;
+}
+/*------------------------Buttons-------------------------*/
+.form__send-button {
+    margin-top: 40px;
+
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+
+    border: 3px solid white;
+    border-radius: 25px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+
+    width: 100%;
+    height: 40px;
+}
