@@ -1,10 +1,10 @@
 
 /*--------------------- main container -----------------------------------*/
-.main-container_admin{
+.main-container{
     display: flex;
-    justify-content: space-around !important;
-    margin: 50px;
-    align-items: center;
+}
+.main-container__settings-container{
+
 }
 
 .main-container__user-list, .main-container__board-container {
@@ -23,8 +23,13 @@
 
 .main-container__user-list .user-list {
     list-style: none;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 20px;
 }
 .main-container__user-list .user{
+    width: 500px !important;
     border: 4px solid white;
     border-radius: 25px;
     padding:10px 20px;
@@ -59,8 +64,8 @@
 
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
 
-    width: 100%;
     height: 40px;
 
 }
@@ -71,11 +76,11 @@
     color: white;
 }
 
-.input-field {
+.input-container input {
     font-family: "Play", "Work Sans", "Arial", sans-serif;
     outline: none;
 
-    width: 100px;
+    width: 400px !important;
 
     border: 3px solid white;
     border-radius: 25px;
@@ -99,14 +104,15 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    align-items: end !important;
 }
 .form__send-button{
-    width: 100px;
+    width: 400px !important;
 }
 .delete{
+
     background-color: red;
-    border-color: red;
+    border-color: red !important;
 }
 /*------------------------Buttons-------------------------*/
 .form__send-button {
