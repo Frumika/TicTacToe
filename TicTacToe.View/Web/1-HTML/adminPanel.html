@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<aside class="aside-container__authorized">
+    <div class="authorized__account-info">
+        <p class="account-info__login black-text-selection"></p>
+        <img class="account-info__image" src="../4-Sources/Svg/profile_black.svg" alt="Profile">
+    </div>
+
+    <div class="authorized__account-options">
+        <div class="account-options__upper-container account-options__container">
+            <div class="account-options__option">
+                <a class="option__link" href="">
+                    <img class="option__image" src="../4-Sources/Svg/rules.svg" alt="Rules">
+                </a>
+
+                <a class="option__link" href="">
+                    <p class="option__text white-text-selection">Rules</p>
+                </a>
+            </div>
+
+            <div class="account-options__option">
+                <a class="option__link" href="">
+                    <img class="option__image" src="../4-Sources/Svg/profile_white.svg" alt="Profile">
+                </a>
+
+                <a class="option__link" href="">
+                    <p class="option__text white-text-selection">Profile</p>
+                </a>
+            </div>
+
+            <div class="account-options__option">
+                <a class="option__link" href="../1-HTML/leaderboard.html">
+                    <img class="option__image" src="../4-Sources/Svg/stats.svg" alt="Leaderboard">
+                </a>
+
+                <a class="option__link" href="../1-HTML/leaderboard.html">
+                    <p class="option__text white-text-selection">Leaderboard</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="account-options__lower-container account-options__container">
+            <div class="account-options__option">
+                <a class="option__link" href="">
+                    <img class="option__image" src="../4-Sources/Svg/settings.svg" alt="Settings">
+                </a>
+
+                <a class="option__link" href="">
+                    <p class="option__text white-text-selection">Settings</p>
+                </a>
+            </div>
+
+            <div class="account-options__option">
+                <div class="option__link">
+                    <img id="sign-out-image" class="option__image" src="../4-Sources/Svg/out.svg" alt="Sign Out">
+                </div>
+                <div class="option__link">
+                    <p id="sign-out-text" class="option__text white-text-selection">Sign Out</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<header>
+    <div class="header-container">
+        <div class="header-container__logo">
+            <a href="../1-HTML/index.html">
+                <img class="logo__icon" src="../4-Sources/Svg/logo.svg" alt="Logo">
+            </a>
+
+            <a href="../1-HTML/index.html" class="logo__text">Tic-Tac-Toe</a>
+        </div>
+
+        <div class="header-container__authorization">
+            <a id="sign-in" class="authorization-button" href="../1-HTML/signIn.html">Sign In</a>
+            <a id="sign-up" class="authorization-button" href="../1-HTML/signUp.html">Sign Up</a>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="main-container">
+
+        <!-- Таблица игроков -->
+        <section class="main-container__settings-container">
+            <div class="main-container__user-list">
+                <ul class="user-list">
+                    <li class="user">User 1</li>
+                </ul>
+            </div>
+            <div class="pages-arrows">
+                <img src="" alt="">
+                <div class="page_name"></div>
+                <img src="" alt="">
+            </div>
+        </section>
+
+        <!-- Изменение данных игрока -->
+        <section class="main-container__board-container">
+            <div class="title">Change User Stats</div>
+            <div class="form-stats">
+                <div class="input-container">
+                    <label for="login">Login:</label>
+                    <input type="text" id="login">
+                </div>
+                <div class="input-container">
+                    <label for="wins">Wins:</label>
+                    <input type="text" id="wins">
+                </div>
+                <div class="input-container">
+                    <label for="losses">Losses:</label>
+                    <input type="text" id="losses">
+                </div>
+                <div class="input-container">
+                    <label for="draws">Draws:</label>
+                    <input type="text" id="draws">
+                </div>
+            </div>
+            <div class="button-container">
+                <button class="form__send-button" type="button">Delete</button>
+                <button class="form__send-button" type="button">Confirm</button>
+            </div>
+
+        </section>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer></footer>
+
+<!-- Скрипты для игровой доски-->
+<script type="module" src="../3-JavaScript/1-MainPage/main.js"></script>
+
+
+</body>
+</html>
