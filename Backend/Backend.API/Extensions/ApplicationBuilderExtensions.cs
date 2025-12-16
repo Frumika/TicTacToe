@@ -16,7 +16,7 @@ public static class ApplicationBuilderExtensions
     {
         using var scope = app.Services.CreateScope();
 
-        var dbContext = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
         var any = dbContext.Users.Any();
     }
 

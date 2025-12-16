@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Backend.DataAccess.Postgres.DesignTime;
 
-public class UsersDbContextFactory : IDesignTimeDbContextFactory<UsersDbContext>
+public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
-    public UsersDbContext CreateDbContext(string[] args)
+    public AppDbContext CreateDbContext(string[] args)
     {
-        var optionsBuilder = new DbContextOptionsBuilder<UsersDbContext>();
+        var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
         
         optionsBuilder.UseNpgsql("Host=localhost;Port=5444;Database=users_info;Username=postgres;Password=1234");
         
-        return new UsersDbContext(optionsBuilder.Options);
+        return new AppDbContext(optionsBuilder.Options);
     }
 }

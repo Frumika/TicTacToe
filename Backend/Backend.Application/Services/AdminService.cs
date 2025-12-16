@@ -11,11 +11,11 @@ namespace Backend.Application.Services;
 
 public class AdminService : IAdminService
 {
-    private readonly UsersDbContext _usersDbContext;
+    private readonly AppDbContext _appDbContext;
 
-    public AdminService(UsersDbContext usersDbContext)
+    public AdminService(AppDbContext appDbContext)
     {
-        _usersDbContext = usersDbContext;
+        _appDbContext = appDbContext;
     }
 
     public async Task<AdminResponse> GetUserByLoginAsync(string login)
@@ -25,7 +25,7 @@ public class AdminService : IAdminService
 
         try
         {
-            User? user = await _usersDbContext.Users.FirstOrDefaultAsync(user => user.Login == login);
+            User? user = await _appDbContext.Users.FirstOrDefaultAsync(user => user.Login == login);
 
             return user is null
                 ? AdminResponse.Fail(AdminStatusCode.UserNotFound, "User not found")
@@ -44,7 +44,7 @@ public class AdminService : IAdminService
 
         try
         {
-            var users = await _usersDbContext.Users.AsNoTracking()
+            var users = await _appDbContext.Users.AsNoTracking()
                 .OrderBy(user => user.Login)
                 .Skip(request.SkipModifier * request.UsersCount)
                 .Take(request.UsersCount + 1)
@@ -69,10 +69,10 @@ public class AdminService : IAdminService
 
         try
         {
-            var user = await _usersDbContext.Users.FirstOrDefaultAsync(u => u.Login == request.OldLogin);
+            var user = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Login == request.OldLogin);
             if (user is null) return AdminResponse.Fail(AdminStatusCode.UserNotFound, "User not found");
 
-            var existing = await _usersDbContext.Users.FirstOrDefaultAsync(u => u.Login == request.NewLogin);
+            var existing = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Login == request.NewLogin);
             if (existing is not null && request.NewLogin != user.Login)
                 return AdminResponse
                     .Fail(AdminStatusCode.UserAlreadyExists, "User with this login already exists");
@@ -83,8 +83,8 @@ public class AdminService : IAdminService
             user.Draws = request.Draws;
             user.Matches = request.Wins + request.Losses + request.Draws;
 
-            _usersDbContext.Users.Update(user);
-            await _usersDbContext.SaveChangesAsync();
+            _appDbContext.Users.Update(user);
+            await _appDbContext.SaveChangesAsync();
 
             return AdminResponse.Success(new UserDto(user), "The user data was updated");
         }
@@ -102,11 +102,11 @@ public class AdminService : IAdminService
 
         try
         {
-            var user = await _usersDbContext.Users.FirstOrDefaultAsync(u => u.Login == login);
+            var user = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Login == login);
             if (user is null) return AdminResponse.Fail(AdminStatusCode.UserNotFound, "User not found");
 
-            _usersDbContext.Users.Remove(user);
-            await _usersDbContext.SaveChangesAsync();
+            _appDbContext.Users.Remove(user);
+            await _appDbContext.SaveChangesAsync();
 
             return AdminResponse.Success("The user was deleted");
         }

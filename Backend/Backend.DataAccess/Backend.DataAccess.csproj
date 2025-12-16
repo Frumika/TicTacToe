@@ -26,6 +26,7 @@
 
     <ItemGroup>
       <Folder Include="Postgres\" />
+      <Folder Include="Postgres\Migrations\App\" />
     </ItemGroup>
 
 </Project>

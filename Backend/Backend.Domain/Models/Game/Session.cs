@@ -13,6 +13,7 @@ public class Session
     public FieldItem CurrentItem => _gameModel.CurrentItem;
 
     public int? UserId { get; set; }
+    public int ResetCount { get; set; }
 
     public Session()
     {
@@ -41,6 +42,7 @@ public class Session
     {
         var (gMode, bMode) = SettingsToObjects(gameMode, botMode);
         _gameModel = new GameModel(3, gMode, bMode);
+        ResetCount++;
     }
 
     public SessionState ToState()

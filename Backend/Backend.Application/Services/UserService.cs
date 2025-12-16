@@ -13,12 +13,12 @@ namespace Backend.Application.Services;
 
 public class UserService : IUserService
 {
-    private readonly UsersDbContext _usersDbContext;
+    private readonly AppDbContext _appDbContext;
     private readonly UserSessionManager _userSessionManager;
 
-    public UserService(UsersDbContext usersDbContext, UserSessionManager userSessionManager)
+    public UserService(AppDbContext appDbContext, UserSessionManager userSessionManager)
     {
-        _usersDbContext = usersDbContext;
+        _appDbContext = appDbContext;
         _userSessionManager = userSessionManager;
     }
 
@@ -30,7 +30,7 @@ public class UserService : IUserService
 
         try
         {
-            var user = await _usersDbContext.Users.FirstOrDefaultAsync(user => user.Login == request.Login);
+            var user = await _appDbContext.Users.FirstOrDefaultAsync(user => user.Login == request.Login);
 
             if (user is null)
                 return UserResponse.Fail(UserStatusCode.UserNotFound, "The user is not logged in");
@@ -58,9 +58,9 @@ public class UserService : IUserService
                 }
             }
 
-            _usersDbContext.Users.Update(user);
+            _appDbContext.Users.Update(user);
 
-            await _usersDbContext.SaveChangesAsync();
+            await _appDbContext.SaveChangesAsync();
         }
         catch (Exception exception)
         {
@@ -75,7 +75,7 @@ public class UserService : IUserService
         var result = request.Validate();
         if (!result.IsValid) return UserResponse.Fail(UserStatusCode.IncorrectData, result.Message);
 
-        IQueryable<User> query = _usersDbContext.Users.AsNoTracking();
+        IQueryable<User> query = _appDbContext.Users.AsNoTracking();
 
         switch (request.Type)
         {
@@ -132,7 +132,7 @@ public class UserService : IUserService
             if (state is null)
                 return UserResponse.Fail(UserStatusCode.UserNotFound, "The user is not logged in");
 
-            var user = await _usersDbContext.Users.FirstOrDefaultAsync(user => user.Id == state.UserId);
+            var user = await _appDbContext.Users.FirstOrDefaultAsync(user => user.Id == state.UserId);
             if (user is null) 
                 return UserResponse.Fail(UserStatusCode.UserNotFound, "The user is not logged in");
 
@@ -151,7 +151,7 @@ public class UserService : IUserService
 
         try
         {
-            var user = await _usersDbContext.Users.AsNoTracking()
+            var user = await _appDbContext.Users.AsNoTracking()
                 .FirstOrDefaultAsync(user => user.Login == request.Login);
 
             if (user is null || !VerifyPassword(request.Password, user.HashPassword))
@@ -183,7 +183,7 @@ public class UserService : IUserService
 
         try
         {
-            bool isUserExist = await _usersDbContext.Users.AsNoTracking().AnyAsync(user => user.Login == request.Login);
+            bool isUserExist = await _appDbContext.Users.AsNoTracking().AnyAsync(user => user.Login == request.Login);
             if (isUserExist)
                 return UserResponse.Fail(UserStatusCode.UserAlreadyExists,
                     "User with this login already exists");
@@ -194,9 +194,9 @@ public class UserService : IUserService
                 Login = request.Login,
                 HashPassword = HashPassword(request.Password)
             };
-            _usersDbContext.Users.Add(newUser);
+            _appDbContext.Users.Add(newUser);
 
-            await _usersDbContext.SaveChangesAsync();
+            await _appDbContext.SaveChangesAsync();
         }
         catch (Exception exception)
         {

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Backend.DataAccess.Postgres.Context;
 
-public class UsersDbContext : DbContext
+public class AppDbContext : DbContext
 {
     private const int LoginLength = 60;
     private const int PasswordLength = 128;
@@ -12,7 +12,7 @@ public class UsersDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<GameMove> GameMoves { get; set; }
 
-    public UsersDbContext(DbContextOptions<UsersDbContext> options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
 
@@ -53,26 +53,29 @@ public class UsersDbContext : DbContext
         {
             entity.HasKey(m => m.Id);
             entity.Property(m => m.Id).ValueGeneratedOnAdd();
-            
+
             entity.Property(m => m.UserId).IsRequired();
 
             entity.HasOne<User>()
                 .WithMany()
                 .HasForeignKey(m => m.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
-            
+
             entity.Property(m => m.GameSessionId)
                 .IsRequired()
                 .HasMaxLength(64)
                 .HasColumnType("VARCHAR(64)");
+
+            entity.Property(m => m.PlayerItem)
+                .IsRequired()
+                .HasConversion<string>()
+                .HasMaxLength(8)
+                .HasColumnType("VARCHAR(8)");
             
             entity.Property(m => m.ResetCount).IsRequired();
-            
             entity.Property(m => m.Row).IsRequired();
-            
             entity.Property(m => m.Column).IsRequired();
-
-            entity.Property(m => m.CurrentItem).IsRequired();
+            entity.Property(m => m.CreatedAt).IsRequired();
         });
     }
 }

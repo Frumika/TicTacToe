@@ -10,5 +10,6 @@ public class GameMove
     public int ResetCount { get; set; }
     public int Row { get; set; }
     public int Column { get; set; }
-    public FieldItem CurrentItem { get; set; } = FieldItem.Empty;
+    public FieldItem PlayerItem { get; set; } = FieldItem.Empty;
+    public DateTime CreatedAt { get; set; }
 }
