@@ -10,6 +10,7 @@ public class UsersDbContext : DbContext
     private const int PasswordLength = 128;
 
     public DbSet<User> Users { get; set; }
+    public DbSet<GameMove> GameMoves { get; set; }
 
     public UsersDbContext(DbContextOptions<UsersDbContext> options) : base(options)
     {
@@ -46,6 +47,32 @@ public class UsersDbContext : DbContext
             entity.Property(user => user.HashPassword).IsRequired()
                 .HasMaxLength(PasswordLength)
                 .HasColumnType($"VARCHAR({PasswordLength})");
+        });
+
+        modelBuilder.Entity<GameMove>(entity =>
+        {
+            entity.HasKey(m => m.Id);
+            entity.Property(m => m.Id).ValueGeneratedOnAdd();
+            
+            entity.Property(m => m.UserId).IsRequired();
+
+            entity.HasOne<User>()
+                .WithMany()
+                .HasForeignKey(m => m.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            entity.Property(m => m.GameSessionId)
+                .IsRequired()
+                .HasMaxLength(64)
+                .HasColumnType("VARCHAR(64)");
+            
+            entity.Property(m => m.ResetCount).IsRequired();
+            
+            entity.Property(m => m.Row).IsRequired();
+            
+            entity.Property(m => m.Column).IsRequired();
+
+            entity.Property(m => m.CurrentItem).IsRequired();
         });
     }
 }

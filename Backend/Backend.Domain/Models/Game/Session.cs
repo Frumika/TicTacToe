@@ -10,6 +10,7 @@ public class Session
 
     public Field[][] Board => _gameModel.Board;
     public Winner Winner => _gameModel.Winner;
+    public FieldItem CurrentItem => _gameModel.CurrentItem;
 
     public int? UserId { get; set; }
 
