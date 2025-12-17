@@ -68,15 +68,10 @@ public class AdminService : IAdminService
 
         try
         {
-            var user = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Login == request.OldLogin);
+            var user = await _appDbContext.Users.FirstOrDefaultAsync(user => user.Id == request.UserId);
             if (user is null) return AdminResponse.Fail(AdminStatusCode.UserNotFound, "User not found");
 
-            var existing = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Login == request.NewLogin);
-            if (existing is not null && request.NewLogin != user.Login)
-                return AdminResponse
-                    .Fail(AdminStatusCode.UserAlreadyExists, "User with this login already exists");
-
-            user.Login = request.NewLogin;
+            user.Login = request.UserLogin;
             user.Wins = request.Wins;
             user.Losses = request.Losses;
             user.Draws = request.Draws;
