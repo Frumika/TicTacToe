@@ -1,4 +1,5 @@
 ﻿using Backend.DataAccess.Postgres.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.API.Extensions;
 
@@ -10,6 +11,13 @@ public static class ApplicationBuilderExtensions
         app.MapControllers();
 
         return app;
+    }
+    
+    public static void ApplyMigrations(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+        var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        db.Database.Migrate();
     }
 
     public static void WarmupDatabase(this WebApplication app)

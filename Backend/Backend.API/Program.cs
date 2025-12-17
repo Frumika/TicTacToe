@@ -7,6 +7,7 @@ AppConfiguration configuration = new(builder.Configuration, builder.Environment)
 builder.Services.AddApplicationServices(configuration);
 
 var app = builder.Build();
+app.ApplyMigrations();
 app.UseApplicationPipeline();
 
 // Закоментить, если не нужен swagger
