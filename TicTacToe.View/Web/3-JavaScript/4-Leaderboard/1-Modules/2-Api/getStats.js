@@ -1,8 +1,9 @@
 "use strict"
 
 import {URL} from "../../../0-Common/url.js";
+import {IdentityStatusHelper} from "../../../0-Common/Helpers/IdentityStatusHelper.js";
 
-export async function getStats(sortType, count ,page) {
+export async function getStats(sortType, count, page) {
     const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
 
     const requestData = {
@@ -16,11 +17,11 @@ export async function getStats(sortType, count ,page) {
     };
 
     const response = await fetch(`${url}/statistics`, requestData);
-    if (!response.ok) {
-        throw new Error("Error while getting stats");
+    const result = await response.json();
+
+    if (IdentityStatusHelper.isFailure(result)) {
+        throw new Error(result.message)
     }
 
-    const responseData = await response.json();
-
-    return responseData;
+    return result;
 }

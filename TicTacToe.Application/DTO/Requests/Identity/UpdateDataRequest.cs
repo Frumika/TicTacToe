@@ -1,12 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using TicTacToe.Application.DTO.Requests.Base;
 
 namespace TicTacToe.Application.DTO.Requests.Identity;
 
-public class UpdateDataRequest
+public class UpdateDataRequest : IValidatableRequest
 {
-    [Required(ErrorMessage = "Login is required")]
-    public string Login { get; set; } = String.Empty;
+    public string Login { get; set; } = string.Empty;
+    public bool IsWin { get; set; } = false;
 
-    [Required(ErrorMessage = "IsWin is required")]
-    public bool IsWin { get; set; } = default;
+    public ValidationResult Validate()
+    {
+        string? message = null;
+        bool isLoginValid = !string.IsNullOrWhiteSpace(Login);
+
+        if (!isLoginValid) message += "Login is required";
+
+        return isLoginValid ? ValidationResult.Success() : ValidationResult.Fail(message);
+    }
 }

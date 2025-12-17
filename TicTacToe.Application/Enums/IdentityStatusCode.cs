@@ -1,6 +1,6 @@
 ﻿namespace TicTacToe.Application.Enums;
 
-public enum IdentityStatus
+public enum IdentityStatusCode
 {
     Success,
     InvalidLogin,

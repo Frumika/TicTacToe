@@ -3,10 +3,10 @@ using TicTacToe.Application.Enums;
 
 namespace TicTacToe.Application.DTO.Responses.Identity;
 
-public class UsersStatisticsResponse : BaseResponse<IdentityStatus>
+public class UsersStatisticsResponse : BaseResponse<IdentityStatusCode>
 {
-    List<UserDto>? Users { get; set; }
-    bool? IsLastPage { get; set; }
+    public List<UserDto>? Users { get; set; }
+    public bool? IsLastPage { get; set; }
 
     public static UsersStatisticsResponse Success(IEnumerable<UserDto> users, bool isLastPage, string? message = null)
     {
@@ -14,13 +14,13 @@ public class UsersStatisticsResponse : BaseResponse<IdentityStatus>
         {
             IsSuccess = true,
             Message = message,
-            Code = IdentityStatus.Success,
+            Code = IdentityStatusCode.Success,
             Users = users.ToList(),
             IsLastPage = isLastPage
         };
     }
 
-    public static UsersStatisticsResponse Fail(IdentityStatus code, string? message = null)
+    public static UsersStatisticsResponse Fail(IdentityStatusCode code, string? message = null)
     {
         return new UsersStatisticsResponse
         {

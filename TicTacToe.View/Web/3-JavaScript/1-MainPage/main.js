@@ -113,7 +113,7 @@ document.addEventListener("authorized-show", async () => {
     try {
         login = await getUserLogin();
     } catch (error) {
-        console.error(error.message);
+        console.error(error);
     }
 
     showUserInfo(login);

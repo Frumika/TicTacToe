@@ -16,14 +16,16 @@ export async function sendSignOutRequest() {
     const requestData = {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(userSessionId)
+        body: JSON.stringify({
+            sessionId: userSessionId
+        })
     };
 
     const response = await fetch(`${url}/signout`, requestData);
+    const result = await response.json();
 
-    if (!response.ok) {
-        const error = await response.json();
-        throw new Error(JSON.stringify(error.message));
+    if (!result.isSuccess) {
+        throw new Error(result.message);
     } else {
         deleteSession("userSessionId");
         hideUserInfo();

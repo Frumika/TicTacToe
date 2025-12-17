@@ -2,7 +2,7 @@
 
 namespace TicTacToe.Application.DTO.Responses.Identity;
 
-public class UpdateDataResponse : BaseResponse<IdentityStatus>
+public class UpdateDataResponse : BaseResponse<IdentityStatusCode>
 {
     public static UpdateDataResponse Success(string? message = null)
     {
@@ -10,11 +10,11 @@ public class UpdateDataResponse : BaseResponse<IdentityStatus>
         {
             IsSuccess = true,
             Message = message,
-            Code = IdentityStatus.Success
+            Code = IdentityStatusCode.Success
         };
     }
 
-    public static UpdateDataResponse Fail(IdentityStatus code, string? message = null)
+    public static UpdateDataResponse Fail(IdentityStatusCode code, string? message = null)
     {
         return new UpdateDataResponse
         {
