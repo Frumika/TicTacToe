@@ -27,12 +27,19 @@ function hideUserInfo() {
     container.style.visibility = "hidden";
 }
 
-function switchAccountOptions() {
+function switchAccountOptions(isUserAdmin) {
     const container = document.querySelector(".authorized__account-options");
 
     let visibility = container.style.visibility;
 
     container.style.visibility = visibility === "visible" ? "hidden" : "visible";
+    const adminOption = document
+        .getElementById("admin-panel-image")
+        ?.closest(".account-options__option");
+
+    if (!adminOption) return;
+
+    adminOption.style.display = isUserAdmin ? "" : "none";
 }
 
 

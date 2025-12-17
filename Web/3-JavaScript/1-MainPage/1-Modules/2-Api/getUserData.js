@@ -5,7 +5,7 @@ import {getSessionId} from "../../../0-Common/sessionId.js";
 import {IdentityStatusCodeHelper} from "../../../0-Common/Helpers/IdentityStatusCodeHelper.js";
 
 
-export async function getUserLogin() {
+export async function getUserData() {
     const url = URL.IDENTITY_MANAGEMENT_CONTROLLER;
 
     const userSessionId = getSessionId("userSessionId")?.replace(/^"|"$/g, '');
@@ -28,5 +28,5 @@ export async function getUserLogin() {
         throw new Error(result.message);
     }
 
-    return result.data.login;
+    return result.data;
 }

@@ -9,7 +9,7 @@ import {addHead} from "../0-Common/addHead.js";
 import {sendMove} from "./1-Modules/2-Api/sendMove.js"; // Запрос о совершенном ходе
 import {sendResetRequest} from "./1-Modules/2-Api/sendResetRequest.js"; // Запрос о перезагрузки игровой доски
 import {sendSignOutRequest} from "./1-Modules/2-Api/sendSignOutRequest.js";
-import {getUserLogin} from "./1-Modules/2-Api/getUserInfo.js";
+import {getUserData} from "./1-Modules/2-Api/getUserData.js";
 
 // UI: Работа с визуальным представлением
 import {updateGameState, UpdateMode} from "./1-Modules/3-Ui/updateGameInfo.js"; // Обновление доски с сервера
@@ -113,7 +113,8 @@ document.addEventListener("bot-select", (event) => {
 document.addEventListener("authorized-show", async () => {
     let login;
     try {
-        login = await getUserLogin();
+        const userData = await getUserData();
+        login = userData.login;
     } catch (error) {
         console.error(error);
     }
@@ -129,8 +130,21 @@ document.addEventListener("authorized-hide", () => {
 
 
 // Обработка показа опций пользователя
-document.addEventListener("account-info", () => {
-    switchAccountOptions();
+document.addEventListener("account-info", async () => {
+    let userData;
+    let isUserAdmin = false;
+
+    try {
+        userData = await getUserData();
+    } catch (error) {
+        console.error("Error in event {account-info}")
+    }
+
+    if(userData !== null){
+        isUserAdmin = userData.isAdmin;
+    }
+
+    switchAccountOptions(isUserAdmin);
 });
 
 

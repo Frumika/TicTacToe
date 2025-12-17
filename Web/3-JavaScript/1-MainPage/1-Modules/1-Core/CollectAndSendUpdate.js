@@ -1,6 +1,6 @@
 "use strict"
 
-import {getUserLogin} from "../2-Api/getUserInfo.js";
+import {getUserData} from "../2-Api/getUserData.js";
 import {sendUpdate} from "../2-Api/sendUpdate.js";
 import {GameSettings} from "./gameSettings.js";
 import {END_GAME_TYPES} from "../../../0-Common/Helpers/endGameTypes.js";
@@ -13,7 +13,9 @@ export async function CollectAndSendUpdate(winner) {
         switch (winner) {
             case "Cross": {
                 try {
-                    const login = await getUserLogin();
+                    const userData = await getUserData();
+                    const login = userData.login;
+
                     console.log(`Login: ${login}`);
 
                     if (login) await sendUpdate(login, END_GAME_TYPES.WIN);
@@ -25,8 +27,8 @@ export async function CollectAndSendUpdate(winner) {
             }
             case "Zero": {
                 try {
-                    const login = await getUserLogin();
-                    console.log(`Login: ${login}`);
+                    const userData = await getUserData();
+                    const login = userData.login;
 
                     if (login) await sendUpdate(login, END_GAME_TYPES.LOSE);
                 } catch (error) {
@@ -37,8 +39,8 @@ export async function CollectAndSendUpdate(winner) {
             }
             case "Draw": {
                 try {
-                    const login = await getUserLogin();
-                    console.log(`Login: ${login}`);
+                    const userData = await getUserData();
+                    const login = userData.login;
 
                     if (login) await sendUpdate(login, END_GAME_TYPES.DRAW);
                 } catch (error) {
@@ -50,7 +52,8 @@ export async function CollectAndSendUpdate(winner) {
 
             default: {
                 try {
-                    const login = await getUserLogin();
+                    const userData = await getUserData();
+                    const login = userData.login;
                     if (login) await sendUpdate(login, END_GAME_TYPES.UNDEFINED);
                 } catch (error) {
                     console.error("Error While send update request");
