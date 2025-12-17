@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<aside class="aside-container__authorized">
+    <div class="authorized__account-info">
+        <p class="account-info__login black-text-selection"></p>
+        <img class="account-info__image" src="../4-Sources/Svg/profile_black.svg" alt="Profile">
+    </div>
+
+    <div class="authorized__account-options">
+        <div class="account-options__upper-container account-options__container">
+            <div class="account-options__option">
+                <a class="option__link" href="">
+                    <img class="option__image" src="../4-Sources/Svg/rules.svg" alt="Rules">
+                </a>
+
+                <a class="option__link" href="">
+                    <p class="option__text white-text-selection">Rules</p>
+                </a>
+            </div>
+
+            <div class="account-options__option">
+                <a class="option__link" href="">
+                    <img class="option__image" src="../4-Sources/Svg/profile_white.svg" alt="Profile">
+                </a>
+
+                <a class="option__link" href="">
+                    <p class="option__text white-text-selection">Profile</p>
+                </a>
+            </div>
+
+            <div class="account-options__option">
+                <a class="option__link" href="../1-HTML/leaderboard.html">
+                    <img class="option__image" src="../4-Sources/Svg/stats.svg" alt="Leaderboard">
+                </a>
+
+                <a class="option__link" href="../1-HTML/leaderboard.html">
+                    <p class="option__text white-text-selection">Leaderboard</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="account-options__lower-container account-options__container">
+            <div class="account-options__option">
+                <a class="option__link" href="">
+                    <img class="option__image" src="../4-Sources/Svg/settings.svg" alt="Settings">
+                </a>
+
+                <a class="option__link" href="">
+                    <p class="option__text white-text-selection">Settings</p>
+                </a>
+            </div>
+
+            <div class="account-options__option">
+                <div class="option__link">
+                    <img id="sign-out-image" class="option__image" src="../4-Sources/Svg/out.svg" alt="Logout">
+                </div>
+                <div class="option__link">
+                    <p id="sign-out-text" class="option__text white-text-selection">Logout</p>
+                </div>
+            </div>
+
+            <div class="account-options__option">
+                <a class="option__link" href="">
+                    <img id="logout-all-image" class="option__image" src="../4-Sources/Svg/out.svg" alt="LogoutAll">
+                </a>
+                <a class="option__link" href="">
+                    <p id="logout-all-text" class="option__text white-text-selection">Logout All</p>
+                </a>
+            </div>
+
+            <div class="account-options__option">
+                <a class="option__link" href="">
+                    <img id="admin-panel-image" class="option__image" src="../4-Sources/Svg/admin_icon.svg" alt="AdminPanel">
+                </a>
+                <a class="option__link" href="">
+                    <p id="admin-panel-text" class="option__text white-text-selection">Admin Panel</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<header>
+    <div class="header-container">
+        <div class="header-container__logo">
+            <a href="../1-HTML/index.html">
+                <img class="logo__icon" src="../4-Sources/Svg/logo.svg" alt="Logo">
+            </a>
+
+            <a href="../1-HTML/index.html" class="logo__text">Tic-Tac-Toe</a>
+        </div>
+
+        <div class="header-container__authorization">
+            <a id="sign-in" class="authorization-button" href="../1-HTML/signIn.html">Sign In</a>
+            <a id="sign-up" class="authorization-button" href="../1-HTML/signUp.html">Sign Up</a>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="main-container">
+
+        <!-- Настройка игры -->
+        <section class="main-container__settings-container">
+
+            <div class="settings-container__settings">
+                <header class="settings__header white-text-selection">Game Settings</header>
+                <div class="settings__params">
+
+                    <!-- Настройка игрового режима -->
+                    <div class="params__game-mode params__item">
+                        <p class="game-mode__heading white-text-selection">Mode:</p>
+                        <div class="game-mode__variants">
+
+                            <!-- PvP -->
+                            <div id="mode-pvp" class="variants__elem">
+                                <div class="elem__circle"></div>
+                                <p class="elem__text white-text-selection">PvP</p>
+                            </div>
+
+                            <!-- PvE -->
+                            <div id="mode-pve" class="variants__elem">
+                                <div class="elem__circle"></div>
+                                <p class="elem__text white-text-selection">PvE</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Настройка уровня сложности бота -->
+                    <div class="params__bot-mode params__item">
+                        <p class="game-mode__heading white-text-selection">Bot:</p>
+                        <div class="game-mode__variants">
+
+                            <!-- Easy -->
+                            <div id="bot-easy" class="variants__elem">
+                                <div class="elem__circle"></div>
+                                <p class="elem__text white-text-selection">Easy</p>
+                            </div>
+
+                            <!-- Medium -->
+                            <div id="bot-medium" class="variants__elem">
+                                <div class="elem__circle"></div>
+                                <p class="elem__text white-text-selection">Medium</p>
+                            </div>
+
+                            <!-- Hard -->
+                            <div id="bot-hard" class="variants__elem">
+                                <div class="elem__circle"></div>
+                                <p class="elem__text white-text-selection">Hard</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Еще какая-нибудь настройка -->
+            </div>
+            <!-- Сообщение о победителе и начале новой игры -->
+            <div class="settings-container__winner-info">
+                <div class="winner-info__text white-text-selection"></div>
+                <button class="winner-info__reset-button black-text-selection" type="reset">New Game</button>
+            </div>
+        </section>
+
+        <!-- Игровая доска и перезагрузка игры -->
+        <section class="main-container__board-container">
+            <!-- Игровая доска -->
+            <div class="board-container__board">
+                <div id="board__field-01" class="board__field" data-row="0" data-column="0"></div>
+                <div id="board__field-02" class="board__field" data-row="0" data-column="1"></div>
+                <div id="board__field-03" class="board__field" data-row="0" data-column="2"></div>
+                <div id="board__field-04" class="board__field" data-row="1" data-column="0"></div>
+                <div id="board__field-05" class="board__field" data-row="1" data-column="1"></div>
+                <div id="board__field-06" class="board__field" data-row="1" data-column="2"></div>
+                <div id="board__field-07" class="board__field" data-row="2" data-column="0"></div>
+                <div id="board__field-08" class="board__field" data-row="2" data-column="1"></div>
+                <div id="board__field-09" class="board__field" data-row="2" data-column="2"></div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer></footer>
+
+<!-- Скрипты для игровой доски-->
+<script type="module" src="../3-JavaScript/1-MainPage/main.js"></script>
+
+
+</body>
+</html>
