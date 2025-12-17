@@ -1,0 +1,126 @@
+button, input {
+    font-family: "Play", "Work Sans", "Arial", sans-serif;
+
+}
+
+
+/*Контейнеры*/
+
+.main-container_admin{
+    display: flex;
+    justify-content: space-around;
+
+    color: white;
+
+    padding: 40px;
+}
+.user-list__container, .admin-field__container{
+    width: 650px;
+}
+.user-list__container, .admin-field__container, .user-item__button{
+    border: 3px solid white;
+    border-radius: 10px;
+    padding: 40px;
+
+}
+
+/*список игроков*/
+.user-list{
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
+.user-item__button{
+    background-color: black;
+    color: white;
+
+    width: 100%;
+
+    text-align: start;
+
+    padding: 10px 20px;
+    font-size: 40px;
+}
+
+.user-item__button:hover{
+    cursor: pointer;
+
+    background-color: white;
+    color: black;
+    transition: 0.4s;
+}
+
+
+/*панель админа*/
+.admin-field__container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.field-title{
+    font-size: 64px;
+}
+
+.field-items__container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.field-item{
+    font-size: 40px;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.field-item__input{
+    width: 350px;
+
+    border: 3px solid white;
+    border-radius: 10px;
+
+    background: none;
+    color: white;
+    outline: none;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 24px;
+
+    padding: 7px 14px;
+
+}
+
+/*Кнопки*/
+.field-buttons__container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 20px;
+}
+.field-button{
+    padding: 10px 20px;
+    font-size: 30px;
+    width: 350px;
+
+    background-color: white;
+    color: black;
+
+    border: none;
+    border-radius: 10px;
+}
+#delete{
+    background-color: red;
+}
