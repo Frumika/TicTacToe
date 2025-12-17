@@ -44,9 +44,14 @@ public class AppDbContext : DbContext
             entity.Property(user => user.Losses).HasDefaultValue(0);
             entity.Property(user => user.Draws).HasDefaultValue(0);
 
-            entity.Property(user => user.HashPassword).IsRequired()
+            entity.Property(user => user.HashPassword)
+                .IsRequired()
                 .HasMaxLength(PasswordLength)
                 .HasColumnType($"VARCHAR({PasswordLength})");
+
+            entity.Property(user => user.IsAdmin)
+                .IsRequired()
+                .HasDefaultValue(false);
         });
 
         modelBuilder.Entity<GameMove>(entity =>
@@ -71,7 +76,7 @@ public class AppDbContext : DbContext
                 .HasConversion<string>()
                 .HasMaxLength(8)
                 .HasColumnType("VARCHAR(8)");
-            
+
             entity.Property(m => m.ResetCount).IsRequired();
             entity.Property(m => m.Row).IsRequired();
             entity.Property(m => m.Column).IsRequired();
