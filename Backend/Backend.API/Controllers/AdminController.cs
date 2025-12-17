@@ -38,10 +38,10 @@ public class AdminController : ControllerBase
         return ToHttpRequest(response);
     }
 
-    [HttpDelete("delete/{login}")]
-    public async Task<IActionResult> DeleteUser([FromRoute] string login)
+    [HttpDelete("delete/{id}")]
+    public async Task<IActionResult> DeleteUser([FromRoute] int id)
     {
-        var response = await _adminService.DeleteUserAsync(login);
+        var response = await _adminService.DeleteUserAsync(id);
         return ToHttpRequest(response);
     }
 

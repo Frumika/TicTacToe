@@ -94,14 +94,14 @@ public class AdminService : IAdminService
     }
 
 
-    public async Task<AdminResponse> DeleteUserAsync(string login)
+    public async Task<AdminResponse> DeleteUserAsync(int id)
     {
-        if (string.IsNullOrWhiteSpace(login))
-            return AdminResponse.Fail(AdminStatusCode.InvalidLogin, "Login cannot be null or empty");
+        if (id <= 0)
+            return AdminResponse.Fail(AdminStatusCode.IncorrectData, "Login cannot be null or empty");
 
         try
         {
-            var user = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Login == login);
+            var user = await _appDbContext.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (user is null) return AdminResponse.Fail(AdminStatusCode.UserNotFound, "User not found");
 
             _appDbContext.Users.Remove(user);
