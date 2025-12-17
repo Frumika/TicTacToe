@@ -14,7 +14,6 @@ COPY ["Backend.API/Backend.API.csproj", "Backend.API/"]
 COPY ["Backend.Application/Backend.Application.csproj", "Backend.Application/"]
 COPY ["Backend.DataAccess/Backend.DataAccess.csproj", "Backend.DataAccess/"]
 COPY ["Backend.Domain/Backend.Domain.csproj", "Backend.Domain/"]
-COPY ["Backend.Services/Backend.Services.csproj", "Backend.Services/"]
 RUN dotnet restore "Backend.API/Backend.API.csproj"
 
 # Копируем весь исходный код после восстановления зависимостей
