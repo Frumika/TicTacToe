@@ -8,6 +8,7 @@ public class UserDto
     public int Wins { get; set; }
     public int Losses { get; set; }
     public int Draws { get; set; }
+    public bool IsAdmin { get; set; }
 
     public UserDto()
     {
@@ -21,5 +22,6 @@ public class UserDto
         Wins = user.Wins;
         Losses = user.Losses;
         Draws = user.Draws;
+        IsAdmin = user.IsAdmin;
     }
 }

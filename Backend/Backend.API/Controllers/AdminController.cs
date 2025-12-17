@@ -17,10 +17,10 @@ public class AdminController : ControllerBase
         _adminService = adminService;
     }
 
-    [HttpGet("get/{login}")]
-    public async Task<IActionResult> GetUserByLogin([FromRoute] string login)
+    [HttpGet("get/{id}")]
+    public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
-        var response = await _adminService.GetUserByLoginAsync(login);
+        var response = await _adminService.GetUserByIdAsync(id);
         return ToHttpRequest(response);
     }
 
@@ -44,8 +44,8 @@ public class AdminController : ControllerBase
         var response = await _adminService.DeleteUserAsync(login);
         return ToHttpRequest(response);
     }
-    
-    
+
+
     private IActionResult ToHttpRequest(AdminResponse response)
     {
         return response.Code switch

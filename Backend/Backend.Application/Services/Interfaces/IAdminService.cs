@@ -5,7 +5,7 @@ namespace Backend.Application.Services.Interfaces;
 
 public interface IAdminService
 {
-    Task<AdminResponse> GetUserByLoginAsync(string login);
+    Task<AdminResponse> GetUserByIdAsync(int id);
     Task<AdminResponse> GetUsersListAsync(GetUsersListRequest request);
     Task<AdminResponse> UpdateUserDataAsync(UpdateUserDataRequest request);
     Task<AdminResponse> DeleteUserAsync(string login);

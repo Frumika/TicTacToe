@@ -18,15 +18,14 @@ public class AdminService : IAdminService
         _appDbContext = appDbContext;
     }
 
-    public async Task<AdminResponse> GetUserByLoginAsync(string login)
+    public async Task<AdminResponse> GetUserByIdAsync(int id)
     {
-        if (string.IsNullOrWhiteSpace(login))
-            return AdminResponse.Fail(AdminStatusCode.InvalidLogin, "Login cannot be null or empty");
+        if (id <= 0)
+            return AdminResponse.Fail(AdminStatusCode.IncorrectData, "User ID must be greater than 0");
 
         try
         {
-            User? user = await _appDbContext.Users.FirstOrDefaultAsync(user => user.Login == login);
-
+            User? user = await _appDbContext.Users.FirstOrDefaultAsync(user => user.Id == id);
             return user is null
                 ? AdminResponse.Fail(AdminStatusCode.UserNotFound, "User not found")
                 : AdminResponse.Success(new UserDto(user));
@@ -45,7 +44,7 @@ public class AdminService : IAdminService
         try
         {
             var users = await _appDbContext.Users.AsNoTracking()
-                .OrderBy(user => user.Login)
+                .OrderBy(user => user.Id)
                 .Skip(request.SkipModifier * request.UsersCount)
                 .Take(request.UsersCount + 1)
                 .Select(user => new UserDto(user))
