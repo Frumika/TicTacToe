@@ -19,7 +19,7 @@ public class UserController : ControllerBase
     }
 
 
-    [HttpPatch("update")]
+    [HttpPatch("update_stats")]
     public async Task<IActionResult> UpdateUserStats([FromBody] UpdateUserStatsRequest request)
     {
         var response = await _userService.UpdateUserStatsAsync(request);
