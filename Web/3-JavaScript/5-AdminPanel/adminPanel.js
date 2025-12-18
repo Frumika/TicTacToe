@@ -129,7 +129,7 @@ document.getElementById('confirm').addEventListener('click', async () => {
         const response = await fetch(
             'http://localhost:5026/api/admin/update',
             {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': '*/*'
@@ -150,8 +150,14 @@ document.getElementById('confirm').addEventListener('click', async () => {
 
         alert('Данные пользователя обновлены');
 
-        // обновляем список пользователей
-        loadUsers();
+        const index = allUsers.findIndex(u => u.id === selectedUser.id);
+        if (index !== -1) {
+            allUsers[index] = result.data;
+            selectedUser = result.data;
+        }
+
+        renderCurrentPage();
+
 
     } catch (error) {
         console.error('Ошибка обновления пользователя:', error);
