@@ -47,6 +47,11 @@ button, input, .header-container__authorization {
     font-size: 40px;
 }
 
+.user-item__button-active{
+    background-color: white;
+    color: black;
+}
+
 .user-item__button:hover{
     cursor: pointer;
 

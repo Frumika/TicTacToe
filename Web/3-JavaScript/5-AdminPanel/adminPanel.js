@@ -78,8 +78,19 @@ function renderUserList(users) {
         button.classList.add('user-item__button');
         button.textContent = user.login;
 
+        // Проверяем, выбран ли этот пользователь
+        if (selectedUser && selectedUser.id === user.id) {
+            button.classList.add('user-item__button-active');
+        }
+
         button.addEventListener('click', () => {
             selectUser(user);
+
+            document.querySelectorAll('.user-item__button').forEach(btn => {
+                btn.classList.remove('user-item__button-active');
+            });
+
+            button.classList.add('user-item__button-active');
         });
 
         li.appendChild(button);
