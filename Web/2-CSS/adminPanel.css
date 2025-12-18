@@ -118,6 +118,7 @@ button, input, .header-container__authorization {
 .field-button{
     padding: 10px 20px;
     font-size: 30px;
+    font-weight: bold;
     width: 350px;
 
     background-color: white;
@@ -136,4 +137,24 @@ button, input, .header-container__authorization {
     border: 3px solid white;
 
     transition: 0.6s;
+}
+
+/*Кнопки пагинации*/
+.pages-buttons__container{
+    margin-left: 240px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.pages-buttons__container img:hover{
+    filter: invert(0.5) brightness(1);
+    transition: 0.3s;
+}
+.button-prev, .button-next{
+    background-color: transparent;
+    border: none;
+}
+.page-name{
+    color: white;
+    font-size: 30px;
 }
