@@ -152,8 +152,6 @@ document.getElementById('confirm').addEventListener('click', async () => {
             throw new Error(result.message || 'Ошибка обновления');
         }
 
-        alert('Статистика пользователя обновлена');
-
         // локально обновляем данные
         selectedUser.wins = payload.wins;
         selectedUser.losses = payload.losses;
@@ -161,11 +159,11 @@ document.getElementById('confirm').addEventListener('click', async () => {
         selectedUser.matches =
             payload.wins + payload.losses + payload.draws;
 
+        await fetchAllUsers();
         renderCurrentPage();
 
     } catch (error) {
         console.error('Ошибка обновления пользователя:', error);
-        alert('Ошибка при обновлении пользователя');
     }
 });
 
@@ -204,18 +202,18 @@ document.getElementById('delete').addEventListener('click', async () => {
             throw new Error(result.message || 'Ошибка удаления');
         }
 
-        alert(result.message || 'Пользователь удалён');
 
         // сбрасываем форму
         clearForm();
         selectedUser = null;
 
-        // обновляем список
-        loadUsers();
+
+        await fetchAllUsers();
+        renderCurrentPage();
+
 
     } catch (error) {
         console.error('Ошибка удаления пользователя:', error);
-        alert('Ошибка при удалении пользователя');
     }
 });
 
