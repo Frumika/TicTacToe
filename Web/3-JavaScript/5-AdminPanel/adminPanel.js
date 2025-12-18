@@ -1,6 +1,8 @@
-document.addEventListener('DOMContentLoaded', () => {
-    loadUsers();
+document.addEventListener('DOMContentLoaded', async () => {
+    await fetchAllUsers();
+    renderCurrentPage();
 });
+
 
 let selectedUser = null;
 let currentPage = 1;
@@ -8,8 +10,7 @@ const USERS_PER_PAGE = 6;
 let allUsers = [];
 
 // Получение пользователя
-async function loadUsers() {
-    const skipModifier = (currentPage - 1) * USERS_PER_PAGE;
+async function fetchAllUsers() {
     try {
         const response = await fetch(
             'http://localhost:5026/api/admin/get/list',
@@ -20,43 +21,39 @@ async function loadUsers() {
                     'Accept': '*/*'
                 },
                 body: JSON.stringify({
-                    skipModifier: skipModifier,
+                    skipModifier: 0,
                     usersCount: 999
                 })
             }
         );
 
-        if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-        }
-
         const result = await response.json();
+        console.log('Ответ сервера:', result);
 
-        const allUsers = result?.data?.users ?? [];
+        allUsers = result?.data?.users ?? [];
 
-        if (!result.isSuccess) {
-            throw new Error(result.message || 'Ошибка API');
-        }
-
-        const start = (currentPage - 1) * USERS_PER_PAGE;
-        const end   = start + USERS_PER_PAGE;
-
-        const pageUsers = allUsers.slice(start, end);
-
-        console.log(
-            'Page:', currentPage,
-            'start:', start,
-            'end:', end,
-            'pageUsers:', pageUsers
-        );
-
-        renderUserList(pageUsers);
-        updatePageLabel(pageUsers.length, allUsers.length);
-
-    } catch (error) {
-        console.error('Ошибка загрузки пользователей:', error);
+    } catch (e) {
+        console.error('Ошибка загрузки пользователей', e);
     }
 }
+
+function renderCurrentPage() {
+    const start = (currentPage - 1) * USERS_PER_PAGE;
+    const end = start + USERS_PER_PAGE;
+
+    const pageUsers = allUsers.slice(start, end);
+
+    console.log(
+        'Page:', currentPage,
+        'start:', start,
+        'end:', end,
+        'pageUsers:', pageUsers
+    );
+
+    renderUserList(pageUsers);
+    updatePageLabel();
+}
+
 
 function selectUser(user) {
     selectedUser = user;
@@ -100,13 +97,13 @@ function updatePageLabel(currentCount, totalCount) {
 
 document.querySelector('.button-next').addEventListener('click', () => {
     currentPage++;
-    loadUsers();
+    renderCurrentPage();
 });
 document.querySelector('.button-prev').addEventListener('click', () => {
     if (currentPage === 1) return;
 
     currentPage--;
-    loadUsers();
+    renderCurrentPage();
 });
 
 
