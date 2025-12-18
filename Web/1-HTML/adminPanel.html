@@ -2,67 +2,6 @@
 <html lang="en">
 <link rel="stylesheet" href="./../2-CSS/adminPanel.css">
 <body>
-<aside class="aside-container__authorized">
-    <div class="authorized__account-info">
-        <p class="account-info__login black-text-selection"></p>
-        <img class="account-info__image" src="../4-Sources/Svg/profile_black.svg" alt="Profile">
-    </div>
-
-    <div class="authorized__account-options">
-        <div class="account-options__upper-container account-options__container">
-            <div class="account-options__option">
-                <a class="option__link" href="">
-                    <img class="option__image" src="../4-Sources/Svg/rules.svg" alt="Rules">
-                </a>
-
-                <a class="option__link" href="">
-                    <p class="option__text white-text-selection">Rules</p>
-                </a>
-            </div>
-
-            <div class="account-options__option">
-                <a class="option__link" href="">
-                    <img class="option__image" src="../4-Sources/Svg/profile_white.svg" alt="Profile">
-                </a>
-
-                <a class="option__link" href="">
-                    <p class="option__text white-text-selection">Profile</p>
-                </a>
-            </div>
-
-            <div class="account-options__option">
-                <a class="option__link" href="../1-HTML/leaderboard.html">
-                    <img class="option__image" src="../4-Sources/Svg/stats.svg" alt="Leaderboard">
-                </a>
-
-                <a class="option__link" href="../1-HTML/leaderboard.html">
-                    <p class="option__text white-text-selection">Leaderboard</p>
-                </a>
-            </div>
-        </div>
-
-        <div class="account-options__lower-container account-options__container">
-            <div class="account-options__option">
-                <a class="option__link" href="">
-                    <img class="option__image" src="../4-Sources/Svg/settings.svg" alt="Settings">
-                </a>
-
-                <a class="option__link" href="">
-                    <p class="option__text white-text-selection">Settings</p>
-                </a>
-            </div>
-
-            <div class="account-options__option">
-                <div class="option__link">
-                    <img id="sign-out-image" class="option__image" src="../4-Sources/Svg/out.svg" alt="Sign Out">
-                </div>
-                <div class="option__link">
-                    <p id="sign-out-text" class="option__text white-text-selection">Sign Out</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</aside>
 
 <header>
     <div class="header-container">
@@ -75,8 +14,7 @@
         </div>
 
         <div class="header-container__authorization">
-            <a id="sign-in" class="authorization-button" href="../1-HTML/signIn.html">Sign In</a>
-            <a id="sign-up" class="authorization-button" href="../1-HTML/signUp.html">Sign Up</a>
+            Admin_Panel
         </div>
     </div>
 </header>
@@ -86,26 +24,7 @@
 
 <!--        Список игроков-->
         <div class="user-list__container">
-            <ul class="user-list">
-                <li class="user-item">
-                    <button class="user-item__button">User<span>1</span></button>
-                </li>
-                <li class="user-item">
-                    <button class="user-item__button">User<span>1</span></button>
-                </li>
-                <li class="user-item">
-                    <button class="user-item__button">User<span>1</span></button>
-                </li>
-                <li class="user-item">
-                    <button class="user-item__button">User<span>1</span></button>
-                </li>
-                <li class="user-item">
-                    <button class="user-item__button">User<span>1</span></button>
-                </li>
-                <li class="user-item">
-                    <button class="user-item__button">User<span>1</span></button>
-                </li>
-            </ul>
+            <ul class="user-list"></ul>
         </div>
 
 <!--        Панель админа-->
@@ -138,9 +57,13 @@
     </div>
 
     <div class="pages-buttons__container">
-        <button class="button-prev">prev</button>
+        <button class="button-prev">
+            <img src="../4-Sources/Svg/Arrow%20left.svg" alt="arrow-prev">
+        </button>
         <div class="page-name">Page_1</div>
-        <button class="button-next">next</button>
+        <button class="button-next">
+            <img src="../4-Sources/Svg/Arrow%20right.svg" alt="arrow-next">
+        </button>
     </div>
 
 </main>
@@ -149,9 +72,9 @@
 <footer></footer>
 
 <!-- Скрипты для игровой доски-->
-<script type="module" src="../3-JavaScript/5-AdminPage/adminPage.js"></script>
+<script type="module" src="../3-JavaScript/5-AdminPanel/adminPanel.js"></script>
 <script type="module" src="../3-JavaScript/1-MainPage/main.js"></script>
-<script type="module" src="../3-JavaScript/5-AdminPage/API.js"></script>
+<script type="module" src="../3-JavaScript/5-AdminPanel/adminAPI.js"></script>
 
 
 </body>
