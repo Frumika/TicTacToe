@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadUsers();
 });
 
+let selectedUser = null;
+
 async function loadUsers() {
     try {
         const response = await fetch(
@@ -36,6 +38,18 @@ async function loadUsers() {
     }
 }
 
+function selectUser(user) {
+    selectedUser = user;
+
+    document.getElementById('login').value  = user.login ?? '';
+    document.getElementById('wins').value   = user.wins ?? 0;
+    document.getElementById('losses').value = user.losses ?? 0;
+    document.getElementById('draws').value  = user.draws ?? 0;
+
+    console.log('Выбран пользователь:', user);
+}
+
+
 function renderUserList(users) {
     const userList = document.querySelector('.user-list');
 
@@ -52,7 +66,7 @@ function renderUserList(users) {
 
         // если нужно — можно повесить обработчик
         button.addEventListener('click', () => {
-            console.log('Выбран пользователь:', user);
+            selectUser(user);
         });
 
         li.appendChild(button);
