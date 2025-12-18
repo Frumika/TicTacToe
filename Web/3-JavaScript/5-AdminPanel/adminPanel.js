@@ -114,15 +114,12 @@ document.getElementById('confirm').addEventListener('click', async () => {
         return;
     }
 
-    const updatedUser = {
-        id: selectedUser.id,
-        login: document.getElementById('login').value,
+    const payload = {
+        userId: selectedUser.id,
+        userLogin: document.getElementById('login').value,
         wins: Number(document.getElementById('wins').value),
         losses: Number(document.getElementById('losses').value),
-        draws: Number(document.getElementById('draws').value),
-
-        matches: selectedUser.matches,
-        isAdmin: selectedUser.isAdmin
+        draws: Number(document.getElementById('draws').value)
     };
 
     try {
@@ -134,30 +131,26 @@ document.getElementById('confirm').addEventListener('click', async () => {
                     'Content-Type': 'application/json',
                     'Accept': '*/*'
                 },
-                body: JSON.stringify(updatedUser)
+                body: JSON.stringify(payload)
             }
         );
 
-        if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
-        }
-
         const result = await response.json();
 
-        if (!result.isSuccess) {
+        if (!response.ok || result.code !== 'Success') {
             throw new Error(result.message || 'Ошибка обновления');
         }
 
-        alert('Данные пользователя обновлены');
+        alert('Статистика пользователя обновлена');
 
-        const index = allUsers.findIndex(u => u.id === selectedUser.id);
-        if (index !== -1) {
-            allUsers[index] = result.data;
-            selectedUser = result.data;
-        }
+        // локально обновляем данные
+        selectedUser.wins = payload.wins;
+        selectedUser.losses = payload.losses;
+        selectedUser.draws = payload.draws;
+        selectedUser.matches =
+            payload.wins + payload.losses + payload.draws;
 
         renderCurrentPage();
-
 
     } catch (error) {
         console.error('Ошибка обновления пользователя:', error);
